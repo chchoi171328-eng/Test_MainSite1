@@ -45,6 +45,7 @@ export interface LegalPost {
   date: string;
   summary: string;
   content: string; // Added field for full detail
+  imageUrls?: string[]; // 게시글 이미지 URLs
 }
 
 export interface LegalForm {
@@ -64,4 +65,5 @@ export interface LegalCase {
   summary: string;
   tags: string[];
   content: string; // Added field for full detail
+  imageUrls?: string[]; // 게시글 이미지 URLs
 }
