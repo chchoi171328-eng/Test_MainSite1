@@ -15,6 +15,7 @@ import { Contact } from './components/Contact';
 import { Consultation } from './components/Consultation';
 import { Footer } from './components/Footer';
 import { Admin } from './components/Admin';
+import { FloatingCallButton } from './components/FloatingCallButton';
 import { NavigationContext, PageType } from './contexts/NavigationContext';
 import { DataProvider } from './contexts/DataContext';
 
@@ -60,6 +61,7 @@ const App: React.FC = () => {
             {currentPage === 'admin' && <Admin />}
           </main>
           {currentPage !== 'admin' && <Footer />}
+          {currentPage !== 'admin' && <FloatingCallButton />}
         </div>
       </NavigationContext.Provider>
     </DataProvider>
