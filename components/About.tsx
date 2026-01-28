@@ -63,7 +63,7 @@ export const About: React.FC = () => {
           <div className="md:col-span-4 lg:col-span-4">
             <div className="relative mb-8 group">
               <img
-                src="https://images.unsplash.com/photo-1558222218-b7b54eede3f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                src="/images/attorney-choi.jpg"
                 alt="최철호 대표변호사"
                 className="w-full h-auto object-cover shadow-lg filter grayscale group-hover:grayscale-0 transition-all duration-500"
               />
