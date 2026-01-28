@@ -10,7 +10,7 @@ export const Logo: React.FC<LogoProps> = ({ className = "h-10 w-10", textClassNa
     <div className="flex items-center gap-3">
       <div className={`${className} relative`}>
         <img
-          src="/logo1.png"
+          src="/images/logo.png"
           alt="법무법인 명 로고"
           className="w-full h-full object-contain drop-shadow-sm"
         />

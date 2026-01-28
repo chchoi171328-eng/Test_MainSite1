@@ -16,7 +16,7 @@ export const About: React.FC = () => {
           <div className="relative mb-8 md:mb-0 px-4 md:px-0">
             <div className="absolute -top-4 -left-0 md:-left-4 w-16 h-16 md:w-24 md:h-24 border-t-2 border-l-2 border-brand-gold"></div>
             <img
-              src="/office1.png"
+              src="/images/office-philosophy.png"
               alt="Law office"
               className="w-full h-64 md:h-[500px] object-cover shadow-2xl contrast-125"
             />
