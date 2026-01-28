@@ -3,22 +3,21 @@ import { useData } from '../contexts/DataContext';
 import { useNavigation } from '../contexts/NavigationContext';
 import { SuccessCase, LegalPost, LegalForm, LegalCase } from '../types';
 import { Trash2, Edit, Plus, Save, X, Lock, ArrowLeft, Upload, FileText, Image as ImageIcon } from 'lucide-react';
+import { supabase } from '../lib/supabaseClient';
 
 type Tab = 'success' | 'posts' | 'forms' | 'cases';
-
-// Admin Password Configuration
-const ADMIN_PASSWORD = "sllaw0072";
 
 export const Admin: React.FC = () => {
   const { navigateTo } = useNavigation();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [activeTab, setActiveTab] = useState<Tab>('success');
   const [isProcessing, setIsProcessing] = useState(false);
-  
+
   // Data Context
-  const { 
+  const {
     successCases, addSuccessCase, updateSuccessCase, deleteSuccessCase,
     legalPosts, addLegalPost, updateLegalPost, deleteLegalPost,
     legalForms, addLegalForm, updateLegalForm, deleteLegalForm,
@@ -29,23 +28,38 @@ export const Admin: React.FC = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editId, setEditId] = useState<number | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-  
+
   // Generic State holders for forms
   const [formData, setFormData] = useState<any>({});
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsProcessing(true);
     setError('');
 
-    setTimeout(() => {
-      if (password === ADMIN_PASSWORD) {
-        setIsAuthenticated(true);
-      } else {
-        setError('비밀번호가 올바르지 않습니다.');
+    try {
+      const { data, error: authError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (authError) {
+        setError('이메일 또는 비밀번호가 올바르지 않습니다.');
+        console.error('Login error:', authError);
+        setIsProcessing(false);
+        return;
       }
+
+      if (data.user) {
+        setIsAuthenticated(true);
+        setError('');
+      }
+    } catch (err) {
+      setError('로그인 중 오류가 발생했습니다.');
+      console.error('Login exception:', err);
+    } finally {
       setIsProcessing(false);
-    }, 500);
+    }
   };
 
   const startEdit = (item: any) => {
@@ -62,8 +76,8 @@ export const Admin: React.FC = () => {
 
   const handleSave = () => {
     if (!formData.title || formData.title.trim() === '') {
-        alert("제목은 필수 입력 항목입니다.");
-        return;
+      alert("제목은 필수 입력 항목입니다.");
+      return;
     }
 
     if (activeTab === 'success') {
@@ -74,15 +88,15 @@ export const Admin: React.FC = () => {
       else addLegalPost({ ...formData, date: new Date().toLocaleDateString() } as LegalPost);
     } else if (activeTab === 'forms') {
       if (!formData.format || !formData.size) {
-          alert("파일을 업로드하거나 형식을 입력해주세요.");
-          return;
+        alert("파일을 업로드하거나 형식을 입력해주세요.");
+        return;
       }
       if (editId) updateLegalForm(formData as LegalForm);
       else addLegalForm(formData as LegalForm);
     } else if (activeTab === 'cases') {
       const dataToSave = { ...formData };
       if (typeof dataToSave.tags === 'string') {
-          dataToSave.tags = dataToSave.tags.split(',').map((t: string) => t.trim());
+        dataToSave.tags = dataToSave.tags.split(',').map((t: string) => t.trim());
       }
       if (editId) updateLegalCase(dataToSave as LegalCase);
       else addLegalCase(dataToSave as LegalCase);
@@ -93,7 +107,7 @@ export const Admin: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    if (value.length > 5000) return; 
+    if (value.length > 5000) return;
     setFormData({ ...formData, [name]: value });
   };
 
@@ -133,37 +147,37 @@ export const Admin: React.FC = () => {
   const handleJudgmentFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-       // Allow PDF, JPG, PNG
-       const validTypes = ['application/pdf', 'image/jpeg', 'image/png'];
-       if (!validTypes.includes(file.type)) {
-           alert("PDF, JPG, PNG 파일만 업로드 가능합니다.");
-           return;
-       }
+      // Allow PDF, JPG, PNG
+      const validTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+      if (!validTypes.includes(file.type)) {
+        alert("PDF, JPG, PNG 파일만 업로드 가능합니다.");
+        return;
+      }
 
-       if (file.size > 3 * 1024 * 1024) {
-          alert("3MB 이하의 파일만 업로드 가능합니다.");
-          return;
-       }
+      if (file.size > 3 * 1024 * 1024) {
+        alert("3MB 이하의 파일만 업로드 가능합니다.");
+        return;
+      }
 
-       const reader = new FileReader();
-       reader.onloadend = () => {
-          let format = 'image';
-          if (file.type === 'application/pdf') format = 'pdf';
-          
-          setFormData({
-            ...formData,
-            judgmentUrl: reader.result as string,
-            judgmentFormat: format
-          });
-       };
-       reader.readAsDataURL(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        let format = 'image';
+        if (file.type === 'application/pdf') format = 'pdf';
+
+        setFormData({
+          ...formData,
+          judgmentUrl: reader.result as string,
+          judgmentFormat: format
+        });
+      };
+      reader.readAsDataURL(file);
     }
   };
 
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100 relative">
-        <button 
+        <button
           onClick={() => navigateTo('home')}
           className="absolute top-6 left-6 text-gray-500 hover:text-brand-dark flex items-center gap-2 transition-colors font-medium"
         >
@@ -179,12 +193,22 @@ export const Admin: React.FC = () => {
           </div>
           <form onSubmit={handleLogin} className="space-y-4">
             <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="이메일을 입력하세요"
+              className="w-full px-4 py-3 border border-gray-300 rounded focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none"
+              disabled={isProcessing}
+              required
+            />
+            <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="비밀번호를 입력하세요"
               className="w-full px-4 py-3 border border-gray-300 rounded focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none"
               disabled={isProcessing}
+              required
             />
             {error && <p className="text-red-500 text-sm">{error}</p>}
             <button
@@ -196,7 +220,7 @@ export const Admin: React.FC = () => {
             </button>
           </form>
           <div className="mt-4 text-center text-xs text-gray-400">
-             (데모 환경 호환성 모드 적용됨)
+            (데모 환경 호환성 모드 적용됨)
           </div>
         </div>
       </div>
@@ -224,9 +248,8 @@ export const Admin: React.FC = () => {
             <button
               key={tab.id}
               onClick={() => { setActiveTab(tab.id as Tab); setIsEditing(false); }}
-              className={`px-6 py-3 rounded-t-lg font-medium transition-colors ${
-                activeTab === tab.id ? 'bg-white text-brand-gold border-t border-x border-gray-200' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
-              }`}
+              className={`px-6 py-3 rounded-t-lg font-medium transition-colors ${activeTab === tab.id ? 'bg-white text-brand-gold border-t border-x border-gray-200' : 'bg-gray-100 text-gray-500 hover:bg-gray-200'
+                }`}
             >
               {tab.label}
             </button>
@@ -241,7 +264,7 @@ export const Admin: React.FC = () => {
             {activeTab === 'forms' && '법률 서식 관리'}
             {activeTab === 'cases' && '주요 판례 관리'}
           </h2>
-          <button 
+          <button
             onClick={startAdd}
             className="flex items-center gap-2 bg-brand-gold text-white px-4 py-2 rounded hover:bg-yellow-700 transition-colors"
           >
@@ -257,7 +280,7 @@ export const Admin: React.FC = () => {
                 <h3 className="text-lg font-bold">{editId ? '항목 수정' : '새 항목 추가'}</h3>
                 <button onClick={() => setIsEditing(false)} className="text-gray-400 hover:text-gray-600"><X size={24} /></button>
               </div>
-              
+
               <div className="space-y-4 max-w-2xl">
                 {activeTab === 'success' && (
                   <>
@@ -278,28 +301,28 @@ export const Admin: React.FC = () => {
                       <textarea name="description" value={formData.description || ''} onChange={handleChange} maxLength={500} rows={4} className="w-full border p-2 rounded" />
                     </div>
                     <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-1">판결문 업로드 (선택)</label>
-                        <div className="flex items-center gap-4">
-                            <input 
-                                type="file" 
-                                id="judgmentFile"
-                                onChange={handleJudgmentFileChange}
-                                className="hidden" 
-                                accept=".pdf, .jpg, .jpeg, .png"
-                            />
-                            <button 
-                                onClick={() => document.getElementById('judgmentFile')?.click()}
-                                className="px-4 py-2 bg-gray-100 border border-gray-300 rounded hover:bg-gray-200 flex items-center gap-2 text-sm text-gray-700"
-                            >
-                                <Upload size={16} /> 파일 선택 (PDF/JPG)
-                            </button>
-                            {formData.judgmentUrl && (
-                                <span className="text-sm text-green-600 flex items-center gap-1">
-                                    <ImageIcon size={14} /> 파일 등록됨 ({formData.judgmentFormat})
-                                </span>
-                            )}
-                        </div>
-                        <p className="text-xs text-gray-400 mt-1">※ 3MB 이하의 PDF 또는 이미지 파일만 업로드 가능합니다.</p>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">판결문 업로드 (선택)</label>
+                      <div className="flex items-center gap-4">
+                        <input
+                          type="file"
+                          id="judgmentFile"
+                          onChange={handleJudgmentFileChange}
+                          className="hidden"
+                          accept=".pdf, .jpg, .jpeg, .png"
+                        />
+                        <button
+                          onClick={() => document.getElementById('judgmentFile')?.click()}
+                          className="px-4 py-2 bg-gray-100 border border-gray-300 rounded hover:bg-gray-200 flex items-center gap-2 text-sm text-gray-700"
+                        >
+                          <Upload size={16} /> 파일 선택 (PDF/JPG)
+                        </button>
+                        {formData.judgmentUrl && (
+                          <span className="text-sm text-green-600 flex items-center gap-1">
+                            <ImageIcon size={14} /> 파일 등록됨 ({formData.judgmentFormat})
+                          </span>
+                        )}
+                      </div>
+                      <p className="text-xs text-gray-400 mt-1">※ 3MB 이하의 PDF 또는 이미지 파일만 업로드 가능합니다.</p>
                     </div>
                   </>
                 )}
@@ -331,21 +354,21 @@ export const Admin: React.FC = () => {
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">서식 파일 업로드 <span className="text-red-500">*</span></label>
                       <div className="flex items-center gap-4">
-                          <input 
-                            type="file" 
-                            ref={fileInputRef}
-                            onChange={handleFileChange}
-                            className="hidden" 
-                          />
-                          <button 
-                            onClick={() => fileInputRef.current?.click()}
-                            className="px-4 py-2 bg-gray-100 border border-gray-300 rounded hover:bg-gray-200 flex items-center gap-2 text-sm text-gray-700"
-                          >
-                             <Upload size={16} /> 파일 선택
-                          </button>
-                          <span className="text-sm text-gray-500">
-                             {formData.format ? `${formData.title} (${formData.size})` : '선택된 파일 없음'}
-                          </span>
+                        <input
+                          type="file"
+                          ref={fileInputRef}
+                          onChange={handleFileChange}
+                          className="hidden"
+                        />
+                        <button
+                          onClick={() => fileInputRef.current?.click()}
+                          className="px-4 py-2 bg-gray-100 border border-gray-300 rounded hover:bg-gray-200 flex items-center gap-2 text-sm text-gray-700"
+                        >
+                          <Upload size={16} /> 파일 선택
+                        </button>
+                        <span className="text-sm text-gray-500">
+                          {formData.format ? `${formData.title} (${formData.size})` : '선택된 파일 없음'}
+                        </span>
                       </div>
                       <p className="text-xs text-gray-400 mt-1">※ 데모 버전에서는 2MB 이하의 파일만 업로드 가능합니다.</p>
                     </div>
@@ -391,7 +414,7 @@ export const Admin: React.FC = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-1">요약</label>
                       <textarea name="summary" value={formData.summary || ''} onChange={handleChange} maxLength={300} rows={3} className="w-full border p-2 rounded" />
                     </div>
-                     <div>
+                    <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">전체 내용</label>
                       <textarea name="content" value={formData.content || ''} onChange={handleChange} maxLength={3000} rows={10} className="w-full border p-2 rounded" placeholder="판결 요지 및 전체 내용을 입력하세요." />
                     </div>
@@ -443,8 +466,8 @@ export const Admin: React.FC = () => {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.id}</td>
                       <td className="px-6 py-4 text-sm font-medium text-gray-900">{item.title}</td>
                       <td className="px-6 py-4 text-sm text-gray-500">
-                         <span className="block">{item.date}</span>
-                         <span className="text-xs text-brand-gold">{item.category}</span>
+                        <span className="block">{item.date}</span>
+                        <span className="text-xs text-brand-gold">{item.category}</span>
                       </td>
                       <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                         <button onClick={() => startEdit(item)} className="text-brand-gold hover:text-yellow-700 mr-4"><Edit size={18} /></button>
@@ -456,7 +479,7 @@ export const Admin: React.FC = () => {
                     <tr key={item.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.id}</td>
                       <td className="px-6 py-4 text-sm font-medium text-gray-900 flex items-center gap-2">
-                        {item.fileUrl ? <FileText size={16} className="text-brand-gold"/> : <FileText size={16} className="text-gray-300"/>}
+                        {item.fileUrl ? <FileText size={16} className="text-brand-gold" /> : <FileText size={16} className="text-gray-300" />}
                         {item.title}
                       </td>
                       <td className="px-6 py-4 text-sm text-gray-500">{item.category} ({item.format}, {item.size})</td>
