@@ -15,11 +15,13 @@ export const About: React.FC = () => {
         <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center mb-24 md:mb-32">
           <div className="relative mb-8 md:mb-0 px-4 md:px-0">
             <div className="absolute -top-4 -left-0 md:-left-4 w-16 h-16 md:w-24 md:h-24 border-t-2 border-l-2 border-brand-gold"></div>
-            <img
-              src="/images/office-philosophy.png"
-              alt="Law office"
-              className="w-full h-64 md:h-[500px] object-cover shadow-2xl contrast-125"
-            />
+            <div className="relative w-full aspect-[4/3] md:aspect-[3/4] overflow-hidden shadow-2xl">
+              <img
+                src="/images/office-philosophy.png"
+                alt="Law office"
+                className="absolute inset-0 w-full h-full object-cover contrast-125"
+              />
+            </div>
             <div className="absolute -bottom-4 -right-0 md:-right-4 w-16 h-16 md:w-24 md:h-24 border-b-2 border-r-2 border-brand-gold"></div>
           </div>
 
