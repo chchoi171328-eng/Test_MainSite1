@@ -2,7 +2,7 @@ import React from 'react';
 import { Stat } from '../types';
 
 const STATS: Stat[] = [
-  { value: "Construction", label: "업무 분야" },
+  { value: "Professional", label: "전문성" },
   { value: "Risk Check", label: "선임 전 절차" },
   { value: "Honesty", label: "핵심 가치" },
 ];
@@ -31,13 +31,12 @@ export const About: React.FC = () => {
             </h2>
             <div className="space-y-4 md:space-y-6 text-gray-600 leading-relaxed text-base md:text-lg break-keep">
               <p>
-                저희 사무실은 공사·부동산 소송에서 <strong>승소 가능성보다 실익을 먼저 판단</strong>합니다.
-                판결을 받아도 실제로 돈을 받을 수 있는지, 감정 비용이 결과를 뒤집지는 않는지,
+                저희 사무실은 <strong>승소 가능성보다 의뢰인의 실익을 먼저 판단</strong>합니다.
+                판결을 받아도 실질적인 권리 구제가 가능한지, 소송 비용 대비 효율적인지,
                 일부 승소로 끝날 위험은 없는지 철저히 계산합니다.
               </p>
               <p>
-                그래서 때로는 소송을 말리고, 선임을 거절합니다.
-                <br />
+                그래서 때로는 소송을 말리고, 선임을 거절합니다.<br />
                 그것이 의뢰인에게 가장 안전한 선택인 경우가 많기 때문입니다.
               </p>
               <p className="font-bold text-brand-dark">
