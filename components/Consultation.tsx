@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Send, Loader2 } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 
 export const Consultation: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -12,7 +13,7 @@ export const Consultation: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    
+
     if (name === 'phone') {
       // 숫자만 추출
       const numbers = value.replace(/[^0-9]/g, '');
@@ -55,26 +56,41 @@ export const Consultation: React.FC = () => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // 실제 운영 환경에서는 이 부분에서 백엔드 API(예: /api/send-email)를 호출해야 합니다.
-    // 현재는 프론트엔드 데모 환경이므로 전송 과정을 시뮬레이션합니다.
     try {
-        // 네트워크 지연 시뮬레이션 (1.5초)
-        await new Promise(resolve => setTimeout(resolve, 1500));
+      // EmailJS로 이메일 전송
+      const response = await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_phone: formData.phone,
+          category: formData.category,
+          message: formData.content,
+          to_email: 'sllaw@sllaw.co.kr' // 수신 이메일
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
 
-        // 전송 성공 처리
-        alert(`[발송 완료]\n\n${formData.name}님의 상담 신청이 접수되었습니다.\n담당 변호사가 내용 확인 후 기재해주신 연락처(${formData.phone})로\n빠른 시일 내에 연락드리겠습니다.\n\n(수신처: sllaw@sllaw.co.kr)`);
-        
+      if (response.status === 200) {
+        alert(
+          `[발송 완료]\n\n${formData.name}님의 상담 신청이 접수되었습니다.\n` +
+          `담당 변호사가 내용 확인 후 기재해주신 연락처(${formData.phone})로\n` +
+          `빠른 시일 내에 연락드리겠습니다.\n\n(수신처: sllaw@sllaw.co.kr)`
+        );
+
         // 폼 초기화
         setFormData({
-            name: '',
-            phone: '',
-            category: '기업 법무',
-            content: ''
+          name: '',
+          phone: '',
+          category: '기업 법무',
+          content: ''
         });
+      }
     } catch (error) {
-        alert('상담 신청 전송 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+      console.error('EmailJS Error:', error);
+      alert('상담 신청 전송 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
     } finally {
-        setIsSubmitting(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -82,110 +98,109 @@ export const Consultation: React.FC = () => {
     <section className="py-20 md:py-32 bg-white flex justify-center items-center min-h-[80vh]">
       <div className="container mx-auto px-6 md:px-12 max-w-4xl">
         <div className="mb-12">
-            <h2 className="text-3xl font-serif font-bold text-brand-dark mb-4">온라인 상담 신청</h2>
-            <div className="w-16 h-1 bg-brand-gold"></div>
+          <h2 className="text-3xl font-serif font-bold text-brand-dark mb-4">온라인 상담 신청</h2>
+          <div className="w-16 h-1 bg-brand-gold"></div>
         </div>
 
         <div className="bg-white p-0 md:p-8">
-            <form className="space-y-8" onSubmit={handleSubmit}>
-              <div className="grid md:grid-cols-2 gap-8">
-                <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-2">이름 <span className="text-red-500">*</span></label>
-                  <input 
-                    type="text" 
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    maxLength={20}
-                    disabled={isSubmitting}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none transition-colors text-brand-dark placeholder-gray-400 disabled:bg-gray-100 disabled:text-gray-400" 
-                    placeholder="홍길동" 
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-600 mb-2">연락처 <span className="text-red-500">*</span></label>
-                  <input 
-                    type="tel" 
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                    maxLength={13}
-                    title="010-0000-0000 형식으로 입력해주세요."
-                    disabled={isSubmitting}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none transition-colors text-brand-dark placeholder-gray-400 disabled:bg-gray-100 disabled:text-gray-400" 
-                    placeholder="숫자만 입력 (예: 01012345678)" 
-                  />
-                </div>
-              </div>
-              
+          <form className="space-y-8" onSubmit={handleSubmit}>
+            <div className="grid md:grid-cols-2 gap-8">
               <div>
-                <label className="block text-sm font-medium text-gray-600 mb-2">상담 분야</label>
-                <div className="relative">
-                    <select 
-                      name="category"
-                      value={formData.category}
-                      onChange={handleChange}
-                      disabled={isSubmitting}
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-200 focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none transition-colors text-brand-dark appearance-none cursor-pointer disabled:bg-gray-100 disabled:text-gray-400"
-                    >
-                      <option value="기업 법무">기업 법무</option>
-                      <option value="민사 소송">민사 소송</option>
-                      <option value="형사 변호">형사 변호</option>
-                      <option value="가사 / 상속">가사 / 상속</option>
-                      <option value="부동산 / 건설">부동산 / 건설</option>
-                      <option value="기타">기타</option>
-                    </select>
-                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
-                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
-                    </div>
+                <label className="block text-sm font-medium text-gray-600 mb-2">이름 <span className="text-red-500">*</span></label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  maxLength={20}
+                  disabled={isSubmitting}
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none transition-colors text-brand-dark placeholder-gray-400 disabled:bg-gray-100 disabled:text-gray-400"
+                  placeholder="홍길동"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-600 mb-2">연락처 <span className="text-red-500">*</span></label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  required
+                  maxLength={13}
+                  title="010-0000-0000 형식으로 입력해주세요."
+                  disabled={isSubmitting}
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none transition-colors text-brand-dark placeholder-gray-400 disabled:bg-gray-100 disabled:text-gray-400"
+                  placeholder="숫자만 입력 (예: 01012345678)"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-600 mb-2">상담 분야</label>
+              <div className="relative">
+                <select
+                  name="category"
+                  value={formData.category}
+                  onChange={handleChange}
+                  disabled={isSubmitting}
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none transition-colors text-brand-dark appearance-none cursor-pointer disabled:bg-gray-100 disabled:text-gray-400"
+                >
+                  <option value="기업 법무">기업 법무</option>
+                  <option value="민사 소송">민사 소송</option>
+                  <option value="형사 변호">형사 변호</option>
+                  <option value="가사 / 상속">가사 / 상속</option>
+                  <option value="부동산 / 건설">부동산 / 건설</option>
+                  <option value="기타">기타</option>
+                </select>
+                <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
+                  <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /></svg>
                 </div>
               </div>
+            </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-600 mb-2">상담 내용 <span className="text-red-500">*</span></label>
-                <textarea 
-                    name="content"
-                    value={formData.content}
-                    onChange={handleChange}
-                    rows={6} 
-                    required
-                    maxLength={1000}
-                    disabled={isSubmitting}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-200 focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none transition-colors text-brand-dark placeholder-gray-400 resize-none disabled:bg-gray-100 disabled:text-gray-400" 
-                    placeholder="간략한 사건 개요를 적어주세요."
-                ></textarea>
-              </div>
+            <div>
+              <label className="block text-sm font-medium text-gray-600 mb-2">상담 내용 <span className="text-red-500">*</span></label>
+              <textarea
+                name="content"
+                value={formData.content}
+                onChange={handleChange}
+                rows={6}
+                required
+                maxLength={1000}
+                disabled={isSubmitting}
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none transition-colors text-brand-dark placeholder-gray-400 resize-none disabled:bg-gray-100 disabled:text-gray-400"
+                placeholder="간략한 사건 개요를 적어주세요."
+              ></textarea>
+            </div>
 
-              <div className="pt-4">
-                  <button 
-                    type="submit" 
-                    disabled={isSubmitting}
-                    className={`w-full py-4 text-white font-bold tracking-wide transition-all duration-300 shadow-lg flex justify-center items-center gap-2 ${
-                        isSubmitting 
-                        ? 'bg-gray-400 cursor-not-allowed' 
-                        : 'bg-[#222] hover:bg-brand-gold'
-                    }`}
-                  >
-                    {isSubmitting ? (
-                        <>
-                            <Loader2 className="animate-spin" size={20} />
-                            전송 중...
-                        </>
-                    ) : (
-                        <>
-                            상담 신청하기
-                            <Send size={18} />
-                        </>
-                    )}
-                  </button>
-                  
-                  <p className="text-xs text-gray-400 text-center mt-6">
-                    제출하신 정보는 변호사법 비밀유지의무에 따라 철저히 보호됩니다.
-                  </p>
-              </div>
-            </form>
+            <div className="pt-4">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className={`w-full py-4 text-white font-bold tracking-wide transition-all duration-300 shadow-lg flex justify-center items-center gap-2 ${isSubmitting
+                    ? 'bg-gray-400 cursor-not-allowed'
+                    : 'bg-[#222] hover:bg-brand-gold'
+                  }`}
+              >
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="animate-spin" size={20} />
+                    전송 중...
+                  </>
+                ) : (
+                  <>
+                    상담 신청하기
+                    <Send size={18} />
+                  </>
+                )}
+              </button>
+
+              <p className="text-xs text-gray-400 text-center mt-6">
+                제출하신 정보는 변호사법 비밀유지의무에 따라 철저히 보호됩니다.
+              </p>
+            </div>
+          </form>
         </div>
       </div>
     </section>
