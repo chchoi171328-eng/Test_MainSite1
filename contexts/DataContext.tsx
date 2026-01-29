@@ -40,26 +40,30 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [legalCases, setLegalCases] = useState<LegalCase[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // 데이터 로드 함수
+  // 데이터 로드 함수 (각 API 에러를 개별 처리)
   const loadData = async () => {
-    try {
-      setLoading(true);
-      const [cases, posts, forms, casesData] = await Promise.all([
-        successCasesAPI.getAllSuccessCases(),
-        legalPostsAPI.getAllLegalPosts(),
-        legalFormsAPI.getAllLegalForms(),
-        legalCasesAPI.getAllLegalCases(),
-      ]);
+    setLoading(true);
 
-      setSuccessCases(cases);
-      setLegalPosts(posts);
-      setLegalForms(forms);
-      setLegalCases(casesData);
-    } catch (error) {
-      console.error('Error loading data:', error);
-    } finally {
-      setLoading(false);
-    }
+    // 각 API를 개별적으로 호출하여 하나가 실패해도 다른 것은 로드됨
+    const [casesResult, postsResult, formsResult, legalCasesResult] = await Promise.allSettled([
+      successCasesAPI.getAllSuccessCases(),
+      legalPostsAPI.getAllLegalPosts(),
+      legalFormsAPI.getAllLegalForms(),
+      legalCasesAPI.getAllLegalCases(),
+    ]);
+
+    setSuccessCases(casesResult.status === 'fulfilled' ? casesResult.value : []);
+    setLegalPosts(postsResult.status === 'fulfilled' ? postsResult.value : []);
+    setLegalForms(formsResult.status === 'fulfilled' ? formsResult.value : []);
+    setLegalCases(legalCasesResult.status === 'fulfilled' ? legalCasesResult.value : []);
+
+    // 에러 로깅
+    if (casesResult.status === 'rejected') console.error('Error loading success cases:', casesResult.reason);
+    if (postsResult.status === 'rejected') console.error('Error loading legal posts:', postsResult.reason);
+    if (formsResult.status === 'rejected') console.error('Error loading legal forms:', formsResult.reason);
+    if (legalCasesResult.status === 'rejected') console.error('Error loading legal cases:', legalCasesResult.reason);
+
+    setLoading(false);
   };
 
   // 초기 데이터 로드
