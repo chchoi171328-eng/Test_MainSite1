@@ -40,7 +40,7 @@ export const SuccessCases: React.FC<SuccessCasesProps> = ({ limit }) => {
                 </span>
               </div>
               <h3 className="text-xl font-bold text-brand-dark mb-4 group-hover:text-brand-gold transition-colors">{item.title}</h3>
-              <p className="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-3">{item.description}</p>
+              <div className="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-3 prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: item.description || '' }} />
               <div className="flex justify-between items-center">
                 <span className="inline-flex items-center text-sm font-semibold text-brand-dark hover:text-brand-gold transition-colors">
                   자세히 보기 <ArrowUpRight size={16} className="ml-1" />

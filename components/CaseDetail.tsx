@@ -57,9 +57,7 @@ export const CaseDetail: React.FC = () => {
                 </header>
 
                 <article className="prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-brand-dark prose-p:text-gray-600 prose-li:text-gray-600 prose-strong:text-brand-dark">
-                    <div className="whitespace-pre-wrap leading-relaxed">
-                        {caseItem.content || caseItem.summary}
-                    </div>
+                    <div className="prose prose-lg max-w-none leading-relaxed" dangerouslySetInnerHTML={{ __html: caseItem.content || caseItem.summary || '' }} />
                 </article>
 
                 <div className="mt-16 pt-8 border-t border-gray-100 flex justify-center">

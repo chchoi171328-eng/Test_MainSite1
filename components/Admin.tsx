@@ -4,6 +4,7 @@ import { useNavigation } from '../contexts/NavigationContext';
 import { SuccessCase, LegalPost, LegalForm, LegalCase } from '../types';
 import { Trash2, Edit, Plus, Save, X, Lock, ArrowLeft, Upload, FileText, Image as ImageIcon } from 'lucide-react';
 import { supabase } from '../lib/supabaseClient';
+import { RichTextEditor } from './RichTextEditor';
 
 type Tab = 'success' | 'posts' | 'forms' | 'cases';
 
@@ -329,7 +330,12 @@ export const Admin: React.FC = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">설명</label>
-                      <textarea name="description" value={formData.description || ''} onChange={handleChange} maxLength={500} rows={4} className="w-full border p-2 rounded" />
+                      <RichTextEditor
+                        value={formData.description || ''}
+                        onChange={(html) => setFormData({ ...formData, description: html })}
+                        maxLength={1000}
+                        placeholder="성공 사례 설명을 작성하세요..."
+                      />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">판결문 업로드 (선택)</label>
@@ -374,7 +380,12 @@ export const Admin: React.FC = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">본문 내용</label>
-                      <textarea name="content" value={formData.content || ''} onChange={handleChange} maxLength={3000} rows={10} className="w-full border p-2 rounded" placeholder="전체 본문 내용을 입력하세요." />
+                      <RichTextEditor
+                        value={formData.content || ''}
+                        onChange={(html) => setFormData({ ...formData, content: html })}
+                        maxLength={5000}
+                        placeholder="전체 본문 내용을 입력하세요..."
+                      />
                     </div>
                     {!editId && <p className="text-sm text-gray-500">작성일은 자동으로 오늘 날짜로 저장됩니다.</p>}
                   </>
@@ -447,7 +458,12 @@ export const Admin: React.FC = () => {
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">전체 내용</label>
-                      <textarea name="content" value={formData.content || ''} onChange={handleChange} maxLength={3000} rows={10} className="w-full border p-2 rounded" placeholder="판결 요지 및 전체 내용을 입력하세요." />
+                      <RichTextEditor
+                        value={formData.content || ''}
+                        onChange={(html) => setFormData({ ...formData, content: html })}
+                        maxLength={5000}
+                        placeholder="판결 요지 및 전체 내용을 입력하세요..."
+                      />
                     </div>
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">태그 (쉼표로 구분)</label>
