@@ -18,7 +18,7 @@ export const About: React.FC = () => {
             <div className="relative w-full aspect-[4/3] md:aspect-[3/4] overflow-hidden shadow-2xl">
               <img
                 src="/images/office-philosophy.png"
-                alt="Law office"
+                alt="법무법인 명의 현대적인 사무 공간 - 전문성과 신뢰를 상징하는 인테리어"
                 className="absolute inset-0 w-full h-full object-cover contrast-125"
               />
             </div>

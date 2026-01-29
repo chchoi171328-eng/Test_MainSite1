@@ -36,7 +36,7 @@ const App: React.FC = () => {
       <NavigationContext.Provider value={{ currentPage, detailId, navigateTo }}>
         <div className="min-h-screen bg-white flex flex-col">
           {currentPage !== 'admin' && <Navigation />}
-          <main className={`flex-grow ${currentPage === 'home' ? '' : currentPage === 'admin' ? '' : 'pt-20'}`}>
+          <main id="main-content" role="main" className={`flex-grow ${currentPage === 'home' ? '' : currentPage === 'admin' ? '' : 'pt-20'}`}>
             {currentPage === 'home' && (
               <>
                 <Hero />
