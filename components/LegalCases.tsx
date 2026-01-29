@@ -43,7 +43,7 @@ export const LegalCases: React.FC<LegalCasesProps> = ({ limit }) => {
               </div>
               <div className="flex-grow">
                 <div className="flex flex-wrap gap-2 mb-3">
-                  {item.tags.map((tag, i) => (
+                  {(item.tags || []).map((tag, i) => (
                     <span key={i} className="text-[10px] font-bold uppercase tracking-wider bg-brand-light text-brand-dark px-2 py-1 rounded-sm">
                       {tag}
                     </span>
