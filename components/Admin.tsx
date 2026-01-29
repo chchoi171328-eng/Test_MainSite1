@@ -81,25 +81,56 @@ export const Admin: React.FC = () => {
     }
 
     if (activeTab === 'success') {
-      if (editId) updateSuccessCase(formData as SuccessCase);
-      else addSuccessCase(formData as SuccessCase);
+      const cleanData = {
+        ...formData,
+        category: formData.category || '',
+        result: formData.result || '',
+        description: formData.description || '',
+        judgmentUrl: formData.judgmentUrl || null,
+        judgmentFormat: formData.judgmentFormat || null
+      };
+      if (editId) updateSuccessCase(cleanData as SuccessCase);
+      else addSuccessCase(cleanData as SuccessCase);
     } else if (activeTab === 'posts') {
-      if (editId) updateLegalPost(formData as LegalPost);
-      else addLegalPost({ ...formData, date: new Date().toLocaleDateString() } as LegalPost);
+      const cleanData = {
+        ...formData,
+        category: formData.category || '',
+        summary: formData.summary || '',
+        content: formData.content || '',
+        date: editId ? formData.date : new Date().toLocaleDateString()
+      };
+      if (editId) updateLegalPost(cleanData as LegalPost);
+      else addLegalPost(cleanData as LegalPost);
     } else if (activeTab === 'forms') {
       if (!formData.format || !formData.size) {
         alert("파일을 업로드하거나 형식을 입력해주세요.");
         return;
       }
-      if (editId) updateLegalForm(formData as LegalForm);
-      else addLegalForm(formData as LegalForm);
+      const cleanData = {
+        ...formData,
+        category: formData.category || '',
+        fileUrl: formData.fileUrl || null
+      };
+      if (editId) updateLegalForm(cleanData as LegalForm);
+      else addLegalForm(cleanData as LegalForm);
     } else if (activeTab === 'cases') {
       const dataToSave = { ...formData };
+      // tags 처리: 문자열이면 배열로 변환, 없으면 빈 배열
       if (typeof dataToSave.tags === 'string') {
-        dataToSave.tags = dataToSave.tags.split(',').map((t: string) => t.trim());
+        dataToSave.tags = dataToSave.tags.trim() ? dataToSave.tags.split(',').map((t: string) => t.trim()).filter(t => t) : [];
+      } else if (!dataToSave.tags) {
+        dataToSave.tags = [];
       }
-      if (editId) updateLegalCase(dataToSave as LegalCase);
-      else addLegalCase(dataToSave as LegalCase);
+      // 다른 필드 null 안전성 확보
+      const cleanData = {
+        ...dataToSave,
+        court: dataToSave.court || '',
+        caseNumber: dataToSave.caseNumber || '',
+        summary: dataToSave.summary || '',
+        content: dataToSave.content || ''
+      };
+      if (editId) updateLegalCase(cleanData as LegalCase);
+      else addLegalCase(cleanData as LegalCase);
     }
     setIsEditing(false);
     setFormData({});
