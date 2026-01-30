@@ -129,10 +129,12 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
         }
     };
 
+    // ReactQuill 타입을 any로 단언하여 ref 타입 오류 해결
+    const QuillWrapper = ReactQuill as any;
+
     return (
         <div className="rich-text-editor" style={{ minHeight: '350px' }}>
-            {/* @ts-ignore */}
-            <ReactQuill
+            <QuillWrapper
                 ref={(el: any) => { quillRef.current = el; }}
                 theme="snow"
                 value={value}
