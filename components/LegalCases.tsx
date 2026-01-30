@@ -66,7 +66,7 @@ export const LegalCases: React.FC<LegalCasesProps> = ({ limit }) => {
               </div>
               <div className="flex-shrink-0 flex items-center">
                 <button className="text-sm font-bold text-gray-400 hover:text-brand-dark transition-colors whitespace-nowrap">
-                  판결문 보기 &rarr;
+                  내용 보기 &rarr;
                 </button>
               </div>
             </div>
