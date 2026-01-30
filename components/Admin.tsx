@@ -335,6 +335,10 @@ export const Admin: React.FC = () => {
                         onChange={(html) => setFormData({ ...formData, description: html })}
                         maxLength={1000}
                         placeholder="성공 사례 설명을 작성하세요..."
+                        onImageUpload={(url) => {
+                          const currentUrls = formData.imageUrls || [];
+                          setFormData({ ...formData, imageUrls: [...currentUrls, url] });
+                        }}
                       />
                     </div>
                     <div>
@@ -385,6 +389,10 @@ export const Admin: React.FC = () => {
                         onChange={(html) => setFormData({ ...formData, content: html })}
                         maxLength={5000}
                         placeholder="전체 본문 내용을 입력하세요..."
+                        onImageUpload={(url) => {
+                          const currentUrls = formData.imageUrls || [];
+                          setFormData({ ...formData, imageUrls: [...currentUrls, url] });
+                        }}
                       />
                     </div>
                     {!editId && <p className="text-sm text-gray-500">작성일은 자동으로 오늘 날짜로 저장됩니다.</p>}
@@ -463,6 +471,10 @@ export const Admin: React.FC = () => {
                         onChange={(html) => setFormData({ ...formData, content: html })}
                         maxLength={5000}
                         placeholder="판결 요지 및 전체 내용을 입력하세요..."
+                        onImageUpload={(url) => {
+                          const currentUrls = formData.imageUrls || [];
+                          setFormData({ ...formData, imageUrls: [...currentUrls, url] });
+                        }}
                       />
                     </div>
                     <div>

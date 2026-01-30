@@ -36,6 +36,7 @@ export interface SuccessCase {
   description: string;
   judgmentUrl?: string; // Base64 string for judgment document (PDF/Image)
   judgmentFormat?: string; // 'pdf' | 'image' | etc
+  imageUrls?: string[]; // 성공 사례 이미지 URLs
 }
 
 export interface LegalPost {

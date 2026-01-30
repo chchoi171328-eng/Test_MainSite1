@@ -52,6 +52,7 @@ export async function createSuccessCase(
                 description: successCase.description,
                 judgment_url: successCase.judgmentUrl,
                 judgment_format: successCase.judgmentFormat,
+                image_urls: successCase.imageUrls || [],
             },
         ])
         .select()
@@ -80,6 +81,7 @@ export async function updateSuccessCase(
             description: successCase.description,
             judgment_url: successCase.judgmentUrl,
             judgment_format: successCase.judgmentFormat,
+            image_urls: successCase.imageUrls || [],
         })
         .eq('id', successCase.id)
         .select()
