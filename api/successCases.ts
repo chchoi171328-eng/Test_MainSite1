@@ -4,6 +4,22 @@ import { SuccessCase } from '../types';
 /**
  * 모든 성공사례 조회
  */
+// Helper to map DB row to Frontend Type
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const mapDBToSuccessCase = (row: any): SuccessCase => ({
+    id: row.id,
+    title: row.title,
+    category: row.category,
+    result: row.result,
+    description: row.description,
+    judgmentUrl: row.judgment_url,
+    judgmentFormat: row.judgment_format,
+    imageUrls: row.image_urls || [],
+});
+
+/**
+ * 모든 성공사례 조회
+ */
 export async function getAllSuccessCases(): Promise<SuccessCase[]> {
     const { data, error } = await supabase
         .from('success_cases')
@@ -15,7 +31,7 @@ export async function getAllSuccessCases(): Promise<SuccessCase[]> {
         throw error;
     }
 
-    return data || [];
+    return (data || []).map(mapDBToSuccessCase);
 }
 
 /**
@@ -33,7 +49,7 @@ export async function getSuccessCaseById(id: number): Promise<SuccessCase | null
         return null;
     }
 
-    return data;
+    return data ? mapDBToSuccessCase(data) : null;
 }
 
 /**
@@ -63,7 +79,7 @@ export async function createSuccessCase(
         throw error;
     }
 
-    return data;
+    return mapDBToSuccessCase(data);
 }
 
 /**
@@ -92,7 +108,7 @@ export async function updateSuccessCase(
         throw error;
     }
 
-    return data;
+    return mapDBToSuccessCase(data);
 }
 
 /**

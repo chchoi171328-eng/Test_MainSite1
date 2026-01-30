@@ -4,6 +4,20 @@ import { LegalForm } from '../types';
 /**
  * 모든 법률서식 조회
  */
+// Helper to map DB row to Frontend Type
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const mapDBToLegalForm = (row: any): LegalForm => ({
+    id: row.id,
+    title: row.title,
+    category: row.category,
+    format: row.format,
+    size: row.size,
+    fileUrl: row.file_url,
+});
+
+/**
+ * 모든 법률서식 조회
+ */
 export async function getAllLegalForms(): Promise<LegalForm[]> {
     const { data, error } = await supabase
         .from('legal_forms')
@@ -15,7 +29,7 @@ export async function getAllLegalForms(): Promise<LegalForm[]> {
         throw error;
     }
 
-    return data || [];
+    return (data || []).map(mapDBToLegalForm);
 }
 
 /**
@@ -33,7 +47,7 @@ export async function getLegalFormById(id: number): Promise<LegalForm | null> {
         return null;
     }
 
-    return data;
+    return data ? mapDBToLegalForm(data) : null;
 }
 
 /**
@@ -61,7 +75,7 @@ export async function createLegalForm(
         throw error;
     }
 
-    return data;
+    return mapDBToLegalForm(data);
 }
 
 /**
@@ -86,7 +100,7 @@ export async function updateLegalForm(legalForm: LegalForm): Promise<LegalForm> 
         throw error;
     }
 
-    return data;
+    return mapDBToLegalForm(data);
 }
 
 /**

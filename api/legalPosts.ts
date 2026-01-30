@@ -4,6 +4,21 @@ import { LegalPost } from '../types';
 /**
  * 모든 법률정보 조회
  */
+// Helper to map DB row to Frontend Type
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const mapDBToLegalPost = (row: any): LegalPost => ({
+    id: row.id,
+    title: row.title,
+    category: row.category,
+    date: row.date,
+    summary: row.summary,
+    content: row.content,
+    imageUrls: row.image_urls || [],
+});
+
+/**
+ * 모든 법률정보 조회
+ */
 export async function getAllLegalPosts(): Promise<LegalPost[]> {
     const { data, error } = await supabase
         .from('legal_posts')
@@ -15,7 +30,7 @@ export async function getAllLegalPosts(): Promise<LegalPost[]> {
         throw error;
     }
 
-    return data || [];
+    return (data || []).map(mapDBToLegalPost);
 }
 
 /**
@@ -33,7 +48,7 @@ export async function getLegalPostById(id: number): Promise<LegalPost | null> {
         return null;
     }
 
-    return data;
+    return data ? mapDBToLegalPost(data) : null;
 }
 
 /**
@@ -60,7 +75,7 @@ export async function createLegalPost(
         throw error;
     }
 
-    return data;
+    return mapDBToLegalPost(data);
 }
 
 /**
@@ -86,7 +101,7 @@ export async function updateLegalPost(legalPost: LegalPost): Promise<LegalPost> 
         throw error;
     }
 
-    return data;
+    return mapDBToLegalPost(data);
 }
 
 /**

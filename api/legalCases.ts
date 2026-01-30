@@ -4,6 +4,22 @@ import { LegalCase } from '../types';
 /**
  * 모든 판례 조회
  */
+// Helper to map DB row to Frontend Type
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const mapDBToLegalCase = (row: any): LegalCase => ({
+    id: row.id,
+    title: row.title,
+    court: row.court,
+    caseNumber: row.case_number,
+    summary: row.summary,
+    tags: row.tags,
+    content: row.content,
+    imageUrls: row.image_urls || [],
+});
+
+/**
+ * 모든 판례 조회
+ */
 export async function getAllLegalCases(): Promise<LegalCase[]> {
     const { data, error } = await supabase
         .from('legal_cases')
@@ -15,7 +31,7 @@ export async function getAllLegalCases(): Promise<LegalCase[]> {
         throw error;
     }
 
-    return data || [];
+    return (data || []).map(mapDBToLegalCase);
 }
 
 /**
@@ -33,7 +49,7 @@ export async function getLegalCaseById(id: number): Promise<LegalCase | null> {
         return null;
     }
 
-    return data;
+    return data ? mapDBToLegalCase(data) : null;
 }
 
 /**
@@ -63,7 +79,7 @@ export async function createLegalCase(
         throw error;
     }
 
-    return data;
+    return mapDBToLegalCase(data);
 }
 
 /**
@@ -90,7 +106,7 @@ export async function updateLegalCase(legalCase: LegalCase): Promise<LegalCase> 
         throw error;
     }
 
-    return data;
+    return mapDBToLegalCase(data);
 }
 
 /**

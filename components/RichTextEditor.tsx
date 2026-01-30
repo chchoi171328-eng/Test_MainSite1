@@ -20,6 +20,8 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
     onImageUpload
 }) => {
     const quillRef = useRef<any>(null);
+    const onImageUploadRef = useRef(onImageUpload);
+    onImageUploadRef.current = onImageUpload;
 
     // 이미지 업로드 핸들러
     const imageHandler = () => {
@@ -74,8 +76,8 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
                 }
 
                 // 부모 컴포넌트에 URL 알림
-                if (onImageUpload) {
-                    onImageUpload(publicUrl);
+                if (onImageUploadRef.current) {
+                    onImageUploadRef.current(publicUrl);
                 }
 
             } catch (error) {

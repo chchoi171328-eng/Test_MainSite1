@@ -63,6 +63,31 @@ export const Admin: React.FC = () => {
     }
   };
 
+  // Helper: Extract path from Public URL
+  const extractPathFromUrl = (url: string, bucket: string) => {
+    try {
+      // Example: .../storage/v1/object/public/judgments/123.pdf
+      // We want: 123.pdf (inside the bucket)
+      const parts = url.split(`/public/${bucket}/`);
+      if (parts.length < 2) return null;
+      return parts[1]; // Returns the path after the bucket name
+    } catch (e) {
+      return null;
+    }
+  };
+
+  // Helper: Delete file from Storage
+  const deleteFileFromStorage = async (url: string, bucket: string) => {
+    const path = extractPathFromUrl(url, bucket);
+    if (!path) return;
+
+    // Fire and forget (don't block UI)
+    supabase.storage.from(bucket).remove([path]).then(({ error }) => {
+      if (error) console.error(`Error deleting file from ${bucket}:`, error);
+      else console.log(`Deleted file from ${bucket}: ${path}`);
+    });
+  };
+
   const startEdit = (item: any) => {
     setFormData({ ...item });
     setEditId(item.id);
@@ -75,11 +100,35 @@ export const Admin: React.FC = () => {
     setIsEditing(true);
   };
 
-  const handleSave = () => {
+  const cleanupUnusedImages = async () => {
+    const currentImages = formData.imageUrls as string[] || [];
+    if (currentImages.length === 0) return;
+
+    let contentToCheck = '';
+    if (activeTab === 'success') contentToCheck = formData.description || '';
+    else if (activeTab === 'posts') contentToCheck = formData.content || '';
+    else if (activeTab === 'cases') contentToCheck = formData.content || '';
+
+    const remainingImages = currentImages.filter(url => contentToCheck.includes(url));
+    const imagesToDelete = currentImages.filter(url => !contentToCheck.includes(url));
+
+    if (imagesToDelete.length > 0) {
+      console.log('Cleaning up unused images:', imagesToDelete);
+      imagesToDelete.forEach(url => deleteFileFromStorage(url, 'content-images'));
+    }
+
+    // Update formData with only remaining images
+    setFormData((prev: any) => ({ ...prev, imageUrls: remainingImages }));
+  };
+
+  const handleSave = async () => {
     if (!formData.title || formData.title.trim() === '') {
       alert("제목은 필수 입력 항목입니다.");
       return;
     }
+
+    // Cleanup unused images from Editor
+    await cleanupUnusedImages();
 
     if (activeTab === 'success') {
       const cleanData = {
@@ -140,69 +189,166 @@ export const Admin: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     if (value.length > 5000) return;
-    setFormData({ ...formData, [name]: value });
+    setFormData((prev: any) => ({ ...prev, [name]: value }));
   };
 
   // Handler for Legal Forms upload
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      if (file.size > 2 * 1024 * 1024) {
-        alert("데모 환경 제한으로 2MB 이하의 파일만 업로드 가능합니다.");
-        e.target.value = '';
-        return;
+    if (!file) return;
+
+    // 50MB limit
+    if (file.size > 50 * 1024 * 1024) {
+      alert("파일 크기는 50MB 이하여야 합니다.");
+      e.target.value = '';
+      return;
+    }
+
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+      const filePath = `forms/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('legal-forms')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('legal-forms')
+        .getPublicUrl(filePath);
+
+      const extension = fileExt?.toUpperCase() || 'FILE';
+      let sizeString = '';
+      if (file.size < 1024 * 1024) {
+        sizeString = (file.size / 1024).toFixed(1) + 'KB';
+      } else {
+        sizeString = (file.size / (1024 * 1024)).toFixed(1) + 'MB';
       }
 
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        const extension = file.name.split('.').pop()?.toUpperCase() || 'FILE';
-        let sizeString = '';
-        if (file.size < 1024 * 1024) {
-          sizeString = (file.size / 1024).toFixed(1) + 'KB';
-        } else {
-          sizeString = (file.size / (1024 * 1024)).toFixed(1) + 'MB';
-        }
+      setFormData((prev: any) => ({
+        ...prev,
+        title: prev.title || file.name,
+        format: extension,
+        size: sizeString,
+        fileUrl: publicUrl
+      }));
 
-        setFormData({
-          ...formData,
-          title: formData.title || file.name,
-          format: extension,
-          size: sizeString,
-          fileUrl: reader.result as string
-        });
-      };
-      reader.readAsDataURL(file);
+      alert('파일이 업로드되었습니다.');
+    } catch (error) {
+      console.error('Upload error:', error);
+      alert('파일 업로드 중 오류가 발생했습니다: ' + (error as Error).message);
     }
   };
 
   // Handler for Success Case Judgment file upload
-  const handleJudgmentFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleJudgmentFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      // Allow PDF, JPG, PNG
-      const validTypes = ['application/pdf', 'image/jpeg', 'image/png'];
-      if (!validTypes.includes(file.type)) {
-        alert("PDF, JPG, PNG 파일만 업로드 가능합니다.");
-        return;
+    if (!file) return;
+
+    // Allow PDF, JPG, PNG
+    const validTypes = ['application/pdf', 'image/jpeg', 'image/png'];
+    if (!validTypes.includes(file.type)) {
+      alert("PDF, JPG, PNG 파일만 업로드 가능합니다.");
+      return;
+    }
+
+    // 50MB limit
+    if (file.size > 50 * 1024 * 1024) {
+      alert("파일 크기는 50MB 이하여야 합니다.");
+      return;
+    }
+
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+      const filePath = `judgments/${fileName}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('judgments')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('judgments')
+        .getPublicUrl(filePath);
+
+      let format = 'image';
+      if (file.type === 'application/pdf') format = 'pdf';
+
+      setFormData((prev: any) => ({
+        ...prev,
+        judgmentUrl: publicUrl,
+        judgmentFormat: format
+      }));
+
+      alert('판결문이 업로드되었습니다.');
+    } catch (error) {
+      console.error('Upload error:', error);
+      alert('파일 업로드 중 오류가 발생했습니다: ' + (error as Error).message);
+    }
+  };
+
+  const handleRemoveJudgment = async () => {
+    if (window.confirm('판결문 파일을 삭제하시겠습니까?')) {
+      if (formData.judgmentUrl) {
+        await deleteFileFromStorage(formData.judgmentUrl, 'judgments');
       }
+      setFormData((prev: any) => ({
+        ...prev,
+        judgmentUrl: null,
+        judgmentFormat: null
+      }));
+    }
+  };
 
-      if (file.size > 3 * 1024 * 1024) {
-        alert("3MB 이하의 파일만 업로드 가능합니다.");
-        return;
+  const handleRemoveFile = async () => {
+    if (window.confirm('첨부 파일을 삭제하시겠습니까?')) {
+      if (formData.fileUrl) {
+        await deleteFileFromStorage(formData.fileUrl, 'legal-forms');
       }
+      setFormData((prev: any) => ({
+        ...prev,
+        fileUrl: null,
+        format: null,
+        size: null
+      }));
+      // Reset input if needed
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
 
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        let format = 'image';
-        if (file.type === 'application/pdf') format = 'pdf';
+  const [testResult, setTestResult] = useState<{ url: string; status: string } | null>(null);
 
-        setFormData({
-          ...formData,
-          judgmentUrl: reader.result as string,
-          judgmentFormat: format
-        });
-      };
-      reader.readAsDataURL(file);
+  const handleTestUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `test_${Date.now()}.${fileExt}`;
+
+      const { data, error } = await supabase.storage
+        .from('content-images')
+        .upload(fileName, file);
+
+      if (error) throw error;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('content-images')
+        .getPublicUrl(fileName);
+
+      // Check access
+      const response = await fetch(publicUrl);
+      setTestResult({
+        url: publicUrl,
+        status: response.status === 200 ? '성공 (200 OK)' : `실패 (${response.status})`
+      });
+
+    } catch (err) {
+      alert('테스트 실패: ' + (err as Error).message);
     }
   };
 
@@ -268,6 +414,27 @@ export const Admin: React.FC = () => {
         </div>
       </header>
 
+      {/* 이미지 테스트 도구 */}
+      <div className="container mx-auto px-6 mt-6">
+        <div className="p-4 bg-gray-100 rounded-lg border border-gray-300">
+          <h3 className="font-bold mb-2">📸 이미지 업로드 진단 도구 (문제가 있을 때 사용)</h3>
+          <input type="file" onChange={handleTestUpload} className="mb-2" />
+          {testResult && (
+            <div className="mt-2 bg-white p-2 rounded border">
+              <p><strong>상태:</strong> <span className={testResult.status.includes('200') ? 'text-green-600' : 'text-red-600'}>{testResult.status}</span></p>
+              <p className="text-xs text-gray-500 break-all my-1">{testResult.url}</p>
+              {testResult.status.includes('200') ? (
+                <img src={testResult.url} alt="Test" className="mt-2 max-w-xs border rounded" />
+              ) : (
+                <p className="text-red-500 font-bold mt-1 text-sm">
+                  이미지가 보이지 않는다면 Supabase Bucket 설정을 확인해야 합니다.
+                </p>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+
       <div className="container mx-auto px-6 py-8">
         {/* Tabs */}
         <div className="flex flex-wrap gap-2 mb-8 border-b border-gray-200 pb-2">
@@ -332,12 +499,14 @@ export const Admin: React.FC = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-1">설명</label>
                       <RichTextEditor
                         value={formData.description || ''}
-                        onChange={(html) => setFormData({ ...formData, description: html })}
+                        onChange={(html) => setFormData((prev: any) => ({ ...prev, description: html }))}
                         maxLength={1000}
                         placeholder="성공 사례 설명을 작성하세요..."
                         onImageUpload={(url) => {
-                          const currentUrls = formData.imageUrls || [];
-                          setFormData({ ...formData, imageUrls: [...currentUrls, url] });
+                          setFormData((prev: any) => {
+                            const currentUrls = prev.imageUrls || [];
+                            return { ...prev, imageUrls: [...currentUrls, url] };
+                          });
                         }}
                       />
                     </div>
@@ -358,9 +527,18 @@ export const Admin: React.FC = () => {
                           <Upload size={16} /> 파일 선택 (PDF/JPG)
                         </button>
                         {formData.judgmentUrl && (
-                          <span className="text-sm text-green-600 flex items-center gap-1">
-                            <ImageIcon size={14} /> 파일 등록됨 ({formData.judgmentFormat})
-                          </span>
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm text-green-600 flex items-center gap-1">
+                              <ImageIcon size={14} /> 파일 등록됨 ({formData.judgmentFormat})
+                            </span>
+                            <button
+                              onClick={handleRemoveJudgment}
+                              className="text-gray-400 hover:text-red-500"
+                              title="파일 삭제"
+                            >
+                              <X size={16} />
+                            </button>
+                          </div>
                         )}
                       </div>
                       <p className="text-xs text-gray-400 mt-1">※ 3MB 이하의 PDF 또는 이미지 파일만 업로드 가능합니다.</p>
@@ -386,12 +564,14 @@ export const Admin: React.FC = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-1">본문 내용</label>
                       <RichTextEditor
                         value={formData.content || ''}
-                        onChange={(html) => setFormData({ ...formData, content: html })}
+                        onChange={(html) => setFormData((prev: any) => ({ ...prev, content: html }))}
                         maxLength={5000}
                         placeholder="전체 본문 내용을 입력하세요..."
                         onImageUpload={(url) => {
-                          const currentUrls = formData.imageUrls || [];
-                          setFormData({ ...formData, imageUrls: [...currentUrls, url] });
+                          setFormData((prev: any) => {
+                            const currentUrls = prev.imageUrls || [];
+                            return { ...prev, imageUrls: [...currentUrls, url] };
+                          });
                         }}
                       />
                     </div>
@@ -468,12 +648,14 @@ export const Admin: React.FC = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-1">전체 내용</label>
                       <RichTextEditor
                         value={formData.content || ''}
-                        onChange={(html) => setFormData({ ...formData, content: html })}
+                        onChange={(html) => setFormData((prev: any) => ({ ...prev, content: html }))}
                         maxLength={5000}
                         placeholder="판결 요지 및 전체 내용을 입력하세요..."
                         onImageUpload={(url) => {
-                          const currentUrls = formData.imageUrls || [];
-                          setFormData({ ...formData, imageUrls: [...currentUrls, url] });
+                          setFormData((prev: any) => {
+                            const currentUrls = prev.imageUrls || [];
+                            return { ...prev, imageUrls: [...currentUrls, url] };
+                          });
                         }}
                       />
                     </div>
