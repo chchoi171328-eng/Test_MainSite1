@@ -84,7 +84,6 @@ export const Admin: React.FC = () => {
     // Fire and forget (don't block UI)
     supabase.storage.from(bucket).remove([path]).then(({ error }) => {
       if (error) console.error(`Error deleting file from ${bucket}:`, error);
-      else console.log(`Deleted file from ${bucket}: ${path}`);
     });
   };
 
@@ -113,7 +112,6 @@ export const Admin: React.FC = () => {
     const imagesToDelete = currentImages.filter(url => !contentToCheck.includes(url));
 
     if (imagesToDelete.length > 0) {
-      console.log('Cleaning up unused images:', imagesToDelete);
       imagesToDelete.forEach(url => deleteFileFromStorage(url, 'content-images'));
     }
 
