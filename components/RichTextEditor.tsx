@@ -19,7 +19,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
     maxLength = 5000,
     onImageUpload
 }) => {
-    const quillRef = useRef<ReactQuill>(null);
+    const quillRef = useRef<any>(null);
 
     // 이미지 업로드 핸들러
     const imageHandler = () => {
@@ -128,10 +128,10 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
     };
 
     return (
-        <div className="rich-text-editor">
+        <div className="rich-text-editor" style={{ minHeight: '350px' }}>
             {/* @ts-ignore */}
             <ReactQuill
-                ref={quillRef}
+                ref={(el: any) => { quillRef.current = el; }}
                 theme="snow"
                 value={value}
                 onChange={handleChange}
