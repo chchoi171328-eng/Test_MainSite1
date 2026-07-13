@@ -6,10 +6,12 @@ export const Consultation: React.FC = () => {
   const [formData, setFormData] = useState({
     name: '',
     phone: '',
-    category: '기업 법무',
+    category: '형사 변호',
     content: ''
   });
+  const [privacyAgreed, setPrivacyAgreed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'sent' | 'error'>('idle');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -55,6 +57,7 @@ export const Consultation: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
+    setSubmitStatus('idle');
 
     try {
       // EmailJS로 이메일 전송
@@ -72,23 +75,20 @@ export const Consultation: React.FC = () => {
       );
 
       if (response.status === 200) {
-        alert(
-          `[발송 완료]\n\n${formData.name}님의 상담 신청이 접수되었습니다.\n` +
-          `담당 변호사가 내용 확인 후 기재해주신 연락처(${formData.phone})로\n` +
-          `빠른 시일 내에 연락드리겠습니다.\n\n(수신처: sllaw@sllaw.co.kr)`
-        );
+        setSubmitStatus('sent');
 
         // 폼 초기화
         setFormData({
           name: '',
           phone: '',
-          category: '기업 법무',
+          category: '형사 변호',
           content: ''
         });
+        setPrivacyAgreed(false);
       }
     } catch (error) {
       console.error('EmailJS Error:', error);
-      alert('상담 신청 전송 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.');
+      setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
     }
@@ -102,7 +102,21 @@ export const Consultation: React.FC = () => {
           <div className="w-16 h-1 bg-brand-gold"></div>
         </div>
 
+        <div className="relative h-52 md:h-80 mb-10 overflow-hidden rounded-sm">
+          <img
+            src="/assets/brand/consult-chairs.webp"
+            alt="법무법인 명 상담실의 좌석"
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        </div>
+
         <div className="bg-white p-0 md:p-8">
+          <p className="text-sm text-gray-500 mb-8 leading-relaxed">
+            사소한 질문이라도 괜찮습니다. 부끄러우실 일이 아닙니다.<br />
+            상담 후 의뢰하지 않으셔도 됩니다. 먼저 상황을 정확히 아는 것이 시작입니다.
+          </p>
           <form className="space-y-8" onSubmit={handleSubmit}>
             <div className="grid md:grid-cols-2 gap-8">
               <div>
@@ -146,11 +160,11 @@ export const Consultation: React.FC = () => {
                   disabled={isSubmitting}
                   className="w-full px-4 py-3 bg-gray-50 border border-gray-200 focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none transition-colors text-brand-dark appearance-none cursor-pointer disabled:bg-gray-100 disabled:text-gray-400"
                 >
-                  <option value="기업 법무">기업 법무</option>
-                  <option value="민사 소송">민사 소송</option>
                   <option value="형사 변호">형사 변호</option>
+                  <option value="민사 소송">민사 소송</option>
                   <option value="가사 / 상속">가사 / 상속</option>
                   <option value="부동산 / 건설">부동산 / 건설</option>
+                  <option value="기업 법무">기업 법무</option>
                   <option value="기타">기타</option>
                 </select>
                 <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
@@ -173,6 +187,42 @@ export const Consultation: React.FC = () => {
                 placeholder="간략한 사건 개요를 적어주세요."
               ></textarea>
             </div>
+
+            <div className="border border-gray-200 bg-gray-50 p-4 rounded-sm">
+              <label className="flex items-start gap-3 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={privacyAgreed}
+                  onChange={(e) => setPrivacyAgreed(e.target.checked)}
+                  required
+                  disabled={isSubmitting}
+                  className="mt-1 w-4 h-4 accent-brand-gold shrink-0"
+                />
+                <span className="text-sm text-gray-600 break-keep">
+                  개인정보 수집·이용에 동의합니다. <span className="text-red-500">*</span>
+                </span>
+              </label>
+              <details className="mt-2 ml-7 text-xs text-gray-500">
+                <summary className="cursor-pointer hover:text-brand-dark transition-colors">수집·이용 내용 보기</summary>
+                <div className="mt-2 space-y-1 leading-relaxed">
+                  <p>· 수집 항목: 이름, 연락처, 상담 내용</p>
+                  <p>· 수집 목적: 상담 신청 접수 및 회신</p>
+                  <p>· 보유 기간: 상담 처리 완료 후 지체 없이 파기 (관계 법령에 따른 보존 의무가 있는 경우 예외)</p>
+                  <p>· 동의를 거부하실 수 있으나, 거부 시 온라인 상담 신청이 제한됩니다.</p>
+                </div>
+              </details>
+            </div>
+
+            {submitStatus === 'sent' && (
+              <div className="border border-brand-gold/40 bg-brand-light p-5 rounded-sm text-sm text-brand-dark leading-relaxed break-keep" role="status">
+                상담 신청이 접수되었습니다. 담당 변호사가 내용 확인 후 기재해주신 연락처로 연락드리겠습니다.
+              </div>
+            )}
+            {submitStatus === 'error' && (
+              <div className="border border-red-200 bg-red-50 p-5 rounded-sm text-sm text-red-700 leading-relaxed break-keep" role="alert">
+                전송 중 오류가 발생했습니다. 잠시 후 다시 시도해 주시거나, 031-658-6100으로 전화 주시기 바랍니다.
+              </div>
+            )}
 
             <div className="pt-4">
               <button

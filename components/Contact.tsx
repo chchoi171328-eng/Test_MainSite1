@@ -11,9 +11,9 @@ export const Contact: React.FC = () => {
           <div>
             <span className="text-brand-gold font-bold tracking-widest uppercase text-sm mb-2 block">Contact Us</span>
             <h2 className="text-4xl font-serif font-bold mb-8">상담 안내</h2>
-            <p className="text-gray-400 mb-12 leading-relaxed">
+            <p className="text-gray-400 mb-12 leading-relaxed break-keep">
               법적 문제로 고민하고 계신가요? <br />
-              법무법인 명의 전문가들이 당신의 편에서 함께하겠습니다.
+              먼저 상황을 듣고, 가능한 방법을 솔직하게 말씀드리겠습니다.
             </p>
 
             <div className="space-y-8">

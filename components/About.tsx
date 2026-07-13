@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Stat } from '../types';
 
 const STATS: Stat[] = [
@@ -8,6 +8,22 @@ const STATS: Stat[] = [
 ];
 
 export const About: React.FC = () => {
+  // 모바일(데이터·배터리)과 reduced-motion 사용자는 영상 대신 poster 이미지만 로드
+  const [showVideo, setShowVideo] = useState(false);
+
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 768px)');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const update = () => setShowVideo(desktop.matches && !reducedMotion.matches);
+    update();
+    desktop.addEventListener('change', update);
+    reducedMotion.addEventListener('change', update);
+    return () => {
+      desktop.removeEventListener('change', update);
+      reducedMotion.removeEventListener('change', update);
+    };
+  }, []);
+
   return (
     <section id="about" className="py-16 md:py-32 bg-white">
       <div className="container mx-auto px-6 md:px-12">
@@ -16,11 +32,28 @@ export const About: React.FC = () => {
           <div className="relative mb-8 md:mb-0 px-4 md:px-0">
             <div className="absolute -top-4 -left-0 md:-left-4 w-16 h-16 md:w-24 md:h-24 border-t-2 border-l-2 border-brand-gold"></div>
             <div className="relative w-full aspect-[4/3] md:aspect-[3/4] overflow-hidden shadow-2xl">
-              <img
-                src="/images/office-philosophy.png"
-                alt="법무법인 명의 현대적인 사무 공간 - 전문성과 신뢰를 상징하는 인테리어"
-                className="absolute inset-0 w-full h-full object-cover contrast-125"
-              />
+              {showVideo ? (
+                <video
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  poster="/assets/brand/hands-pen.webp"
+                  preload="metadata"
+                  aria-hidden="true"
+                  className="absolute inset-0 w-full h-full object-cover"
+                >
+                  <source src="/assets/brand/hands-pen.mp4" type="video/mp4" />
+                </video>
+              ) : (
+                <img
+                  src="/assets/brand/hands-pen.webp"
+                  alt="만년필을 들고 기록을 준비하는 변호사의 손"
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              )}
             </div>
             <div className="absolute -bottom-4 -right-0 md:-right-4 w-16 h-16 md:w-24 md:h-24 border-b-2 border-r-2 border-brand-gold"></div>
           </div>
@@ -50,7 +83,7 @@ export const About: React.FC = () => {
             <div className="grid grid-cols-3 gap-4 md:gap-8 border-t border-gray-100 pt-8 mt-8 md:mt-10">
               {STATS.map((stat, idx) => (
                 <div key={idx} className="text-center md:text-left">
-                  <p className="text-lg md:text-3xl font-serif font-bold text-brand-gold mb-1 break-keep">{stat.value}</p>
+                  <p className="text-lg lg:text-2xl xl:text-3xl font-serif font-bold text-brand-gold mb-1 break-keep">{stat.value}</p>
                   <p className="text-[10px] md:text-xs text-gray-400 uppercase tracking-wide">{stat.label}</p>
                 </div>
               ))}
@@ -93,6 +126,13 @@ export const About: React.FC = () => {
                   <li>(전) 서울북부지방법원 실무수습</li>
                 </ul>
               </div>
+              <div className="pt-4 border-t border-gray-200 space-y-3 text-xs md:text-sm text-gray-600 leading-relaxed break-keep">
+                <p>GS건설·롯데건설 사내변호사로 일했습니다. 기업이 법을 어떻게 활용하는지 안에서 보고 왔습니다.</p>
+                <p>컴퓨터공학과 법학을 함께 공부했습니다. 복잡한 사건 구조를 분해해서 보는 훈련이 되어 있습니다.</p>
+                {/* TODO: 대한변호사협회 형사·민사 전문등록 표기 — 인증 번호/명칭 확인 후 삽입 */}
+                {/* 전문등록 확인 후 표기 문구: "형사·민사 이중 전문 인증을 받은 법인입니다. 두 영역이 얽힌 사건도 한 곳에서 처리됩니다." */}
+                {/* TODO: 평택경찰서 범죄피해자 상담 변호사 활동 표기 — 정확한 명칭 확인 후 삽입 */}
+              </div>
             </div>
           </div>
 
@@ -124,6 +164,12 @@ export const About: React.FC = () => {
               </p>
               <div className="mt-8 pt-8 text-right">
                 <p className="font-serif font-bold text-brand-dark text-xl">대표변호사 최철호 올림</p>
+              </div>
+              <div className="mt-10 pt-8 border-t border-gray-100">
+                <p className="text-brand-dark font-medium leading-relaxed break-keep">
+                  한 사건을 끝까지 책임지기 위해, 동시에 진행하는 사건 수를 의도적으로 제한합니다.<br />
+                  상담부터 변론까지 같은 변호사가 담당합니다.
+                </p>
               </div>
             </div>
           </div>

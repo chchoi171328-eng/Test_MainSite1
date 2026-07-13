@@ -7,12 +7,14 @@ import { Button } from './ui';
 interface NavItemConfig {
   label: string;
   page?: PageType;
+  externalUrl?: string;
   children?: NavItemConfig[];
 }
 
 const NAV_ITEMS: NavItemConfig[] = [
   { label: '법인 소개', page: 'about' },
   { label: '업무 분야', page: 'practice' },
+  { label: '수임료 안내', page: 'fees' },
   { label: '성공사례', page: 'success' },
   {
     label: '법률정보',
@@ -24,6 +26,7 @@ const NAV_ITEMS: NavItemConfig[] = [
   },
   { label: '스마트 도구', page: 'tools' },
   { label: '오시는 길', page: 'contact' },
+  { label: 'EN', externalUrl: 'https://www.lsfp.co.kr/' },
 ];
 
 export const Navigation: React.FC = () => {
@@ -70,7 +73,7 @@ export const Navigation: React.FC = () => {
         </button>
 
         {/* Desktop Menu */}
-        <div className="hidden md:flex items-center space-x-8">
+        <div className="hidden lg:flex items-center space-x-8">
           {NAV_ITEMS.map((item) => (
             <div
               key={item.label}
@@ -80,7 +83,11 @@ export const Navigation: React.FC = () => {
             >
               <button
                 onClick={() => {
-                  if (item.page) navigateTo(item.page);
+                  if (item.externalUrl) {
+                    window.open(item.externalUrl, '_blank', 'noopener');
+                  } else if (item.page) {
+                    navigateTo(item.page);
+                  }
                 }}
                 className={`text-sm font-medium tracking-wider transition-colors flex items-center gap-1 py-2 ${isItemActive(item) && !isTransparent ? 'text-brand-gold' : textClass
                   }`}
@@ -123,7 +130,7 @@ export const Navigation: React.FC = () => {
 
         {/* Mobile Menu Button */}
         <button
-          className={`md:hidden z-50 relative ${isTransparent && !isMobileMenuOpen ? 'text-white' : 'text-brand-dark'}`}
+          className={`lg:hidden z-50 relative ${isTransparent && !isMobileMenuOpen ? 'text-white' : 'text-brand-dark'}`}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
         >
           {isMobileMenuOpen ? <X size={28} className="text-brand-dark" /> : <Menu size={28} />}
@@ -167,7 +174,11 @@ export const Navigation: React.FC = () => {
                   ) : (
                     <button
                       onClick={() => {
-                        if (item.page) navigateTo(item.page);
+                        if (item.externalUrl) {
+                          window.open(item.externalUrl, '_blank', 'noopener');
+                        } else if (item.page) {
+                          navigateTo(item.page);
+                        }
                         setIsMobileMenuOpen(false);
                       }}
                       className={`text-2xl font-serif hover:text-brand-gold ${currentPage === item.page ? 'text-brand-gold font-bold' : 'text-brand-dark'

@@ -18,15 +18,23 @@ export const LegalInfo: React.FC = () => {
   return (
     <section id="legal-info" className="py-20 bg-brand-light">
       <div className="container mx-auto px-6 md:px-12">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-12">
-          <div>
+        <div className="relative h-48 md:h-60 mb-8 overflow-hidden rounded-sm">
+          <img
+            src="/assets/brand/desk-still.webp"
+            alt="변호사 책상 위의 책과 만년필"
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-black/30"></div>
+          <div className="relative z-10 h-full flex flex-col justify-center px-8 md:px-12">
             <span className="text-brand-gold font-bold tracking-widest uppercase text-sm mb-2 block">Legal Insights</span>
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-dark">최신 법률 정보</h2>
-            <p className="mt-4 text-gray-500 max-w-2xl text-sm md:text-base break-keep">
-              법무법인 명의 변호사들이 직접 분석한 최신 법률 이슈와 실무 가이드를 제공합니다.
-            </p>
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-white">최신 법률 정보</h2>
           </div>
         </div>
+        <p className="mb-12 text-gray-500 max-w-2xl text-sm md:text-base break-keep">
+          법무법인 명의 변호사들이 직접 분석한 최신 법률 이슈와 실무 가이드를 제공합니다.
+        </p>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {loading ? (

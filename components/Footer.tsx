@@ -135,9 +135,9 @@ export const Footer: React.FC = () => {
               <div className="mb-6 cursor-pointer" onClick={() => navigateTo('home')}>
                  <Logo className="h-10 w-10 text-white" textClassName="text-white" />
               </div>
-              <p className="text-sm leading-relaxed max-w-sm mb-6">
-                법무법인 명(SOL & LUNA)은 고객의 성공이 곧 우리의 성공이라는 신념으로 
-                최고의 법률 서비스를 제공합니다.
+              <p className="text-sm leading-relaxed max-w-sm mb-6 break-keep">
+                법무법인 명(SOL & LUNA)은 승산 없는 소송을 권하지 않습니다.<br />
+                먼저 듣고, 솔직하게 말씀드립니다.
               </p>
               <div className="text-xs text-gray-500 space-y-2 font-light">
                  <p>경기도 평택시 평남로 1029-1, SJ프라자 5층</p>
@@ -155,6 +155,8 @@ export const Footer: React.FC = () => {
               <ul className="space-y-2 text-sm">
                 <li><button onClick={() => navigateTo('about')} className="hover:text-brand-gold transition-colors text-left">법인 소개</button></li>
                 <li><button onClick={() => navigateTo('practice')} className="hover:text-brand-gold transition-colors text-left">업무 분야</button></li>
+                <li><button onClick={() => navigateTo('fees')} className="hover:text-brand-gold transition-colors text-left">수임료 안내</button></li>
+                <li><button onClick={() => navigateTo('success')} className="hover:text-brand-gold transition-colors text-left">성공사례</button></li>
                 <li><button onClick={() => navigateTo('tools')} className="hover:text-brand-gold transition-colors text-left">스마트 도구</button></li>
                 <li><button onClick={() => navigateTo('contact')} className="hover:text-brand-gold transition-colors text-left">오시는 길</button></li>
               </ul>
@@ -174,7 +176,6 @@ export const Footer: React.FC = () => {
           <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center text-xs">
             <p>&copy; {new Date().getFullYear()} SOL & LUNA Law Firm. All rights reserved.</p>
             <div className="flex items-center gap-4 mt-2 md:mt-0">
-               <p>Design by AI • Developed with React</p>
                <button onClick={() => navigateTo('admin')} className="text-gray-700 hover:text-gray-500 transition-colors" aria-label="Admin Access">
                  <Lock size={14} />
                </button>

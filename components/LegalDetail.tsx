@@ -47,9 +47,31 @@ export const LegalDetail: React.FC = () => {
                     </h1>
                 </header>
 
+                {(!post.imageUrls || post.imageUrls.length === 0) && (
+                    <div className="relative h-48 md:h-60 mb-10 overflow-hidden rounded-sm">
+                        <img
+                            src="/assets/brand/desk-still.webp"
+                            alt="변호사 책상 위의 책과 만년필"
+                            loading="lazy"
+                            decoding="async"
+                            className="absolute inset-0 w-full h-full object-cover"
+                        />
+                    </div>
+                )}
+
                 <article className="prose prose-lg max-w-none prose-headings:font-serif prose-headings:text-brand-dark prose-p:text-gray-600 prose-li:text-gray-600 prose-strong:text-brand-dark">
                     <div className="prose prose-lg max-w-none leading-relaxed" dangerouslySetInnerHTML={{ __html: post.content || post.summary || '' }} />
                 </article>
+
+                <p className="mt-12 text-gray-600 break-keep">
+                    이 글에서 다 답이 되지 않은 부분은 편하게 물어보셔도 됩니다.{' '}
+                    <button
+                        onClick={() => navigateTo('consultation')}
+                        className="text-brand-gold underline underline-offset-4 hover:text-brand-dark transition-colors"
+                    >
+                        상담 문의하기
+                    </button>
+                </p>
 
                 <div className="mt-16 pt-8 border-t border-gray-100 flex justify-center">
                     <button

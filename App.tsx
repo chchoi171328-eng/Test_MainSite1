@@ -3,6 +3,7 @@ import { Navigation } from './components/Navigation';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { PracticeAreas } from './components/PracticeAreas';
+import { Fees } from './components/Fees';
 import { SuccessCases } from './components/SuccessCases';
 import { SuccessDetail } from './components/SuccessDetail';
 import { LegalInfo } from './components/LegalInfo';
@@ -48,6 +49,7 @@ const App: React.FC = () => {
             )}
             {currentPage === 'about' && <About />}
             {currentPage === 'practice' && <PracticeAreas />}
+            {currentPage === 'fees' && <Fees />}
             {currentPage === 'success' && <SuccessCases />}
             {currentPage === 'success-detail' && <SuccessDetail />}
             {currentPage === 'legal' && <LegalInfo />}

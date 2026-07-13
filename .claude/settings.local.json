@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(git commit --allow-empty -m \"$\\(cat <<''EOF''\nchore: trigger redeploy with environment variables\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
-      "Bash(git push)"
+      "Bash(git push)",
+      "PowerShell(node \"C:\\\\Users\\\\chsta\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\D--vibe-coding-Test-MainPT-Test-MainSite1\\\\c8bec88b-a1d7-40c0-9864-905f43e44e06\\\\scratchpad\\\\convert-assets.js\")"
     ]
   }
 }

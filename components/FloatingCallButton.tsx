@@ -2,7 +2,7 @@ import React from 'react';
 import { Phone } from 'lucide-react';
 
 export const FloatingCallButton: React.FC = () => {
-    const phoneNumber = '02-538-0072'; // 법무법인 명 전화번호
+    const phoneNumber = '031-658-6100'; // 법무법인 명 전화번호
     const telLink = `tel:${phoneNumber.replace(/-/g, '')}`; // tel:025380072
 
     return (
