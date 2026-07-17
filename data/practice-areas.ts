@@ -88,6 +88,13 @@ export const PRACTICE_AREA_DEFINITIONS: PracticeAreaDefinition[] = [
     metaDescription:
       '평택 법무법인 명의 이혼·상속 안내. 이혼, 재산분할, 상속 분쟁 사건을 상담합니다.',
   },
+  {
+    slug: 'corporate-law',
+    title: '기업 법무',
+    metaTitle: '평택 기업법무 변호사 | 법무법인 명',
+    metaDescription:
+      '평택 법무법인 명의 기업 법무 안내. 계약서 검토·자문, 기업 분쟁 대응, 인사·노동 사건을 상담합니다.',
+  },
 ];
 
 /**
