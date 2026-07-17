@@ -1,6 +1,8 @@
+'use client';
+
 import React, { useState, useRef } from 'react';
+import Link from 'next/link';
 import { useData } from '../contexts/DataContext';
-import { useNavigation } from '../contexts/NavigationContext';
 import { SuccessCase, LegalPost, LegalForm, LegalCase } from '../types';
 import { Trash2, Edit, Plus, Save, X, Lock, ArrowLeft, Upload, FileText, Image as ImageIcon } from 'lucide-react';
 import { supabase } from '../lib/supabaseClient';
@@ -9,7 +11,6 @@ import { RichTextEditor } from './RichTextEditor';
 type Tab = 'success' | 'posts' | 'forms' | 'cases';
 
 export const Admin: React.FC = () => {
-  const { navigateTo } = useNavigation();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -353,12 +354,12 @@ export const Admin: React.FC = () => {
   if (!isAuthenticated) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-100 relative">
-        <button
-          onClick={() => navigateTo('home')}
+        <Link
+          href="/"
           className="absolute top-6 left-6 text-gray-500 hover:text-brand-dark flex items-center gap-2 transition-colors font-medium"
         >
           <ArrowLeft size={20} /> 홈으로
-        </button>
+        </Link>
         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
           <div className="text-center mb-6">
             <div className="mx-auto w-12 h-12 bg-brand-dark text-white rounded-full flex items-center justify-center mb-4">

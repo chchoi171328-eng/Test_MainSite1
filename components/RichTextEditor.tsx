@@ -1,8 +1,21 @@
+'use client';
+
 import React, { useRef, useMemo } from 'react';
-import ReactQuill from 'react-quill';
+import dynamic from 'next/dynamic';
 import 'react-quill/dist/quill.snow.css';
 
 import { supabase } from '../lib/supabaseClient';
+
+// react-quill은 브라우저 전용(document 접근)이라 SSR을 비활성화한 dynamic import 사용
+// dynamic()은 ref를 전달하지 못하므로 forwardedRef prop으로 우회한다
+const ReactQuill = dynamic(
+    async () => {
+        const { default: RQ } = await import('react-quill');
+        const QuillWithRef = ({ forwardedRef, ...props }: any) => <RQ ref={forwardedRef} {...props} />;
+        return QuillWithRef;
+    },
+    { ssr: false }
+);
 
 interface RichTextEditorProps {
     value: string;
@@ -135,7 +148,7 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
     return (
         <div className="rich-text-editor" style={{ minHeight: '350px' }}>
             <QuillWrapper
-                ref={(el: any) => { quillRef.current = el; }}
+                forwardedRef={(el: any) => { quillRef.current = el; }}
                 theme="snow"
                 value={value}
                 onChange={handleChange}

@@ -1,0 +1,55 @@
+{
+  "_comment": "구 사이트(sllaw.co.kr, 그누보드) → 새 사이트 301 리디렉션 매핑 (지침 13단계). middleware.ts가 이 파일을 읽는다. posts에 개별 글 매핑(wr_id → 새 URL)을 추가하면 postDefault보다 우선 적용된다. 개별 글 매핑은 14단계 콘텐츠 이관 확정 후 채운다.",
+  "boards": {
+    "notice": {
+      "_label": "법률정보 (68건)",
+      "list": "/insights",
+      "postDefault": "/insights",
+      "posts": {}
+    },
+    "notice2": {
+      "_label": "성공사례 (63건)",
+      "list": "/cases",
+      "postDefault": "/cases",
+      "posts": {}
+    },
+    "sub2_3": {
+      "_label": "언론보도 (15건) — 새 사이트에 대응 페이지 없음, 법인 소개로",
+      "list": "/about",
+      "postDefault": "/about",
+      "posts": {}
+    },
+    "sub3_1": {
+      "_label": "상담 게시판 (219건) — 온라인 상담으로",
+      "list": "/consultation",
+      "postDefault": "/consultation",
+      "posts": {}
+    },
+    "partner": {
+      "_label": "고객사 (0건)",
+      "list": "/about",
+      "postDefault": "/about",
+      "posts": {}
+    }
+  },
+  "static": {
+    "/sub1_1.php": "/practice/criminal-defense",
+    "/sub1_2.php": "/practice/civil-litigation",
+    "/sub1_3.php": "/practice",
+    "/sub1_4.php": "/practice/divorce-inheritance",
+    "/sub1_5.php": "/practice",
+    "/sub2_1.php": "/about",
+    "/sub2_2.php": "/attorneys/choi-cheolho",
+    "/sub_map.php": "/locations/pyeongtaek"
+  },
+  "_staticNotes": {
+    "/sub1_1.php": "형사",
+    "/sub1_2.php": "민사일반",
+    "/sub1_3.php": "건설부동산 — 부동산/건설 두 페이지에 걸쳐 있어 업무분야 허브로",
+    "/sub1_4.php": "이혼상속",
+    "/sub1_5.php": "법인회생 — 새 사이트 미취급 분야, 업무분야 허브로",
+    "/sub2_1.php": "법무법인 소개",
+    "/sub2_2.php": "구성원 소개",
+    "/sub_map.php": "찾아오시는 길"
+  }
+}

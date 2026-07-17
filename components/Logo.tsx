@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface LogoProps {
   className?: string;
@@ -9,9 +10,11 @@ export const Logo: React.FC<LogoProps> = ({ className = "h-10 w-10", textClassNa
   return (
     <div className="flex items-center gap-3">
       <div className={`${className} relative`}>
-        <img
+        <Image
           src="/images/logo.png"
           alt="법무법인 명 로고"
+          width={96}
+          height={93}
           className="w-full h-full object-contain drop-shadow-sm"
         />
       </div>

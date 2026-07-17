@@ -1,37 +1,22 @@
 import React from 'react';
-import { useData } from '../contexts/DataContext';
-import { useNavigation } from '../contexts/NavigationContext';
+import Link from 'next/link';
 import { ArrowLeft, Trophy, FileText, AlertCircle } from 'lucide-react';
+import { SuccessCase } from '../types';
 
-export const SuccessDetail: React.FC = () => {
-    const { successCases } = useData();
-    const { detailId, navigateTo } = useNavigation();
+interface SuccessDetailProps {
+    caseItem: SuccessCase;
+}
 
-    const caseItem = successCases.find(c => c.id === detailId);
-
-    if (!caseItem) {
-        return (
-            <div className="min-h-[50vh] flex flex-col items-center justify-center">
-                <p className="text-gray-500 mb-4">성공사례 정보를 찾을 수 없습니다.</p>
-                <button
-                    onClick={() => navigateTo('success')}
-                    className="text-brand-gold font-bold hover:underline"
-                >
-                    목록으로 돌아가기
-                </button>
-            </div>
-        );
-    }
-
+export const SuccessDetail: React.FC<SuccessDetailProps> = ({ caseItem }) => {
     return (
         <section className="py-20 bg-white min-h-screen">
             <div className="container mx-auto px-6 md:px-12">
-                <button
-                    onClick={() => navigateTo('success')}
-                    className="flex items-center text-sm text-gray-500 hover:text-brand-dark mb-8 transition-colors group"
+                <Link
+                    href="/cases"
+                    className="inline-flex items-center text-sm text-gray-500 hover:text-brand-dark mb-8 transition-colors group"
                 >
                     <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" /> 목록으로
-                </button>
+                </Link>
 
                 <div className="grid lg:grid-cols-2 gap-12">
                     {/* Left: Case Information */}
@@ -51,7 +36,7 @@ export const SuccessDetail: React.FC = () => {
                         </header>
 
                         <article className="prose prose-lg max-w-none text-gray-600 mb-8">
-                            <h3 className="text-xl font-bold text-brand-dark mb-4">사건 개요 및 결과</h3>
+                            <h2 className="text-xl font-bold text-brand-dark mb-4">사건 개요 및 결과</h2>
                             <div className="prose prose-lg max-w-none leading-relaxed bg-gray-50 p-6 rounded-sm border-l-4 border-brand-dark" dangerouslySetInnerHTML={{ __html: caseItem.description || '' }} />
                         </article>
 

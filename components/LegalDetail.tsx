@@ -1,37 +1,23 @@
 import React from 'react';
-import { useData } from '../contexts/DataContext';
-import { useNavigation } from '../contexts/NavigationContext';
+import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowLeft, Calendar, Tag } from 'lucide-react';
+import { LegalPost } from '../types';
 
-export const LegalDetail: React.FC = () => {
-    const { legalPosts } = useData();
-    const { detailId, navigateTo } = useNavigation();
+interface LegalDetailProps {
+    post: LegalPost;
+}
 
-    const post = legalPosts.find(p => p.id === detailId);
-
-    if (!post) {
-        return (
-            <div className="min-h-[50vh] flex flex-col items-center justify-center">
-                <p className="text-gray-500 mb-4">게시글을 찾을 수 없습니다.</p>
-                <button
-                    onClick={() => navigateTo('legal')}
-                    className="text-brand-gold font-bold hover:underline"
-                >
-                    목록으로 돌아가기
-                </button>
-            </div>
-        );
-    }
-
+export const LegalDetail: React.FC<LegalDetailProps> = ({ post }) => {
     return (
         <section className="py-20 bg-white">
             <div className="container mx-auto px-6 md:px-12 max-w-4xl">
-                <button
-                    onClick={() => navigateTo('legal')}
-                    className="flex items-center text-sm text-gray-500 hover:text-brand-dark mb-8 transition-colors group"
+                <Link
+                    href="/insights"
+                    className="inline-flex items-center text-sm text-gray-500 hover:text-brand-dark mb-8 transition-colors group"
                 >
                     <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" /> 목록으로
-                </button>
+                </Link>
 
                 <header className="mb-12 border-b border-gray-100 pb-8">
                     <div className="flex items-center gap-4 mb-4 text-xs font-medium text-gray-500">
@@ -49,12 +35,12 @@ export const LegalDetail: React.FC = () => {
 
                 {(!post.imageUrls || post.imageUrls.length === 0) && (
                     <div className="relative h-48 md:h-60 mb-10 overflow-hidden rounded-sm">
-                        <img
+                        <Image
                             src="/assets/brand/desk-still.webp"
                             alt="변호사 책상 위의 책과 만년필"
-                            loading="lazy"
-                            decoding="async"
-                            className="absolute inset-0 w-full h-full object-cover"
+                            fill
+                            sizes="(max-width: 1024px) 100vw, 896px"
+                            className="object-cover"
                         />
                     </div>
                 )}
@@ -65,21 +51,21 @@ export const LegalDetail: React.FC = () => {
 
                 <p className="mt-12 text-gray-600 break-keep">
                     이 글에서 다 답이 되지 않은 부분은 편하게 물어보셔도 됩니다.{' '}
-                    <button
-                        onClick={() => navigateTo('consultation')}
+                    <Link
+                        href="/consultation"
                         className="text-brand-gold underline underline-offset-4 hover:text-brand-dark transition-colors"
                     >
                         상담 문의하기
-                    </button>
+                    </Link>
                 </p>
 
                 <div className="mt-16 pt-8 border-t border-gray-100 flex justify-center">
-                    <button
-                        onClick={() => navigateTo('legal')}
+                    <Link
+                        href="/insights"
                         className="px-8 py-3 bg-brand-dark text-white font-bold rounded-sm hover:bg-gray-800 transition-colors"
                     >
                         목록으로
-                    </button>
+                    </Link>
                 </div>
             </div>
         </section>

@@ -1,37 +1,22 @@
 import React from 'react';
-import { useData } from '../contexts/DataContext';
-import { useNavigation } from '../contexts/NavigationContext';
-import { ArrowLeft, Scale, FileDigit, Tag } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowLeft, Scale, FileDigit } from 'lucide-react';
+import { LegalCase } from '../types';
 
-export const CaseDetail: React.FC = () => {
-    const { legalCases } = useData();
-    const { detailId, navigateTo } = useNavigation();
+interface CaseDetailProps {
+    caseItem: LegalCase;
+}
 
-    const caseItem = legalCases.find(c => c.id === detailId);
-
-    if (!caseItem) {
-        return (
-            <div className="min-h-[50vh] flex flex-col items-center justify-center">
-                <p className="text-gray-500 mb-4">판례 정보를 찾을 수 없습니다.</p>
-                <button
-                    onClick={() => navigateTo('legal-cases')}
-                    className="text-brand-gold font-bold hover:underline"
-                >
-                    목록으로 돌아가기
-                </button>
-            </div>
-        );
-    }
-
+export const CaseDetail: React.FC<CaseDetailProps> = ({ caseItem }) => {
     return (
         <section className="py-20 bg-white">
             <div className="container mx-auto px-6 md:px-12 max-w-4xl">
-                <button
-                    onClick={() => navigateTo('legal-cases')}
-                    className="flex items-center text-sm text-gray-500 hover:text-brand-dark mb-8 transition-colors group"
+                <Link
+                    href="/legal-cases"
+                    className="inline-flex items-center text-sm text-gray-500 hover:text-brand-dark mb-8 transition-colors group"
                 >
                     <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" /> 목록으로
-                </button>
+                </Link>
 
                 <header className="mb-12 bg-gray-50 p-8 rounded-sm border-l-4 border-brand-gold">
                     <div className="flex flex-wrap gap-2 mb-4">
@@ -61,12 +46,12 @@ export const CaseDetail: React.FC = () => {
                 </article>
 
                 <div className="mt-16 pt-8 border-t border-gray-100 flex justify-center">
-                    <button
-                        onClick={() => navigateTo('legal-cases')}
+                    <Link
+                        href="/legal-cases"
                         className="px-8 py-3 bg-brand-dark text-white font-bold rounded-sm hover:bg-gray-800 transition-colors"
                     >
                         목록으로
-                    </button>
+                    </Link>
                 </div>
             </div>
         </section>

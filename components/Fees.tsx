@@ -19,7 +19,7 @@ export const Fees: React.FC = () => {
     <section className="py-20 md:py-32 bg-white">
       <div className="container mx-auto px-6 md:px-12 max-w-4xl">
         <div className="mb-12">
-          <h2 className="text-3xl font-serif font-bold text-brand-dark mb-4">수임료 안내</h2>
+          <h1 className="text-3xl font-serif font-bold text-brand-dark mb-4">수임료 안내</h1>
           <div className="w-16 h-1 bg-brand-gold"></div>
         </div>
 

@@ -1,18 +1,15 @@
 import React from 'react';
+import Link from 'next/link';
 import { Trophy, ArrowUpRight, ArrowRight, FileCheck } from 'lucide-react';
-import { useData } from '../contexts/DataContext';
-import { useNavigation } from '../contexts/NavigationContext';
-import { SkeletonCard } from './ui';
+import { SuccessCase } from '../types';
 
 interface SuccessCasesProps {
+  cases: SuccessCase[];
   limit?: number;
 }
 
-export const SuccessCases: React.FC<SuccessCasesProps> = ({ limit }) => {
-  const { successCases, loading } = useData();
-  const { navigateTo } = useNavigation();
-
-  const displayCases = limit ? successCases.slice(0, limit) : successCases;
+export const SuccessCases: React.FC<SuccessCasesProps> = ({ cases, limit }) => {
+  const displayCases = limit ? cases.slice(0, limit) : cases;
 
   return (
     <section id="success" className="py-20 bg-white">
@@ -23,14 +20,11 @@ export const SuccessCases: React.FC<SuccessCasesProps> = ({ limit }) => {
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {loading ? (
-            // Skeleton loading state
-            [1, 2, 3].map((i) => <SkeletonCard key={i} />)
-          ) : displayCases.map((item) => (
-            <div
+          {displayCases.map((item) => (
+            <Link
               key={item.id}
-              onClick={() => navigateTo('success-detail', item.id)}
-              className="border border-gray-100 p-8 rounded-sm hover:shadow-lg transition-shadow duration-300 relative group overflow-hidden cursor-pointer"
+              href={`/cases/${item.id}`}
+              className="block border border-gray-100 p-8 rounded-sm hover:shadow-lg transition-shadow duration-300 relative group overflow-hidden cursor-pointer"
             >
               <div className="absolute top-0 left-0 w-1 h-full bg-brand-gold transform -translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
               <div className="mb-4 flex justify-between items-start">
@@ -42,7 +36,7 @@ export const SuccessCases: React.FC<SuccessCasesProps> = ({ limit }) => {
               <h3 className="text-xl font-bold text-brand-dark mb-4 group-hover:text-brand-gold transition-colors">{item.title}</h3>
               <div className="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-3 prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: item.description || '' }} />
               <div className="flex justify-between items-center">
-                <span className="inline-flex items-center text-sm font-semibold text-brand-dark hover:text-brand-gold transition-colors">
+                <span className="inline-flex items-center text-sm font-semibold text-brand-dark group-hover:text-brand-gold transition-colors">
                   자세히 보기 <ArrowUpRight size={16} className="ml-1" />
                 </span>
                 {item.judgmentUrl && (
@@ -51,18 +45,18 @@ export const SuccessCases: React.FC<SuccessCasesProps> = ({ limit }) => {
                   </span>
                 )}
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
         {limit && (
           <div className="mt-12 text-center">
-            <button
-              onClick={() => navigateTo('success')}
+            <Link
+              href="/cases"
               className="inline-flex items-center gap-2 px-8 py-3 border border-brand-dark text-brand-dark font-bold hover:bg-brand-dark hover:text-white transition-all duration-300 rounded-sm"
             >
               성공사례 더보기 <ArrowRight size={16} />
-            </button>
+            </Link>
           </div>
         )}
       </div>

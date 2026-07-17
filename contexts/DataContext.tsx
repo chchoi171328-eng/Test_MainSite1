@@ -1,3 +1,5 @@
+'use client';
+
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { SuccessCase, LegalPost, LegalForm, LegalCase } from '../types';
 import * as successCasesAPI from '../api/successCases';
