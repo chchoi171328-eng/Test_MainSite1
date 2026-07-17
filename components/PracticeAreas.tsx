@@ -1,59 +1,106 @@
 import React from 'react';
-import Link from 'next/link';
-import { Gavel, Building2, Users, Briefcase, Home, Shield, ChevronRight } from 'lucide-react';
+import { Gavel, Building2, Users, Briefcase, Home, Shield } from 'lucide-react';
 import { PracticeArea } from '../types';
-import { PRACTICE_AREA_DEFINITIONS } from '../data/practice-areas';
+
+/**
+ * 세부 키워드 (2차 개정판 작업 4-2·4-3)
+ * - 현재는 링크가 아니다. 추후 <a> 전환은 KeywordList 한 곳만 수정하면 된다.
+ * - data-slug는 data/practice-areas.ts의 라우트 slug와 통일한다.
+ *   해당 라우트는 검수 콘텐츠(reviewedBy) 등록 전까지 noindex 상태다.
+ */
+interface AreaWithKeywords extends PracticeArea {
+  keywords?: { label: string; slug?: string }[];
+}
 
 // TODO: 실제 수임 분포에 따라 최종 확정
-const PRIMARY_AREAS: PracticeArea[] = [
+const PRIMARY_AREAS: AreaWithKeywords[] = [
   {
     id: '1',
     title: '형사 변호',
-    description: '수사 초기 단계부터 공판까지, 축적된 노하우로 최선의 방어 전략을 수립합니다.',
-    icon: Shield
+    description: '수사 초기 단계부터 공판까지 방어 전략을 수립합니다.',
+    icon: Shield,
+    keywords: [
+      { label: '음주·교통', slug: 'criminal-defense' },
+      { label: '폭력·상해', slug: 'criminal-defense' },
+      { label: '사기·재산범죄', slug: 'criminal-defense' },
+    ],
   },
   {
     id: '2',
     title: '민사 소송',
-    description: '부동산, 손해배상, 계약 분쟁 등 다양한 민사 사건에서 의뢰인의 재산권을 보호합니다.',
-    icon: Gavel
+    description: '계약 분쟁과 재산권 침해에 대응합니다.',
+    icon: Gavel,
+    keywords: [
+      { label: '대여금·채권 회수', slug: 'debt-collection' },
+      { label: '손해배상', slug: 'civil-litigation' },
+      { label: '계약 분쟁', slug: 'civil-litigation' },
+    ],
   },
   {
     id: '3',
     title: '가사(이혼·상속)',
-    description: '이혼, 재산분할, 상속 분쟁 등 예민한 가족 문제를 섬세하고 현명하게 해결합니다.',
-    icon: Users
+    description: '가족 문제를 신중하게 다룹니다.',
+    icon: Users,
+    keywords: [
+      { label: '이혼·재산분할', slug: 'divorce-inheritance' },
+      { label: '양육권', slug: 'divorce-inheritance' },
+      { label: '상속 분쟁', slug: 'divorce-inheritance' },
+    ],
   },
 ];
 
-const SECONDARY_AREAS: PracticeArea[] = [
+const SECONDARY_AREAS: AreaWithKeywords[] = [
   {
     id: '4',
     title: '부동산·건설',
-    description: '부동산 매매·임대차 분쟁과 건설 관련 분쟁을 다룹니다.',
-    icon: Home
+    description: '부동산과 공사 관련 분쟁을 다룹니다.',
+    icon: Home,
+    keywords: [
+      { label: '매매·임대차', slug: 'real-estate-litigation' },
+      { label: '공사대금', slug: 'construction-payment' },
+      { label: '하자·건설 분쟁', slug: 'construction-disputes' },
+    ],
   },
   {
     id: '5',
     title: '기업 법무',
-    description: 'M&A, 기업 지배구조, 컴플라이언스 등 기업 운영 전반에 걸친 법률 자문을 제공합니다. 지식재산권, 인사·노동 자문을 포함합니다.',
-    icon: Building2
+    description: '기업 운영에 필요한 법률 자문과 분쟁 대응을 제공합니다.',
+    icon: Building2,
+    keywords: [
+      { label: '계약서 검토·자문', slug: 'corporate-law' },
+      { label: '기업 분쟁 대응', slug: 'corporate-law' },
+      { label: '인사·노동', slug: 'corporate-law' },
+    ],
   },
   {
     id: '6',
     title: '기타',
     description: '위 분야에 속하지 않는 사건은 상담에서 내용을 듣고 진행 가능 여부를 먼저 말씀드립니다.',
-    icon: Briefcase
+    icon: Briefcase,
   },
 ];
+
+/** 세부 키워드 목록 — 링크 아님, 추후 <a> 전환 대비 개별 요소 마크업 (작업 4-3) */
+function KeywordList({ keywords, className = '' }: { keywords: { label: string; slug?: string }[]; className?: string }) {
+  return (
+    <p className={`text-xs text-gray-400 break-keep ${className}`}>
+      {keywords.map((k, i) => (
+        <React.Fragment key={k.label}>
+          {i > 0 && <span aria-hidden="true"> / </span>}
+          <span data-slug={k.slug}>{k.label}</span>
+        </React.Fragment>
+      ))}
+    </p>
+  );
+}
 
 export const PracticeAreas: React.FC = () => {
   return (
     <section id="practice" className="py-20 bg-brand-light">
       <div className="container mx-auto px-6 md:px-12">
         <div className="text-center mb-16">
-          <span className="text-brand-gold font-bold tracking-widest uppercase text-sm mb-2 block">Practice Areas</span>
           <h1 className="text-4xl font-serif font-bold text-brand-dark">업무 분야</h1>
+          <p className="mt-4 text-gray-500 break-keep">승산 없는 소송은 권하지 않습니다.</p>
         </div>
 
         {/* 주력 분야 */}
@@ -66,18 +113,19 @@ export const PracticeAreas: React.FC = () => {
               <div className="w-16 h-16 bg-brand-light rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-gold transition-colors duration-300">
                 <area.icon className="text-brand-dark group-hover:text-white transition-colors duration-300" size={32} />
               </div>
-              <h3 className="text-2xl lg:text-3xl font-serif font-bold text-brand-dark mb-4 group-hover:text-brand-gold transition-colors break-keep">
+              <h2 className="text-2xl lg:text-3xl font-serif font-bold text-brand-dark mb-4 group-hover:text-brand-gold transition-colors break-keep">
                 {area.title}
-              </h3>
+              </h2>
               <p className="text-gray-500 leading-relaxed break-keep">
                 {area.description}
               </p>
+              {area.keywords && <KeywordList keywords={area.keywords} className="mt-4 pt-4 border-t border-gray-100" />}
             </div>
           ))}
         </div>
 
         {/* 그 외 분야 */}
-        <div className="grid md:grid-cols-3 gap-6 mb-16">
+        <div className="grid md:grid-cols-3 gap-6">
           {SECONDARY_AREAS.map((area) => (
             <div
               key={area.id}
@@ -87,34 +135,16 @@ export const PracticeAreas: React.FC = () => {
                 <div className="w-10 h-10 bg-brand-light rounded-full flex items-center justify-center group-hover:bg-brand-gold transition-colors duration-300 shrink-0">
                   <area.icon className="text-brand-dark group-hover:text-white transition-colors duration-300" size={20} />
                 </div>
-                <h3 className="text-lg font-serif font-bold text-brand-dark group-hover:text-brand-gold transition-colors break-keep">
+                <h2 className="text-lg font-serif font-bold text-brand-dark group-hover:text-brand-gold transition-colors break-keep">
                   {area.title}
-                </h3>
+                </h2>
               </div>
               <p className="text-sm text-gray-500 leading-relaxed break-keep">
                 {area.description}
               </p>
+              {area.keywords && <KeywordList keywords={area.keywords} className="mt-3 pt-3 border-t border-gray-100" />}
             </div>
           ))}
-        </div>
-
-        {/* 세부 분야 상세 안내 */}
-        <div className="max-w-4xl mx-auto">
-          <h3 className="text-xl font-serif font-bold text-brand-dark mb-6 text-center">세부 분야 안내</h3>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {PRACTICE_AREA_DEFINITIONS.map((area) => (
-              <Link
-                key={area.slug}
-                href={`/practice/${area.slug}`}
-                className="flex items-center justify-between px-5 py-4 bg-white rounded-sm border border-gray-100 hover:border-brand-gold/40 hover:shadow-sm transition-all group"
-              >
-                <span className="text-brand-dark font-medium group-hover:text-brand-gold transition-colors break-keep">
-                  {area.title}
-                </span>
-                <ChevronRight size={16} className="text-gray-300 group-hover:text-brand-gold transition-colors shrink-0" />
-              </Link>
-            ))}
-          </div>
         </div>
       </div>
     </section>

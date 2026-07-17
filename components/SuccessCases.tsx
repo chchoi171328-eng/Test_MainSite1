@@ -6,17 +6,22 @@ import { SuccessCase } from '../types';
 interface SuccessCasesProps {
   cases: SuccessCase[];
   limit?: number;
+  /** 성공사례 전용 페이지에서 true — 보이는 제목이 h1이 되고 축 메시지가 표시된다 */
+  pageHeading?: boolean;
 }
 
-export const SuccessCases: React.FC<SuccessCasesProps> = ({ cases, limit }) => {
+export const SuccessCases: React.FC<SuccessCasesProps> = ({ cases, limit, pageHeading }) => {
   const displayCases = limit ? cases.slice(0, limit) : cases;
+  const TitleTag = pageHeading ? 'h1' : 'h2';
 
   return (
     <section id="success" className="py-20 bg-white">
       <div className="container mx-auto px-6 md:px-12">
         <div className="text-center mb-16">
-          <span className="text-brand-gold font-bold tracking-widest uppercase text-sm mb-2 block">Success Stories</span>
-          <h2 className="text-4xl font-serif font-bold text-brand-dark">성공사례</h2>
+          <TitleTag className="text-4xl font-serif font-bold text-brand-dark">성공사례</TitleTag>
+          {pageHeading && (
+            <p className="mt-4 text-gray-500 break-keep">결과는 판결문으로 보여드립니다.</p>
+          )}
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">

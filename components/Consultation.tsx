@@ -108,6 +108,44 @@ export const Consultation: React.FC = () => {
   const inputClass =
     'w-full px-4 py-3 bg-gray-50 border border-gray-200 focus:border-brand-gold focus:ring-1 focus:ring-brand-gold outline-none transition-colors text-brand-dark placeholder-gray-400 disabled:bg-gray-100 disabled:text-gray-400';
 
+  // 제출 완료 화면 — 폼을 대체한다. 추가 CTA·축하 연출·자동 리다이렉트 없음.
+  if (submitStatus === 'sent') {
+    return (
+      <section className="py-20 md:py-32 bg-white flex justify-center items-center min-h-[80vh]">
+        <div className="container mx-auto px-6 md:px-12 max-w-3xl">
+          <div className="relative h-56 md:h-72 mb-12 overflow-hidden rounded-sm">
+            <Image
+              src="/assets/brand/tea-window.webp"
+              alt="창가에 놓인 차 한 잔"
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 768px"
+              className="object-cover"
+            />
+          </div>
+
+          <div role="status" aria-live="polite">
+            <p className="text-xl md:text-2xl font-serif text-brand-dark leading-relaxed break-keep mb-4">
+              접수되었습니다. 영업일 기준 24시간 내에 연락드립니다.
+            </p>
+            <p className="text-gray-600 leading-relaxed break-keep">
+              그 전에 준비하실 것은 없습니다. 통화에서 있는 그대로 말씀해주시면 됩니다.
+            </p>
+          </div>
+
+          <div className="mt-12">
+            <Link
+              href="/"
+              className="inline-block px-8 py-4 bg-brand-dark text-white font-bold rounded-sm hover:bg-gray-800 transition-colors"
+            >
+              홈으로
+            </Link>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-20 md:py-32 bg-white flex justify-center items-center min-h-[80vh]">
       <div className="container mx-auto px-6 md:px-12 max-w-4xl">
@@ -310,12 +348,6 @@ export const Consultation: React.FC = () => {
               </details>
             </div>
 
-            {submitStatus === 'sent' && (
-              <div className="border border-brand-gold/40 bg-brand-light p-5 rounded-sm text-sm text-brand-dark leading-relaxed break-keep" role="status" aria-live="polite">
-                상담 신청이 접수되었습니다. 담당 변호사가 내용 확인 후 기재해주신 연락처로 연락드리겠습니다.
-                접수만으로 위임계약이 성립하는 것은 아닙니다.
-              </div>
-            )}
             {submitStatus === 'error' && (
               <div className="border border-red-200 bg-red-50 p-5 rounded-sm text-sm text-red-700 leading-relaxed break-keep" role="alert" aria-live="assertive">
                 {errorMessage}

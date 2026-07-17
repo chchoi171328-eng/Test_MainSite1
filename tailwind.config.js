@@ -19,7 +19,7 @@ export default {
         },
       },
       fontFamily: {
-        serif: ['"Playfair Display"', 'serif'],
+        serif: ['"Playfair Display"', '"Noto Serif KR"', 'serif'],
         sans: ['"Noto Sans KR"', 'sans-serif'],
       },
       keyframes: {

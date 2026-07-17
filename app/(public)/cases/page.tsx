@@ -15,8 +15,7 @@ export default async function CasesPage() {
 
   return (
     <div className="pt-20">
-      <h1 className="sr-only">성공사례 - 법무법인 명</h1>
-      <SuccessCases cases={cases} />
+      <SuccessCases cases={cases} pageHeading />
     </div>
   );
 }

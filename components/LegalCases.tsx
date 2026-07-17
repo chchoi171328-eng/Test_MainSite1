@@ -6,17 +6,19 @@ import { LegalCase } from '../types';
 interface LegalCasesProps {
   cases: LegalCase[];
   limit?: number;
+  /** 주요 판례 전용 페이지에서 true — 보이는 제목이 h1이 된다 */
+  pageHeading?: boolean;
 }
 
-export const LegalCases: React.FC<LegalCasesProps> = ({ cases, limit }) => {
+export const LegalCases: React.FC<LegalCasesProps> = ({ cases, limit, pageHeading }) => {
   const displayCases = limit ? cases.slice(0, limit) : cases;
+  const TitleTag = pageHeading ? 'h1' : 'h2';
 
   return (
     <section id="legal-cases" className="py-20 bg-white">
       <div className="container mx-auto px-6 md:px-12">
         <div className="text-center mb-16">
-          <span className="text-brand-gold font-bold tracking-widest uppercase text-sm mb-2 block">Major Precedents</span>
-          <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-dark">주요 판례</h2>
+          <TitleTag className="text-3xl md:text-4xl font-serif font-bold text-brand-dark">주요 판례</TitleTag>
           <p className="mt-4 text-gray-500 max-w-2xl mx-auto break-keep">
             법무법인 명이 주목하는 주요 대법원 판례와 법적 쟁점을 소개합니다.<br />
             판례의 변경은 곧 비즈니스와 생활의 변화를 의미합니다.

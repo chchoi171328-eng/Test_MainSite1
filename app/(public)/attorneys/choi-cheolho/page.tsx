@@ -87,7 +87,6 @@ export default async function AttorneyProfilePage() {
             </div>
 
             <div className="md:col-span-8">
-              <span className="text-brand-gold font-bold tracking-widest uppercase text-xs md:text-sm mb-3 block">Attorney Profile</span>
               <h1 className="text-3xl md:text-5xl font-serif font-bold text-brand-dark mb-2 break-keep">최철호 대표변호사</h1>
               <p className="text-gray-500 mb-8">법무법인 명(SOL &amp; LUNA) · 평택</p>
 

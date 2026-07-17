@@ -35,7 +35,6 @@ export const LegalForms: React.FC<LegalFormsProps> = ({ forms }) => {
     <section id="legal-forms" className="py-20 bg-gray-50">
       <div className="container mx-auto px-6 md:px-12">
         <div className="text-center mb-16">
-          <span className="text-brand-gold font-bold tracking-widest uppercase text-sm mb-2 block">Legal Forms</span>
           <h1 className="text-3xl md:text-4xl font-serif font-bold text-brand-dark">법률 서식</h1>
           <p className="mt-4 text-gray-500 max-w-2xl mx-auto break-keep">
             자주 사용되는 필수 법률 서식을 무료로 제공해 드립니다. <br/>

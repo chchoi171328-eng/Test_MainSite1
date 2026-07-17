@@ -11,7 +11,10 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <div className="pt-20">
-      <h1 className="sr-only">법인 소개 - 법무법인 명</h1>
+      <div className="container mx-auto px-6 md:px-12 pt-10 md:pt-14">
+        <h1 className="text-xl md:text-2xl font-serif font-bold text-brand-dark">법인 소개</h1>
+        <div className="w-12 h-1 bg-brand-gold mt-3"></div>
+      </div>
       <About />
     </div>
   );
