@@ -15,8 +15,7 @@ export default async function LegalCasesPage() {
 
   return (
     <div className="pt-20">
-      <h1 className="sr-only">주요 판례 - 법무법인 명</h1>
-      <LegalCases cases={cases} />
+      <LegalCases cases={cases} pageHeading />
     </div>
   );
 }

@@ -451,11 +451,9 @@ export const SmartTools: React.FC = () => {
     <section id="smart-tools" className="py-20 bg-gray-50">
       <div className="container mx-auto px-6 md:px-12">
         <div className="text-center mb-16">
-          <span className="text-brand-gold font-bold tracking-widest uppercase text-sm mb-2 block">Smart Legal Tools</span>
           <h1 className="text-3xl md:text-4xl font-serif font-bold text-brand-dark">스마트 법률 도구</h1>
           <p className="mt-4 text-gray-500 max-w-2xl mx-auto text-sm md:text-base break-keep">
-            복잡한 계산과 조회는 저희에게 맡기세요. <br/>
-            의뢰인을 위해 자주 사용되는 법률 계산 도구를 모았습니다.
+            직접 확인해보실 수 있도록 만들었습니다.
           </p>
         </div>
 

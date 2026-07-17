@@ -25,7 +25,6 @@ export const LegalInfo: React.FC<LegalInfoProps> = ({ posts }) => {
           />
           <div className="absolute inset-0 bg-black/30"></div>
           <div className="relative z-10 h-full flex flex-col justify-center px-8 md:px-12">
-            <span className="text-brand-gold font-bold tracking-widest uppercase text-sm mb-2 block">Legal Insights</span>
             <h1 className="text-3xl md:text-4xl font-serif font-bold text-white">최신 법률 정보</h1>
           </div>
         </div>

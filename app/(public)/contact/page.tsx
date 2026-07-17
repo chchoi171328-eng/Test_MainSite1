@@ -11,8 +11,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="pt-20">
-      <h1 className="sr-only">오시는 길 - 법무법인 명</h1>
-      <Contact />
+      <Contact pageHeading />
     </div>
   );
 }

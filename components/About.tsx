@@ -63,7 +63,6 @@ export const About: React.FC = () => {
           </div>
 
           <div>
-            <span className="text-brand-gold font-bold tracking-widest uppercase text-xs md:text-sm mb-2 block">Our Philosophy</span>
             <h2 className="text-2xl md:text-4xl font-serif font-bold text-brand-dark mb-6 md:mb-8 leading-snug break-keep">
               '이겨드립니다'라는 말은 쉽습니다.<br />
               대신 책임지기는 어렵습니다.
@@ -151,7 +150,6 @@ export const About: React.FC = () => {
 
           {/* Greeting Text */}
           <div className="md:col-span-8 lg:col-span-8 md:pl-8">
-            <span className="text-brand-gold font-bold tracking-widest uppercase text-xs md:text-sm mb-4 block">Representative Message</span>
             <h2 className="text-3xl md:text-4xl font-serif font-bold text-brand-dark mb-8 leading-snug break-keep">
               "의뢰인의 이익을 최우선으로,<br />
               끝까지 책임지는 변호사가 되겠습니다."
