@@ -15,7 +15,6 @@ const INITIAL_FORM = {
   phone: '',
   email: '',
   category: '형사 변호',
-  opponent: '',
   method: '방문 상담',
   availableTime: '무관',
   content: '',
@@ -137,7 +136,6 @@ export const Consultation: React.FC = () => {
           <div className="mb-10 border border-gray-200 bg-gray-50 p-5 rounded-sm text-sm text-gray-600 space-y-2 leading-relaxed break-keep">
             <p>· 초기 상담은 유료입니다. 상담료는 30분당 5만 원이며, 정확한 안내는 접수 후 연락드릴 때 함께 드립니다.</p>
             <p>· 상담 신청 접수만으로 위임계약이 성립하지 않습니다. 사건 수임은 상담 후 별도의 위임계약으로 진행됩니다.</p>
-            <p>· 상대방 정보는 이해충돌(쌍방 수임 금지) 확인을 위해 필요합니다.</p>
             <p className="flex items-start gap-2 text-red-700">
               <AlertTriangle size={16} className="mt-0.5 shrink-0" />
               <span>주민등록번호, 계좌 비밀번호 등 민감한 개인정보나 증거 원본 내용은 입력하지 마세요. 자세한 내용은 상담 시 안전하게 전달하실 수 있습니다.</span>
@@ -194,39 +192,20 @@ export const Consultation: React.FC = () => {
               </div>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <label htmlFor="consult-email" className="block text-sm font-medium text-gray-600 mb-2">이메일 <span className="text-red-500">*</span></label>
-                <input
-                  id="consult-email"
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  maxLength={100}
-                  disabled={isSubmitting}
-                  className={inputClass}
-                  placeholder="example@email.com"
-                />
-              </div>
-              <div>
-                <label htmlFor="consult-opponent" className="block text-sm font-medium text-gray-600 mb-2">
-                  상대방 이름 또는 법인명 <span className="text-red-500">*</span>
-                </label>
-                <input
-                  id="consult-opponent"
-                  type="text"
-                  name="opponent"
-                  value={formData.opponent}
-                  onChange={handleChange}
-                  required
-                  maxLength={50}
-                  disabled={isSubmitting}
-                  className={inputClass}
-                  placeholder="이해충돌 확인을 위해 필요합니다"
-                />
-              </div>
+            <div>
+              <label htmlFor="consult-email" className="block text-sm font-medium text-gray-600 mb-2">이메일 <span className="text-red-500">*</span></label>
+              <input
+                id="consult-email"
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                maxLength={100}
+                disabled={isSubmitting}
+                className={inputClass}
+                placeholder="example@email.com"
+              />
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
@@ -323,8 +302,8 @@ export const Consultation: React.FC = () => {
               <details className="mt-2 ml-7 text-xs text-gray-500">
                 <summary className="cursor-pointer hover:text-brand-dark transition-colors">수집·이용 내용 보기</summary>
                 <div className="mt-2 space-y-1 leading-relaxed">
-                  <p>· 수집 항목: 이름, 연락처, 이메일, 상대방 정보, 상담 내용</p>
-                  <p>· 수집 목적: 상담 신청 접수·회신 및 이해충돌 확인</p>
+                  <p>· 수집 항목: 이름, 연락처, 이메일, 상담 내용</p>
+                  <p>· 수집 목적: 상담 신청 접수 및 회신</p>
                   <p>· 보유 기간: 상담 처리 완료 후 지체 없이 파기 (관계 법령에 따른 보존 의무가 있는 경우 예외)</p>
                   <p>· 동의를 거부하실 수 있으나, 거부 시 온라인 상담 신청이 제한됩니다.</p>
                 </div>

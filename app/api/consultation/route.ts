@@ -61,7 +61,6 @@ const consultationSchema = z.object({
     .pipe(z.string().regex(/^0\d{1,2}-\d{3,4}-\d{4}$/, '연락처 형식이 올바르지 않습니다.')),
   email: z.string().transform(sanitize).pipe(z.string().email('이메일 형식이 올바르지 않습니다.').max(100)),
   category: z.enum(CATEGORIES),
-  opponent: z.string().transform(sanitize).pipe(z.string().min(1, '상대방 이름 또는 법인명을 입력해주세요.').max(50)),
   method: z.enum(METHODS),
   availableTime: z.enum(TIMES),
   content: z
@@ -145,7 +144,6 @@ export async function POST(request: NextRequest) {
       '',
       '--- 추가 정보 ---',
       `이메일: ${data.email}`,
-      `상대방(이해충돌 확인용): ${data.opponent}`,
       `희망 상담 방식: ${data.method}`,
       `연락 가능 시간: ${data.availableTime}`,
     ].join('\n');
