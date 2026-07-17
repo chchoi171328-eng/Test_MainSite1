@@ -1,6 +1,8 @@
 import React from 'react';
-import { Gavel, Building2, Users, Briefcase, Home, Shield } from 'lucide-react';
+import Link from 'next/link';
+import { Gavel, Building2, Users, Briefcase, Home, Shield, ChevronRight } from 'lucide-react';
 import { PracticeArea } from '../types';
+import { PRACTICE_AREA_DEFINITIONS } from '../data/practice-areas';
 
 // TODO: 실제 수임 분포에 따라 최종 확정
 const PRIMARY_AREAS: PracticeArea[] = [
@@ -51,7 +53,7 @@ export const PracticeAreas: React.FC = () => {
       <div className="container mx-auto px-6 md:px-12">
         <div className="text-center mb-16">
           <span className="text-brand-gold font-bold tracking-widest uppercase text-sm mb-2 block">Practice Areas</span>
-          <h2 className="text-4xl font-serif font-bold text-brand-dark">업무 분야</h2>
+          <h1 className="text-4xl font-serif font-bold text-brand-dark">업무 분야</h1>
         </div>
 
         {/* 주력 분야 */}
@@ -75,7 +77,7 @@ export const PracticeAreas: React.FC = () => {
         </div>
 
         {/* 그 외 분야 */}
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-6 mb-16">
           {SECONDARY_AREAS.map((area) => (
             <div
               key={area.id}
@@ -94,6 +96,25 @@ export const PracticeAreas: React.FC = () => {
               </p>
             </div>
           ))}
+        </div>
+
+        {/* 세부 분야 상세 안내 */}
+        <div className="max-w-4xl mx-auto">
+          <h3 className="text-xl font-serif font-bold text-brand-dark mb-6 text-center">세부 분야 안내</h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            {PRACTICE_AREA_DEFINITIONS.map((area) => (
+              <Link
+                key={area.slug}
+                href={`/practice/${area.slug}`}
+                className="flex items-center justify-between px-5 py-4 bg-white rounded-sm border border-gray-100 hover:border-brand-gold/40 hover:shadow-sm transition-all group"
+              >
+                <span className="text-brand-dark font-medium group-hover:text-brand-gold transition-colors break-keep">
+                  {area.title}
+                </span>
+                <ChevronRight size={16} className="text-gray-300 group-hover:text-brand-gold transition-colors shrink-0" />
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </section>

@@ -1,4 +1,8 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 import { Stat } from '../types';
 
 const STATS: Stat[] = [
@@ -46,12 +50,12 @@ export const About: React.FC = () => {
                   <source src="/assets/brand/hands-pen.mp4" type="video/mp4" />
                 </video>
               ) : (
-                <img
+                <Image
                   src="/assets/brand/hands-pen.webp"
                   alt="만년필을 들고 기록을 준비하는 변호사의 손"
-                  loading="lazy"
-                  decoding="async"
-                  className="absolute inset-0 w-full h-full object-cover"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
                 />
               )}
             </div>
@@ -96,9 +100,12 @@ export const About: React.FC = () => {
           {/* Image & Profile */}
           <div className="md:col-span-4 lg:col-span-4">
             <div className="relative mb-8 group">
-              <img
+              <Image
                 src="/images/attorney-choi.jpg"
                 alt="최철호 대표변호사"
+                width={663}
+                height={994}
+                sizes="(max-width: 768px) 100vw, 33vw"
                 className="w-full h-auto object-cover shadow-lg filter grayscale group-hover:grayscale-0 transition-all duration-500"
               />
               <div className="absolute bottom-0 left-0 bg-brand-dark text-white p-4 w-full">
@@ -132,6 +139,12 @@ export const About: React.FC = () => {
                 {/* TODO: 대한변호사협회 형사·민사 전문등록 표기 — 인증 번호/명칭 확인 후 삽입 */}
                 {/* 전문등록 확인 후 표기 문구: "형사·민사 이중 전문 인증을 받은 법인입니다. 두 영역이 얽힌 사건도 한 곳에서 처리됩니다." */}
                 {/* TODO: 평택경찰서 범죄피해자 상담 변호사 활동 표기 — 정확한 명칭 확인 후 삽입 */}
+                <Link
+                  href="/attorneys/choi-cheolho"
+                  className="inline-block mt-2 text-brand-gold font-bold hover:text-brand-dark transition-colors"
+                >
+                  변호사 프로필 전체 보기 &rarr;
+                </Link>
               </div>
             </div>
           </div>
@@ -169,6 +182,11 @@ export const About: React.FC = () => {
                 <p className="text-brand-dark font-medium leading-relaxed break-keep">
                   한 사건을 끝까지 책임지기 위해, 동시에 진행하는 사건 수를 의도적으로 제한합니다.<br />
                   상담부터 변론까지 같은 변호사가 담당합니다.
+                </p>
+                {/* 지역 정체성 명시 — 서울 서초 소재 동명 법인과의 구분 (지침 7단계 v2) */}
+                <p className="mt-4 text-sm text-gray-500 leading-relaxed break-keep">
+                  법무법인 명(SOL &amp; LUNA)은 경기도 평택시 소재 법무법인으로,
+                  평택·안성·오산·아산 지역의 사건을 상담합니다.
                 </p>
               </div>
             </div>

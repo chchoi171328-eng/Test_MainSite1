@@ -1,5 +1,6 @@
 import React from 'react';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { TrackedLink } from './TrackedLink';
 
 export const Contact: React.FC = () => {
   return (
@@ -22,7 +23,7 @@ export const Contact: React.FC = () => {
                   <MapPin size={24} />
                 </div>
                 <div>
-                  <h4 className="text-lg font-bold mb-1">Office</h4>
+                  <h3 className="text-lg font-bold mb-1">Office</h3>
                   <p className="text-gray-400 font-light group-hover:text-white transition-colors">
                     경기도 평택시 평남로 1029-1, <br />
                     SJ프라자 5층
@@ -35,8 +36,8 @@ export const Contact: React.FC = () => {
                   <Phone size={24} />
                 </div>
                 <div>
-                  <h4 className="text-lg font-bold mb-1">Phone</h4>
-                  <p className="text-gray-400 font-light group-hover:text-white transition-colors">031-658-6100</p>
+                  <h3 className="text-lg font-bold mb-1">Phone</h3>
+                  <TrackedLink href="tel:0316586100" event="phone_click" eventParams={{ location: 'contact' }} className="text-gray-400 font-light group-hover:text-white transition-colors">031-658-6100</TrackedLink>
                 </div>
               </div>
 
@@ -45,8 +46,8 @@ export const Contact: React.FC = () => {
                   <Mail size={24} />
                 </div>
                 <div>
-                  <h4 className="text-lg font-bold mb-1">Email</h4>
-                  <p className="text-gray-400 font-light group-hover:text-white transition-colors">sllaw@sllaw.co.kr</p>
+                  <h3 className="text-lg font-bold mb-1">Email</h3>
+                  <TrackedLink href="mailto:sllaw@sllaw.co.kr" event="email_click" eventParams={{ location: 'contact' }} className="text-gray-400 font-light group-hover:text-white transition-colors">sllaw@sllaw.co.kr</TrackedLink>
                 </div>
               </div>
               
@@ -55,7 +56,7 @@ export const Contact: React.FC = () => {
                   <Clock size={24} />
                 </div>
                 <div>
-                  <h4 className="text-lg font-bold mb-1">Hours</h4>
+                  <h3 className="text-lg font-bold mb-1">Hours</h3>
                   <p className="text-gray-400 font-light group-hover:text-white transition-colors">평일: 09:00 - 18:00</p>
                   <p className="text-gray-400 font-light group-hover:text-white transition-colors">주말/공휴일: 예약제 운영</p>
                 </div>

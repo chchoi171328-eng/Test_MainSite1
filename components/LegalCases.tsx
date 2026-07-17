@@ -1,18 +1,15 @@
 import React from 'react';
-import { Gavel, Scale, Quote, ArrowRight } from 'lucide-react';
-import { useData } from '../contexts/DataContext';
-import { useNavigation } from '../contexts/NavigationContext';
-import { SkeletonList } from './ui';
+import Link from 'next/link';
+import { Scale, Quote, ArrowRight } from 'lucide-react';
+import { LegalCase } from '../types';
 
 interface LegalCasesProps {
+  cases: LegalCase[];
   limit?: number;
 }
 
-export const LegalCases: React.FC<LegalCasesProps> = ({ limit }) => {
-  const { legalCases, loading } = useData();
-  const { navigateTo } = useNavigation();
-
-  const displayCases = limit ? legalCases.slice(0, limit) : legalCases;
+export const LegalCases: React.FC<LegalCasesProps> = ({ cases, limit }) => {
+  const displayCases = limit ? cases.slice(0, limit) : cases;
 
   return (
     <section id="legal-cases" className="py-20 bg-white">
@@ -27,13 +24,10 @@ export const LegalCases: React.FC<LegalCasesProps> = ({ limit }) => {
         </div>
 
         <div className="space-y-8 max-w-4xl mx-auto">
-          {loading ? (
-            // Skeleton loading state
-            [1, 2, 3].map((i) => <SkeletonList key={i} />)
-          ) : displayCases.map((item) => (
-            <div
+          {displayCases.map((item) => (
+            <Link
               key={item.id}
-              onClick={() => navigateTo('case-detail', item.id)}
+              href={`/legal-cases/${item.id}`}
               className="group flex flex-col md:flex-row gap-6 bg-white p-8 rounded-sm border-l-4 border-gray-200 hover:border-brand-gold shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer"
             >
               <div className="flex-shrink-0">
@@ -65,22 +59,22 @@ export const LegalCases: React.FC<LegalCasesProps> = ({ limit }) => {
                 </div>
               </div>
               <div className="flex-shrink-0 flex items-center">
-                <button className="text-sm font-bold text-gray-400 hover:text-brand-dark transition-colors whitespace-nowrap">
+                <span className="text-sm font-bold text-gray-400 group-hover:text-brand-dark transition-colors whitespace-nowrap">
                   내용 보기 &rarr;
-                </button>
+                </span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
 
         {limit && (
           <div className="mt-12 text-center">
-            <button
-              onClick={() => navigateTo('legal-cases')}
+            <Link
+              href="/legal-cases"
               className="inline-flex items-center gap-2 px-8 py-3 border border-brand-dark text-brand-dark font-bold hover:bg-brand-dark hover:text-white transition-all duration-300 rounded-sm"
             >
               판례 더보기 <ArrowRight size={16} />
-            </button>
+            </Link>
           </div>
         )}
       </div>

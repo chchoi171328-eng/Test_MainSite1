@@ -1,20 +1,20 @@
 import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
-import { useNavigation } from '../contexts/NavigationContext';
-import { Button } from './ui';
 
 export const Hero: React.FC = () => {
-  const { navigateTo } = useNavigation();
-
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
-        <img
+        <Image
           src="/assets/brand/hero-court-view.webp"
           alt="법무법인 명 사무실에서 바라본 평택지원 전경"
-          {...{ fetchpriority: 'high' }}
-          className="w-full h-full object-cover"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
         />
         <div className="absolute inset-0 bg-brand-dark/70"></div>
       </div>
@@ -34,30 +34,22 @@ export const Hero: React.FC = () => {
           </p>
 
           <div className="flex flex-col md:flex-row justify-center gap-4">
-            <Button
-              variant="ghost"
-              size="lg"
-              onClick={() => navigateTo('practice')}
-              className="group flex items-center justify-center gap-2"
+            <Link
+              href="/practice"
+              className="group flex items-center justify-center gap-2 font-bold transition-all duration-300 rounded-sm border border-white/30 text-white hover:bg-white hover:text-brand-dark px-8 py-4 text-lg"
             >
               <span>업무 분야 보기</span>
               <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-            </Button>
-            <Button
-              variant="primary"
-              size="lg"
-              onClick={() => navigateTo('contact')}
+            </Link>
+            <Link
+              href="/consultation"
+              className="flex items-center justify-center font-bold transition-all duration-300 rounded-sm bg-brand-gold text-white hover:bg-yellow-700 shadow-lg hover:shadow-xl hover:scale-105 px-8 py-4 text-lg"
             >
               30분이면 방향이 보입니다
-            </Button>
+            </Link>
           </div>
         </div>
       </div>
-
-      {/* Scroll Down Indicator - Hidden since scrolling doesn't navigate pages anymore, or could point to footer */}
-      {/* <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-white/50">
-        <span className="text-xs tracking-widest uppercase">Scroll</span>
-      </div> */}
     </section>
   );
 };

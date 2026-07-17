@@ -12,6 +12,12 @@ dist
 dist-ssr
 *.local
 
+# Next.js
+.next/
+out/
+next-env.d.ts
+tsconfig.tsbuildinfo
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -28,3 +34,7 @@ dist-ssr
 /public/Scene_A_photograph_taken_from_inside_a_quiet_prof-1783472498620.png
 /public/Scene_A_quiet_consultation_room_inside_a_Korean_l-1783472450404.png
 /public/litvideo_5890867.mp4
+/public/assets/brand/*.webp.png
+
+# Source images before WebP conversion (kept locally only)
+/assets-src/
