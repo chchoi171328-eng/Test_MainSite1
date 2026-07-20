@@ -12,11 +12,12 @@ export const metadata: Metadata = {
 export default function AboutPage() {
   return (
     <>
-      {/* 이미지 준비 시: imageSrc="/assets/brand/office-light.webp" imageAlt="법무법인 명 사무 공간" */}
       <PageHeader
         label="About Us"
         title="법인 소개"
         subtitle="먼저 듣고, 솔직하게 말씀드립니다."
+        imageSrc="/assets/brand/office-light.webp"
+        imageAlt="창가에 빛이 드는 변호사 사무실 책상"
       />
       <About />
     </>

@@ -16,8 +16,13 @@ export default async function LegalCasesPage() {
 
   return (
     <>
-      {/* 이미지 준비 시: imageSrc="/assets/brand/book-stack.webp" imageAlt="법전과 판례집" */}
-      <PageHeader label="Major Precedents" title="주요 판례" />
+      <PageHeader
+        label="Major Precedents"
+        title="주요 판례"
+        subtitle="법무법인 명이 주목하는 주요 대법원 판례와 법적 쟁점을 소개합니다. 판례의 변경은 곧 비즈니스와 생활의 변화를 의미합니다."
+        imageSrc="/assets/brand/book-stack.webp"
+        imageAlt="책상 위에 쌓인 법률 서적"
+      />
       <LegalCases cases={cases} hideHeadingTitle />
     </>
   );

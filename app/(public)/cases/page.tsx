@@ -16,11 +16,12 @@ export default async function CasesPage() {
 
   return (
     <>
-      {/* 이미지 준비 시: imageSrc="/assets/brand/case-records.webp" imageAlt="판결문 기록" */}
       <PageHeader
         label="Success Stories"
         title="성공사례"
         subtitle="결과는 판결문으로 보여드립니다."
+        imageSrc="/assets/brand/case-records.webp"
+        imageAlt="끈으로 묶인 사건 서류 묶음"
       />
       <SuccessCases cases={cases} hideHeading />
     </>

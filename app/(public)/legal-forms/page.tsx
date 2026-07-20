@@ -16,8 +16,13 @@ export default async function LegalFormsPage() {
 
   return (
     <>
-      {/* 이미지 준비 시: imageSrc="/assets/brand/doc-folder.webp" imageAlt="법률 서식 문서철" */}
-      <PageHeader label="Legal Forms" title="법률 서식" />
+      <PageHeader
+        label="Legal Forms"
+        title="법률 서식"
+        subtitle="자주 사용되는 필수 법률 서식을 무료로 제공해 드립니다. 다운로드하여 상황에 맞게 수정해 사용하세요."
+        imageSrc="/assets/brand/doc-folder.webp"
+        imageAlt="만년필이 놓인 서류 폴더"
+      />
       <LegalForms forms={forms} />
     </>
   );
