@@ -35,6 +35,24 @@ export async function getAllLegalPosts(): Promise<LegalPost[]> {
 }
 
 /**
+ * 목록 카드용 경량 조회 — 본문(content)을 제외해 페이지 직렬화 용량을 줄인다.
+ * (87건 × 본문 수 KB를 통째로 내려보내면 목록 페이지 프리렌더가 실패한다)
+ */
+export async function getLegalPostList(): Promise<LegalPost[]> {
+    const { data, error } = await supabase
+        .from('legal_posts')
+        .select('id, title, list_title, category, date, summary, image_urls')
+        .order('created_at', { ascending: false });
+
+    if (error) {
+        console.error('Error fetching legal post list:', error);
+        throw error;
+    }
+
+    return (data || []).map((row) => mapDBToLegalPost({ ...row, content: '' }));
+}
+
+/**
  * 특정 법률정보 조회
  */
 export async function getLegalPostById(id: number): Promise<LegalPost | null> {
