@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { PageHeader } from '../../../components/PageHeader';
 import { SuccessCases } from '../../../components/SuccessCases';
@@ -23,7 +24,9 @@ export default async function CasesPage() {
         imageSrc="/assets/brand/case-records.webp"
         imageAlt="끈으로 묶인 사건 서류 묶음"
       />
-      <SuccessCases cases={cases} hideHeading />
+      <Suspense>
+        <SuccessCases cases={cases} hideHeading showFilter />
+      </Suspense>
     </>
   );
 }

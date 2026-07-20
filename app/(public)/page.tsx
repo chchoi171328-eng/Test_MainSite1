@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import React from 'react';
+import React, { Suspense } from 'react';
 import { Hero } from '../../components/Hero';
 import { About } from '../../components/About';
 import { SuccessCases } from '../../components/SuccessCases';
@@ -31,7 +31,9 @@ export default async function HomePage() {
     <>
       <Hero />
       <About />
-      <SuccessCases cases={successCases} limit={3} />
+      <Suspense>
+        <SuccessCases cases={successCases} limit={3} />
+      </Suspense>
       <LegalCases cases={legalCases} limit={3} />
       <Contact />
     </>

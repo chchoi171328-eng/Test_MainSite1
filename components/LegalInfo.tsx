@@ -1,49 +1,75 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { BookOpen, Scale, FileText, Newspaper } from 'lucide-react';
+import Image from 'next/image';
 import { LegalPost } from '../types';
 
 interface LegalInfoProps {
   posts: LegalPost[];
 }
 
-// Helper to get icon for variety since we aren't storing icon names in DB
-const ICONS = [BookOpen, FileText, Scale, Newspaper];
+const PAGE_SIZE = 20;
 
 export const LegalInfo: React.FC<LegalInfoProps> = ({ posts }) => {
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
+  const visiblePosts = posts.slice(0, visibleCount);
+
   return (
     <section id="legal-info" className="py-16 md:py-20 bg-brand-light">
       <div className="container mx-auto px-6 md:px-12">
         {/* 제목·서브 문구·desk-still 이미지 헤더는 PageHeader가 담당 */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {posts.map((post, index) => {
-            const Icon = ICONS[index % ICONS.length];
+        <div className="space-y-4 max-w-4xl mx-auto">
+          {visiblePosts.map((post) => {
+            const thumbnail = post.imageUrls?.[0];
             return (
               <Link
                 key={post.id}
                 href={`/insights/${post.id}`}
-                className="block bg-white p-8 group cursor-pointer hover:-translate-y-1 transition-transform duration-300 border border-transparent hover:border-brand-gold/30 shadow-sm hover:shadow-md rounded-sm"
+                className="flex gap-5 md:gap-6 bg-white p-4 md:p-5 group cursor-pointer border border-transparent hover:border-brand-gold/30 shadow-sm hover:shadow-md transition-all duration-300 rounded-sm"
               >
-                <div className="flex justify-between items-start mb-6">
-                  <div className="text-brand-gold bg-brand-light p-3 rounded-full group-hover:bg-brand-gold group-hover:text-white transition-colors">
-                    <Icon size={32} />
+                {thumbnail && (
+                  <div className="relative flex-shrink-0 w-28 md:w-40 aspect-video self-start overflow-hidden rounded-sm bg-gray-100">
+                    <Image
+                      src={thumbnail}
+                      alt=""
+                      fill
+                      sizes="(max-width: 768px) 112px, 160px"
+                      className="object-cover"
+                    />
                   </div>
-                  {post.category && (
-                    <span className="text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-600 px-2 py-1 rounded-sm">
-                      {post.category}
-                    </span>
-                  )}
-                </div>
-                <div className="text-xs text-gray-400 mb-3 font-medium">{post.date}</div>
-                <h3 className="text-xl font-bold text-brand-dark mb-3 line-clamp-2 group-hover:text-brand-gold transition-colors leading-snug">{post.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed line-clamp-3">{post.summary}</p>
-                <div className="mt-4 text-xs font-bold text-gray-400 group-hover:text-brand-dark transition-colors text-right">
-                  자세히 보기 &rarr;
+                )}
+                <div className="flex-grow min-w-0">
+                  <div className="flex items-center gap-2 mb-1.5">
+                    <span className="text-xs text-gray-400 font-medium">{post.date}</span>
+                    {post.category && (
+                      <span className="text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-500 px-2 py-0.5 rounded-sm">
+                        {post.category}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="text-lg font-bold text-brand-dark mb-1.5 line-clamp-2 break-keep leading-snug group-hover:text-brand-gold transition-colors">
+                    {post.listTitle || post.title}
+                  </h3>
+                  <p className="text-gray-500 text-sm leading-relaxed line-clamp-2 text-left">
+                    {post.summary}
+                  </p>
                 </div>
               </Link>
             );
           })}
         </div>
+
+        {visibleCount < posts.length && (
+          <div className="mt-10 text-center">
+            <button
+              onClick={() => setVisibleCount((n) => n + PAGE_SIZE)}
+              className="inline-flex items-center gap-2 px-8 py-3 border border-brand-dark text-brand-dark font-bold hover:bg-brand-dark hover:text-white transition-all duration-300 rounded-sm"
+            >
+              더보기 ({visibleCount}/{posts.length})
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

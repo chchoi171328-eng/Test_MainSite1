@@ -9,6 +9,7 @@ import { LegalPost } from '../types';
 const mapDBToLegalPost = (row: any): LegalPost => ({
     id: row.id,
     title: row.title,
+    listTitle: row.list_title ?? undefined,
     category: row.category,
     date: row.date,
     summary: row.summary,
@@ -61,6 +62,7 @@ export async function createLegalPost(
         .from('legal_posts')
         .insert([{
             title: legalPost.title,
+            list_title: legalPost.listTitle || null,
             category: legalPost.category,
             date: legalPost.date,
             summary: legalPost.summary,
@@ -86,6 +88,7 @@ export async function updateLegalPost(legalPost: LegalPost): Promise<LegalPost> 
         .from('legal_posts')
         .update({
             title: legalPost.title,
+            list_title: legalPost.listTitle || null,
             category: legalPost.category,
             date: legalPost.date,
             summary: legalPost.summary,
