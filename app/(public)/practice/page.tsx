@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { PageHeader } from '../../../components/PageHeader';
 import { PracticeAreas } from '../../../components/PracticeAreas';
 
 export const metadata: Metadata = {
@@ -10,8 +11,13 @@ export const metadata: Metadata = {
 
 export default function PracticePage() {
   return (
-    <div className="pt-20">
+    <>
+      <PageHeader
+        label="Practice Areas"
+        title="업무 분야"
+        subtitle="승산 없는 소송은 권하지 않습니다."
+      />
       <PracticeAreas />
-    </div>
+    </>
   );
 }

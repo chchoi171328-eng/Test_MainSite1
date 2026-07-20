@@ -448,15 +448,9 @@ export const SmartTools: React.FC = () => {
   };
 
   return (
-    <section id="smart-tools" className="py-20 bg-gray-50">
+    <section id="smart-tools" className="py-16 md:py-20 bg-gray-50">
       <div className="container mx-auto px-6 md:px-12">
-        <div className="text-center mb-16">
-          <h1 className="text-3xl md:text-4xl font-serif font-bold text-brand-dark">스마트 법률 도구</h1>
-          <p className="mt-4 text-gray-500 max-w-2xl mx-auto text-sm md:text-base break-keep">
-            직접 확인해보실 수 있도록 만들었습니다.
-          </p>
-        </div>
-
+        {/* 제목·서브 메시지는 PageHeader가 담당 */}
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Left Column: Calculators */}
           <div className="space-y-8">

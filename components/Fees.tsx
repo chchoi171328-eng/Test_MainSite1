@@ -16,13 +16,9 @@ const FEE_ROWS: FeeRow[] = [
 
 export const Fees: React.FC = () => {
   return (
-    <section className="py-20 md:py-32 bg-white">
+    <section className="py-16 md:py-24 bg-white">
       <div className="container mx-auto px-6 md:px-12 max-w-4xl">
-        <div className="mb-12">
-          <h1 className="text-3xl font-serif font-bold text-brand-dark mb-4">수임료 안내</h1>
-          <div className="w-16 h-1 bg-brand-gold"></div>
-        </div>
-
+        {/* 제목은 PageHeader가 담당 */}
         <div className="mb-10">
           <p className="text-2xl md:text-3xl font-serif text-brand-dark leading-relaxed break-keep">
             비용을 처음부터 알려드립니다.<br />

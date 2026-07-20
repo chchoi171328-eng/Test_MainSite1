@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { PageHeader } from '../../../components/PageHeader';
 import { SuccessCases } from '../../../components/SuccessCases';
 import { getAllSuccessCases } from '../../../api/successCases';
 
@@ -14,8 +15,14 @@ export default async function CasesPage() {
   const cases = await getAllSuccessCases().catch(() => []);
 
   return (
-    <div className="pt-20">
-      <SuccessCases cases={cases} pageHeading />
-    </div>
+    <>
+      {/* 이미지 준비 시: imageSrc="/assets/brand/case-records.webp" imageAlt="판결문 기록" */}
+      <PageHeader
+        label="Success Stories"
+        title="성공사례"
+        subtitle="결과는 판결문으로 보여드립니다."
+      />
+      <SuccessCases cases={cases} hideHeading />
+    </>
   );
 }

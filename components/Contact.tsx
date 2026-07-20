@@ -2,14 +2,9 @@ import React from 'react';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { TrackedLink } from './TrackedLink';
 
-interface ContactProps {
-  /** 오시는 길 전용 페이지에서 true — 보이는 제목이 h1이 된다 */
-  pageHeading?: boolean;
-}
-
-export const Contact: React.FC<ContactProps> = ({ pageHeading }) => {
-  const TitleTag = pageHeading ? 'h1' : 'h2';
-
+export const Contact: React.FC = () => {
+  // 홈·오시는 길 양쪽에서 쓰인다. 전용 페이지에서는 PageHeader가 h1을 담당하므로
+  // 이 섹션 제목은 항상 h2.
   return (
     <section id="contact" className="py-20 bg-brand-dark text-white min-h-[80vh] flex items-center">
       <div className="container mx-auto px-6 md:px-12">
@@ -17,7 +12,7 @@ export const Contact: React.FC<ContactProps> = ({ pageHeading }) => {
 
           {/* Contact Info */}
           <div>
-            <TitleTag className="text-4xl font-serif font-bold mb-8">상담 안내</TitleTag>
+            <h2 className="text-4xl font-serif font-bold mb-8">상담 안내</h2>
             <p className="text-gray-400 mb-12 leading-relaxed break-keep">
               법적 문제로 고민하고 계신가요? <br />
               먼저 상황을 듣고, 가능한 방법을 솔직하게 말씀드리겠습니다.

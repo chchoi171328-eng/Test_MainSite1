@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { PageHeader } from '../../../components/PageHeader';
 import { Fees } from '../../../components/Fees';
 
 export const metadata: Metadata = {
@@ -10,8 +11,9 @@ export const metadata: Metadata = {
 
 export default function FeesPage() {
   return (
-    <div className="pt-20">
+    <>
+      <PageHeader label="Legal Fees" title="수임료 안내" />
       <Fees />
-    </div>
+    </>
   );
 }

@@ -96,12 +96,9 @@ function KeywordList({ keywords, className = '' }: { keywords: { label: string; 
 
 export const PracticeAreas: React.FC = () => {
   return (
-    <section id="practice" className="py-20 bg-brand-light">
+    <section id="practice" className="py-16 md:py-20 bg-brand-light">
       <div className="container mx-auto px-6 md:px-12">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-serif font-bold text-brand-dark">업무 분야</h1>
-          <p className="mt-4 text-gray-500 break-keep">승산 없는 소송은 권하지 않습니다.</p>
-        </div>
+        {/* 제목·서브 메시지는 PageHeader가 담당 */}
 
         {/* 주력 분야 */}
         <div className="grid md:grid-cols-3 gap-8 mb-8">

@@ -147,26 +147,11 @@ export const Consultation: React.FC = () => {
   }
 
   return (
-    <section className="py-20 md:py-32 bg-white flex justify-center items-center min-h-[80vh]">
+    <section className="py-16 md:py-24 bg-white flex justify-center items-center min-h-[70vh]">
       <div className="container mx-auto px-6 md:px-12 max-w-4xl">
-        <div className="mb-12">
-          <h1 className="text-3xl font-serif font-bold text-brand-dark mb-4">온라인 상담 신청</h1>
-          <div className="w-16 h-1 bg-brand-gold"></div>
-        </div>
-
-        <div className="relative h-52 md:h-80 mb-10 overflow-hidden rounded-sm">
-          <Image
-            src="/assets/brand/consult-chairs.webp"
-            alt="법무법인 명 상담실의 좌석"
-            fill
-            sizes="(max-width: 1024px) 100vw, 896px"
-            className="object-cover"
-          />
-        </div>
-
+        {/* 제목·consult-chairs 이미지 헤더는 PageHeader가 담당 */}
         <div className="bg-white p-0 md:p-8">
-          <p className="text-sm text-gray-500 mb-6 leading-relaxed">
-            사소한 질문이라도 괜찮습니다. 부끄러우실 일이 아닙니다.<br />
+          <p className="text-sm text-gray-500 mb-6 leading-relaxed break-keep">
             상담 후 의뢰하지 않으셔도 됩니다. 먼저 상황을 정확히 아는 것이 시작입니다.
           </p>
 

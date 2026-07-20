@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { PageHeader } from '../../../components/PageHeader';
 import { LegalCases } from '../../../components/LegalCases';
 import { getAllLegalCases } from '../../../api/legalCases';
 
@@ -14,8 +15,10 @@ export default async function LegalCasesPage() {
   const cases = await getAllLegalCases().catch(() => []);
 
   return (
-    <div className="pt-20">
-      <LegalCases cases={cases} pageHeading />
-    </div>
+    <>
+      {/* 이미지 준비 시: imageSrc="/assets/brand/book-stack.webp" imageAlt="법전과 판례집" */}
+      <PageHeader label="Major Precedents" title="주요 판례" />
+      <LegalCases cases={cases} hideHeadingTitle />
+    </>
   );
 }

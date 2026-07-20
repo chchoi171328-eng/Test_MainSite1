@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { PageHeader } from '../../../components/PageHeader';
 import { LegalForms } from '../../../components/LegalForms';
 import { getAllLegalForms } from '../../../api/legalForms';
 
@@ -14,8 +15,10 @@ export default async function LegalFormsPage() {
   const forms = await getAllLegalForms().catch(() => []);
 
   return (
-    <div className="pt-20">
+    <>
+      {/* 이미지 준비 시: imageSrc="/assets/brand/doc-folder.webp" imageAlt="법률 서식 문서철" */}
+      <PageHeader label="Legal Forms" title="법률 서식" />
       <LegalForms forms={forms} />
-    </div>
+    </>
   );
 }
