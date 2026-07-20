@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { PageHeader } from '../../../components/PageHeader';
 import { LegalInfo } from '../../../components/LegalInfo';
@@ -24,7 +25,9 @@ export default async function InsightsPage() {
         imageSrc="/assets/brand/desk-still.webp"
         imageAlt="변호사 책상 위의 책과 만년필"
       />
-      <LegalInfo posts={posts} />
+      <Suspense>
+        <LegalInfo posts={posts} />
+      </Suspense>
     </>
   );
 }
