@@ -9,6 +9,7 @@ import { SuccessCase } from '../types';
 const mapDBToSuccessCase = (row: any): SuccessCase => ({
     id: row.id,
     title: row.title,
+    listTitle: row.list_title ?? undefined,
     category: row.category,
     result: row.result,
     description: row.description,
@@ -63,6 +64,7 @@ export async function createSuccessCase(
         .insert([
             {
                 title: successCase.title,
+                list_title: successCase.listTitle || null,
                 category: successCase.category,
                 result: successCase.result,
                 description: successCase.description,
@@ -92,6 +94,7 @@ export async function updateSuccessCase(
         .from('success_cases')
         .update({
             title: successCase.title,
+            list_title: successCase.listTitle || null,
             category: successCase.category,
             result: successCase.result,
             description: successCase.description,

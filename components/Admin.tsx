@@ -404,6 +404,24 @@ export const Admin: React.FC = () => {
     );
   }
 
+  // 목록 카드 표시용 제목 입력 (성공사례·법률정보·주요판례 공용)
+  const listTitleField = (
+    <div>
+      <label className="block text-sm font-medium text-gray-700 mb-1">
+        목록 제목{' '}
+        <span className="font-normal text-gray-400">({(formData.listTitle || '').length}자)</span>
+      </label>
+      <input
+        name="listTitle"
+        value={formData.listTitle || ''}
+        onChange={handleChange}
+        maxLength={60}
+        className="w-full border p-2 rounded"
+        placeholder="목록 카드에 표시될 짧은 제목 (25자 내외, 비우면 원제목 표시)"
+      />
+    </div>
+  );
+
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
       <header className="bg-brand-dark text-white py-6 shadow-md">
@@ -486,6 +504,7 @@ export const Admin: React.FC = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-1">제목 <span className="text-red-500">*</span></label>
                       <input name="title" value={formData.title || ''} onChange={handleChange} maxLength={100} className="w-full border p-2 rounded" />
                     </div>
+                    {listTitleField}
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">카테고리</label>
                       <input name="category" value={formData.category || ''} onChange={handleChange} maxLength={50} className="w-full border p-2 rounded" placeholder="예: 형사, 민사" />
@@ -551,6 +570,7 @@ export const Admin: React.FC = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-1">제목 <span className="text-red-500">*</span></label>
                       <input name="title" value={formData.title || ''} onChange={handleChange} maxLength={100} className="w-full border p-2 rounded" />
                     </div>
+                    {listTitleField}
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-1">카테고리</label>
                       <input name="category" value={formData.category || ''} onChange={handleChange} maxLength={50} className="w-full border p-2 rounded" placeholder="예: 건설/부동산" />
@@ -629,6 +649,7 @@ export const Admin: React.FC = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-1">판례 제목 <span className="text-red-500">*</span></label>
                       <input name="title" value={formData.title || ''} onChange={handleChange} maxLength={100} className="w-full border p-2 rounded" />
                     </div>
+                    {listTitleField}
                     <div className="flex gap-4">
                       <div className="flex-1">
                         <label className="block text-sm font-medium text-gray-700 mb-1">선고 법원/일자</label>

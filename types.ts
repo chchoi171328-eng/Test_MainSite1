@@ -31,6 +31,7 @@ export interface Stat {
 export interface SuccessCase {
   id: number;
   title: string;
+  listTitle?: string; // 목록 카드 표시용 짧은 제목 (없으면 title 사용)
   category: string;
   result: string;
   description: string;
@@ -42,6 +43,7 @@ export interface SuccessCase {
 export interface LegalPost {
   id: number;
   title: string;
+  listTitle?: string; // 목록 카드 표시용 짧은 제목 (없으면 title 사용)
   category: string; // Added field
   date: string;
   summary: string;
@@ -61,6 +63,7 @@ export interface LegalForm {
 export interface LegalCase {
   id: number;
   title: string;
+  listTitle?: string; // 목록 카드 표시용 짧은 제목 (없으면 title 사용)
   court: string;
   caseNumber: string;
   summary: string;
