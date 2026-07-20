@@ -206,8 +206,15 @@ export default async function AttorneyProfilePage() {
           {/* Consultation & English Site */}
           <div className="border-t border-gray-100 pt-12">
             <h2 className="text-2xl font-serif font-bold text-brand-dark mb-4">상담 안내</h2>
+            {/* 표준 상담료 블록 — 한/영 2단 요금 대칭 공개 (korean-site-pricing 지침) */}
+            <div className="mb-6 border border-gray-200 bg-gray-50 p-5 rounded-sm text-gray-600 space-y-1 break-keep">
+              <p className="font-bold text-brand-dark">상담 안내 — 30분 기준, VAT 포함</p>
+              <p>· 한국어 상담: 50,000원</p>
+              <p>· 영어 상담: 100,000원 (변호사 직접 진행)</p>
+              <p className="text-sm text-gray-500 pt-1">동일한 요금이 영문 사이트(SOL &amp; LUNA)에도 게시되어 있습니다.</p>
+            </div>
             <p className="text-gray-600 mb-8 break-keep">
-              상담료는 30분당 5만 원입니다. 상담 후 의뢰하지 않으셔도 됩니다.<br />
+              상담 후 의뢰하지 않으셔도 됩니다.<br />
               먼저 상황을 정확히 아는 것이 시작입니다.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
