@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { PageHeader } from '../../../components/PageHeader';
 import { Contact } from '../../../components/Contact';
 
 export const metadata: Metadata = {
@@ -10,8 +11,9 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <div className="pt-20">
-      <Contact pageHeading />
-    </div>
+    <>
+      <PageHeader label="Location" title="오시는 길" />
+      <Contact />
+    </>
   );
 }

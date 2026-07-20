@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { PageHeader } from '../../../components/PageHeader';
 import { Consultation } from '../../../components/Consultation';
 
 export const metadata: Metadata = {
@@ -10,8 +11,16 @@ export const metadata: Metadata = {
 
 export default function ConsultationPage() {
   return (
-    <div className="pt-20">
+    <>
+      {/* consult-chairs 이미지는 헤더 배경으로만 사용 (본문 중복 제거, 지침) */}
+      <PageHeader
+        label="Consultation"
+        title="온라인 상담 신청"
+        subtitle="사소한 질문이라도 괜찮습니다."
+        imageSrc="/assets/brand/consult-chairs.webp"
+        imageAlt="법무법인 명 상담실의 좌석"
+      />
       <Consultation />
-    </div>
+    </>
   );
 }

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { PageHeader } from '../../../components/PageHeader';
 import { About } from '../../../components/About';
 
 export const metadata: Metadata = {
@@ -10,12 +11,15 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="pt-20">
-      <div className="container mx-auto px-6 md:px-12 pt-10 md:pt-14">
-        <h1 className="text-xl md:text-2xl font-serif font-bold text-brand-dark">법인 소개</h1>
-        <div className="w-12 h-1 bg-brand-gold mt-3"></div>
-      </div>
+    <>
+      <PageHeader
+        label="About Us"
+        title="법인 소개"
+        subtitle="먼저 듣고, 솔직하게 말씀드립니다."
+        imageSrc="/assets/brand/office-light.webp"
+        imageAlt="창가에 빛이 드는 변호사 사무실 책상"
+      />
       <About />
-    </div>
+    </>
   );
 }

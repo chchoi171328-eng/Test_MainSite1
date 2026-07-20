@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { PageHeader } from '../../../components/PageHeader';
 import { SmartTools } from '../../../components/SmartTools';
 
 export const metadata: Metadata = {
@@ -9,8 +10,13 @@ export const metadata: Metadata = {
 
 export default function ToolsPage() {
   return (
-    <div className="pt-20">
+    <>
+      <PageHeader
+        label="Smart Legal Tools"
+        title="스마트 도구"
+        subtitle="직접 확인해보실 수 있도록 만들었습니다."
+      />
       <SmartTools />
-    </div>
+    </>
   );
 }
