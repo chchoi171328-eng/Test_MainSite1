@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { PageHeader } from '../../../components/PageHeader';
 import { LegalInfo } from '../../../components/LegalInfo';
-import { getAllLegalPosts } from '../../../api/legalPosts';
+import { getLegalPostList } from '../../../api/legalPosts';
 
 export const revalidate = 300;
 
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default async function InsightsPage() {
-  const posts = await getAllLegalPosts().catch(() => []);
+  const posts = await getLegalPostList().catch(() => []);
 
   return (
     <>
