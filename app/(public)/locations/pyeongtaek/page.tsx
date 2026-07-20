@@ -96,7 +96,7 @@ export default function PyeongtaekPage() {
                 <div>
                   <h2 className="font-bold text-brand-dark mb-1">상담 방식</h2>
                   <p className="text-gray-600 break-keep">
-                    방문 상담(예약제)과 전화 상담을 운영합니다. 상담료는 30분 기준 한국어 50,000원 / 영어 100,000원(VAT 포함)입니다.<br />
+                    방문 상담(예약제)과 전화 상담을 운영합니다. 상담료는 30분 100,000원(VAT 포함)이며, 사건을 수행할 변호사가 직접 예약제로 진행합니다.<br />
                     온라인으로 먼저 사건 개요를 남겨주시면 담당 변호사가 연락드립니다.
                   </p>
                 </div>
