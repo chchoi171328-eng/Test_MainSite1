@@ -14,11 +14,7 @@ export const LegalInfo: React.FC<LegalInfoProps> = ({ posts }) => {
   return (
     <section id="legal-info" className="py-16 md:py-20 bg-brand-light">
       <div className="container mx-auto px-6 md:px-12">
-        {/* 제목·desk-still 이미지 헤더는 PageHeader가 담당 */}
-        <p className="mb-12 text-gray-500 max-w-2xl text-sm md:text-base break-keep">
-          법무법인 명의 변호사들이 직접 분석한 최신 법률 이슈와 실무 가이드를 제공합니다.
-        </p>
-
+        {/* 제목·서브 문구·desk-still 이미지 헤더는 PageHeader가 담당 */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {posts.map((post, index) => {
             const Icon = ICONS[index % ICONS.length];

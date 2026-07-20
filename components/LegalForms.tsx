@@ -34,14 +34,7 @@ export const LegalForms: React.FC<LegalFormsProps> = ({ forms }) => {
   return (
     <section id="legal-forms" className="py-16 md:py-20 bg-gray-50">
       <div className="container mx-auto px-6 md:px-12">
-        {/* 제목은 PageHeader가 담당 */}
-        <div className="text-center mb-16">
-          <p className="text-gray-500 max-w-2xl mx-auto break-keep">
-            자주 사용되는 필수 법률 서식을 무료로 제공해 드립니다. <br/>
-            다운로드하여 상황에 맞게 수정해 사용하세요.
-          </p>
-        </div>
-
+        {/* 제목·서브 문구는 PageHeader가 담당 */}
         {/* Search Bar */}
         <div className="max-w-2xl mx-auto mb-12 relative">
           <label htmlFor="form-search" className="sr-only">서식 검색</label>

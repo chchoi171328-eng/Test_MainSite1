@@ -20,6 +20,7 @@ export default async function InsightsPage() {
       <PageHeader
         label="Legal Insights"
         title="최신 법률 정보"
+        subtitle="법무법인 명의 변호사들이 직접 분석한 최신 법률 이슈와 실무 가이드를 제공합니다."
         imageSrc="/assets/brand/desk-still.webp"
         imageAlt="변호사 책상 위의 책과 만년필"
       />
