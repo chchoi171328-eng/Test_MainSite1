@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>평택 건설 변호사 | 공사대금·하도급·설계비 | 법무법인 명 (검토용 시안)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#C5A47E;--dark:#222222;--light:#F9F9F9;--txt:#333;--sub:#777}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Noto Sans KR',sans-serif;color:var(--txt);background:#fff;-webkit-font-smoothing:antialiased}
+  .serif{font-family:'Noto Serif KR',serif}
+  .wrap{max-width:880px;margin:0 auto;padding:0 24px}
+
+  .review-note{background:#fff8ec;border-bottom:1px solid #eaddc4;text-align:center;padding:8px 16px;font-size:12px;color:#8a6f4d}
+
+  .nav{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:14px 28px;background:rgba(255,255,255,.97);backdrop-filter:blur(6px);border-bottom:1px solid #eee}
+  .nav .logo{display:flex;flex-direction:column;line-height:1.15}
+  .nav .logo b{font-size:14px;font-weight:700}
+  .nav .logo span{font-family:'Playfair Display',serif;font-size:10px;color:var(--gold);letter-spacing:.14em}
+  .nav .menu{display:flex;gap:20px;align-items:center;font-size:12px;color:#333}
+  .nav .menu i{font-style:normal}
+  .nav .menu i.on{color:var(--gold);font-weight:700}
+  .nav .cta{background:var(--gold);color:#fff;font-size:12px;font-weight:700;padding:7px 14px;border-radius:2px}
+  @media(max-width:720px){.nav .menu i:not(.on){display:none}}
+
+  .phead{background:var(--dark);border-bottom:1px solid var(--gold);padding:52px 0 46px}
+  .phead .crumb{font-size:12px;color:rgba(255,255,255,.55);letter-spacing:.06em;margin-bottom:14px}
+  .phead .crumb b{color:var(--gold);font-weight:500}
+  .phead h1{font-family:'Noto Serif KR',serif;font-size:34px;font-weight:700;color:#fff;letter-spacing:-.01em}
+  .phead .sub{margin-top:12px;font-size:15px;color:rgba(255,255,255,.78);font-weight:300}
+  @media(max-width:720px){.phead{padding:38px 0 34px}.phead h1{font-size:26px}.phead .sub{font-size:13.5px}}
+
+  section{padding:56px 0}
+  section + section{border-top:1px solid #f2efe9}
+  .stitle{font-family:'Noto Serif KR',serif;font-size:22px;font-weight:700;color:var(--dark);margin-bottom:8px}
+  .slead{font-size:13.5px;color:#999;font-weight:300;margin-bottom:26px}
+  p.body{font-size:15.5px;line-height:1.9;color:#3a3a3a;font-weight:350;margin-bottom:16px;max-width:660px}
+  @media(max-width:720px){section{padding:42px 0}p.body{font-size:14.5px}}
+
+  .sitlist{max-width:660px}
+  .sitlist li{list-style:none;padding:13px 0 13px 26px;position:relative;font-size:15px;color:#444;border-bottom:1px solid #f4f1ea;font-weight:400}
+  .sitlist li:before{content:"";position:absolute;left:2px;top:22px;width:8px;height:8px;border:1.5px solid var(--gold);border-radius:50%}
+  .sitlist li:last-child{border-bottom:none}
+  .sitlist li.grp{margin-top:14px;padding-top:22px;border-top:1px solid #eae4d8}
+  .sitlist li.grp:before{top:31px}
+
+  .tl{max-width:680px;margin-top:10px}
+  .step{position:relative;padding:0 0 34px 54px}
+  .step:before{content:"";position:absolute;left:17px;top:34px;bottom:0;width:1px;background:#e5dfd2}
+  .step:last-of-type:before{display:none}
+  .step .no{position:absolute;left:0;top:0;width:34px;height:34px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif KR',serif;font-size:14px;color:var(--gold);background:#fff}
+  .step h3{font-family:'Noto Serif KR',serif;font-size:16.5px;font-weight:700;color:var(--dark);padding-top:5px}
+  .step .d{margin-top:6px;font-size:14px;color:#666;line-height:1.75;font-weight:300}
+  .step .can{margin-top:8px;font-size:13.5px;line-height:1.7;color:#8a6f4d;background:#faf7f1;padding:10px 14px;border-radius:3px;display:inline-block}
+  .tl-close{margin-top:6px;font-size:15px;color:var(--dark);font-weight:500;max-width:660px;line-height:1.8}
+
+  .recover{background:#faf9f6}
+
+  .faq{max-width:680px}
+  .faq details{border-bottom:1px solid #eee9df}
+  .faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 2px;font-size:15.5px;font-weight:500;color:var(--dark)}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary:after{content:"+";color:var(--gold);font-size:18px;flex-shrink:0}
+  .faq details[open] summary:after{content:"−"}
+  .faq .a{padding:0 2px 20px;font-size:14.5px;line-height:1.85;color:#555;font-weight:300;max-width:620px}
+
+  .cases{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:720px){.cases{grid-template-columns:1fr}}
+  .ccard{border:1px solid #eae6df;border-radius:4px;padding:18px}
+  .ccard .meta{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+  .ccard .field{font-size:11px;letter-spacing:.06em;color:#b0a893}
+  .ccard .badge{font-size:11.5px;font-weight:700;color:#8a6f4d;background:#f6efe3;padding:3px 9px;border-radius:2px}
+  .ccard .t{font-size:14.5px;font-weight:500;color:var(--dark);line-height:1.55}
+  .more{display:inline-block;margin-top:20px;font-size:13.5px;color:var(--gold);text-decoration:none;font-weight:500}
+
+  .feebox{max-width:660px;border:1px solid #eae6df;border-radius:4px;padding:26px 28px}
+  .feebox .amount{font-family:'Noto Serif KR',serif;font-size:19px;font-weight:700;color:var(--dark)}
+  .feebox p{font-size:14px;line-height:1.8;color:#555;font-weight:300;margin-top:10px}
+  .feebox .promise{margin-top:14px;padding-top:14px;border-top:1px solid #f0ece4;font-size:14.5px;color:var(--dark);font-weight:500}
+  .feebox .cert{margin-top:10px;font-size:12.5px;color:#999}
+
+  .reslist{max-width:660px}
+  .reslist a{display:flex;justify-content:space-between;align-items:center;padding:14px 2px;border-bottom:1px solid #f2efe9;text-decoration:none;color:#444;font-size:14.5px}
+  .reslist a span.tag{font-size:11px;color:#b0a893;letter-spacing:.04em}
+  .reslist a:hover{color:var(--dark)}
+
+  .ctasec{background:var(--dark);padding:60px 0;text-align:left}
+  .ctasec .lead{font-family:'Noto Serif KR',serif;font-size:21px;font-weight:600;color:#fff;line-height:1.7;max-width:600px}
+  .ctasec .btns{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .ctasec .tel{font-family:'Noto Serif KR',serif;font-size:18px;color:#fff;border:1px solid rgba(255,255,255,.35);padding:11px 22px;border-radius:2px;text-decoration:none}
+  .ctasec .online{background:var(--gold);color:#fff;font-size:14px;font-weight:700;padding:13px 24px;border-radius:2px;text-decoration:none;display:flex;align-items:center}
+  .ctasec .region{margin-top:26px;font-size:12.5px;color:rgba(255,255,255,.5);line-height:1.8;max-width:620px}
+  @media(max-width:720px){.ctasec .lead{font-size:18px}}
+
+  footer{padding:26px 0;font-size:11.5px;color:#aaa;text-align:center}
+</style>
+</head>
+<body>
+
+<div class="review-note">검토용 시안 — 사례 카드·수임료 금액은 표시 예시입니다</div>
+
+<nav class="nav">
+  <div class="logo"><b>법무법인 명</b><span>SOL &amp; LUNA</span></div>
+  <div class="menu"><i>법인 소개</i><i class="on">업무 분야</i><i>수임료 안내</i><i>성공사례</i><i>법률정보</i><i>스마트 도구</i><span class="cta">상담 예약</span></div>
+</nav>
+
+<!-- §1 헤더 -->
+<div class="phead">
+  <div class="wrap">
+    <div class="crumb">업무 분야 <b>›</b> 건설·공사대금</div>
+    <h1>건설·공사대금</h1>
+    <div class="sub">현장의 언어를 법정의 언어로 옮기는 일입니다.</div>
+  </div>
+</div>
+
+<!-- §2 도입 -->
+<section>
+  <div class="wrap">
+    <p class="body">공사는 끝났는데 돈이 들어오지 않습니다. 추가 공사는 분명히 했는데 서면이 없고, 상대방은 하자를 이유로 정산을 미룹니다. 그리고 많은 공사업체가 여기서 한 번 더 망설입니다 — 소송을 하면 거래 관계가 끝나는 것은 아닌지.</p>
+    <p class="body">반대의 자리도 있습니다. 추가 공사가 아닌 것을 추가 공사라 주장하는 청구, 부풀려진 내역서를 받아 들고 무엇이 정당한 금액인지 가려내야 하는 쪽입니다. 공사대금 분쟁은 받는 쪽과 막는 쪽, 양쪽 모두의 일입니다.</p>
+    <p class="body">법무법인 명의 대표변호사는 GS건설과 롯데건설에서 사내변호사로 일하며 플랜트와 해외 건설 법무를 담당했습니다. 도로·교량 같은 인프라, 화학공장 같은 플랜트 공사의 소송을 시공사 측에서 수행해 왔고, 설계업체를 대리한 설계비 청구, 하도급업체의 대금 회수까지 — 지금은 규모와 위치를 가리지 않고 공사에 얽힌 분쟁을 다룹니다.</p>
+    <p class="body">공사대금 소송은 자료의 싸움이라고들 하지만, 실제로는 자료가 온전히 남아 있는 현장이 드뭅니다. 흩어진 내역서와 작업일보, 도면을 다시 맞추고, 현장의 언어를 판사가 이해할 수 있는 언어로 옮겨 전달하는 것 — 그것이 이 소송에서 변호사가 하는 일의 큰 부분입니다. 발주처, 원도급, 하도급, 설계·감리, 어느 자리에 계시든 다툼이 되는 항목부터 함께 짚어보겠습니다.</p>
+  </div>
+</section>
+
+<!-- §3 이런 상황이라면 -->
+<section>
+  <div class="wrap">
+    <div class="stitle">이런 상황이라면</div>
+    <div class="slead">하나라도 해당된다면, 이 페이지가 도움이 됩니다.</div>
+    <ul class="sitlist">
+      <li>추가 공사대금·간접비 등 과다한 청구를 받았다</li>
+      <li>시공사·하도급업체가 대금 증액을 요구하며 공사를 중단해 버렸다</li>
+      <li>공사 지연에 대해 지체상금·손해배상을 청구하려 한다</li>
+      <li>공사가 완료됐는데 하자가 너무 많다</li>
+      <li class="grp">공사를 마쳤는데 공사대금·하도급대금을 받지 못하고 있다</li>
+      <li>추가·변경 공사를 했는데 서면 없이 진행되어 정산이 다투어진다</li>
+      <li>상대방이 하자를 이유로 대금 지급을 거절하고 있다</li>
+      <li>설계·감리 용역비를 받지 못하고 있다</li>
+      <li>하자보수나 손해배상 청구를 받았다</li>
+      <li>일방적으로 계약 해지를 통보받았다</li>
+    </ul>
+  </div>
+</section>
+
+<!-- §4 타임라인 -->
+<section>
+  <div class="wrap">
+    <div class="stitle">공사대금 분쟁은 이렇게 진행됩니다</div>
+    <div class="slead">자료를 정리하고, 묶어두고, 법정의 언어로 다툽니다.</div>
+    <div class="tl">
+      <div class="step">
+        <div class="no">1</div>
+        <h3>자료 정리와 금액 계산</h3>
+        <div class="d">계약서와 변경계약, 내역서, 기성청구서, 작업일보, 지시가 오간 문자·메일까지 — 다투는 금액이 적정한지 계산해 보는 단계입니다. 자료가 흩어져 있거나 일부 없더라도, 남아 있는 것으로 재구성합니다.</div>
+        <div class="can">할 수 있는 것 — 기성·정산 자료의 정리, 추가 공사 지시의 정황 증거 확보, 소멸시효의 확인(공사대금 채권은 3년으로 짧습니다), 다투는 항목과 금액의 정리. 이 정리의 수준이 사건 전체를 좌우합니다.</div>
+      </div>
+      <div class="step">
+        <div class="no">2</div>
+        <h3>보전조치</h3>
+        <div class="d">상대방의 자금 사정이 나빠지기 전에 받을 채권을 묶어두거나, 반대로 걸려온 가압류를 풀어야 하는 단계입니다.</div>
+        <div class="can">할 수 있는 것 — 공사대금 채권이나 그 밖의 자산에 대한 가압류(가능한 경우). 공사대금 채권을 가압류당했다면, 집행 정지의 검토(해방공탁 필요).</div>
+      </div>
+      <div class="step">
+        <div class="no">3</div>
+        <h3>소송과 감정</h3>
+        <div class="d">청구 항목이 인정될지는 사실관계를 법원의 언어로 세우고 법리를 다투는 데서 결정됩니다. 인정되는 항목의 금액 — 기성고, 추가 공사비, 하자보수비용 — 은 감정으로 산정되는 경우가 있고, 감정을 하게 되면 그 결과가 판결의 기초가 됩니다. 자료가 명확하면 감정 없이 금액이 인정되기도 합니다.</div>
+        <div class="can">할 수 있는 것 — 사실관계와 법리 주장의 제출. 감정을 하게 되면, 청구하는 쪽은 감정 신청과 감정 사항의 설계로, 방어하는 쪽은 그에 대한 의견 제출로 맞섭니다.</div>
+      </div>
+      <div class="step">
+        <div class="no">4</div>
+        <h3>판결과 집행</h3>
+        <div class="d">판결·조정이 확정되면 지급을 받거나, 이행하지 않는 상대방의 재산에 집행합니다.</div>
+        <div class="can">할 수 있는 것 — 강제집행, 채권 압류와 추심. 결과에 따라 항소 여부의 판단(기간 내). 이긴 쪽은 소송비용확정신청으로 소송비용을 돌려받을 수 있으며, 다투는 금액이 큰 사건에서는 이 비용도 의미가 있습니다.</div>
+      </div>
+    </div>
+    <div class="tl-close">공사대금 사건의 승패는 현장에서 쌓인 자료와, 그것을 법정의 언어로 옮기는 힘에서 정해집니다.</div>
+  </div>
+</section>
+
+<!-- §5 인프라·플랜트 (앵커 섹션) -->
+<section class="recover" id="infra">
+  <div class="wrap">
+    <div class="stitle">공장과 플랜트, 인프라의 소송까지</div>
+    <div class="slead">일반 건축을 넘어선 공사 분쟁을 다뤄 왔습니다.</div>
+    <p class="body">도로·교량 같은 인프라, 화학공장 같은 플랜트, 대규모 공장 신축 — 이런 공사의 분쟁은 일반 건축과 다릅니다. 계약 구조가 복잡하고, 공정과 기성의 다툼이 기술적이며, 걸린 금액이 큽니다. 이런 사건은 계약서를 읽는 눈과 현장의 언어를 아는 것이 함께 필요합니다.</p>
+    <p class="body">대표변호사는 GS건설·롯데건설 사내변호사로 플랜트·해외 법무를 담당했고, 발주처와 직접 계약한 시공사를 대리해 인프라 공사의 소송을 수행해 왔습니다. 추가 공사가 아닌 것을 추가 공사라 주장하는 청구, 부풀려진 신규 비목, 지체상금을 물어야 할 국면에서 오히려 간접비를 청구하는 다툼 — 그런 청구를 항목 단위로 가려내고 방어하는 소송들이었습니다. 설계업체를 대리한 설계비 청구도 여러 건 수행했습니다.</p>
+    <p class="body" style="font-weight:500;color:#222">평택과 인근 산업단지에서 공장·플랜트 공사에 얽힌 분쟁이 있다면, 계약 구조부터 함께 보겠습니다.</p>
+  </div>
+</section>
+
+<!-- §6 FAQ -->
+<section>
+  <div class="wrap">
+    <div class="stitle">자주 묻는 질문</div>
+    <div class="slead">상담 전에 가장 많이 물으시는 것들입니다.</div>
+    <div class="faq">
+      <details><summary>추가 공사를 서면 없이 했습니다. 추가공사대금을 받을 수 있나요?</summary>
+        <div class="a">서면이 없다고 청구할 수 없는 것은 아닙니다. 작업일보, 현장 사진, 지시가 오간 문자·메일·통화, 자재 반입 내역 등으로 추가 공사의 지시와 시공 사실을 입증할 수 있는 경우가 많습니다. 무엇이 남아 있는지부터 확인하는 것이 시작입니다.</div>
+      </details>
+      <details><summary>상대방이 하자를 이유로 잔여기성을 주지 않습니다.</summary>
+        <div class="a">하자가 있다고 해서 대금 전액의 지급을 거절할 수 있는 것은 아닙니다. 하자보수비용에 합의가 있다면 그 금액을 공제하고 받으면 되지만, 대부분은 그런 합의가 없어서 문제가 됩니다. 어떤 하자가 인정되고 보수에 얼마가 드는지에 대한 이견이 좁혀지지 않으면, 결국 소송을 통해 그 금액을 결정할 수밖에 없습니다. 하자 주장에 눌려 청구 자체를 접을 일은 아닙니다.</div>
+      </details>
+      <details><summary>하도급업체가 과다한 추가 공사대금을 청구해 왔습니다.</summary>
+        <div class="a">청구서가 왔다고 그 금액이 인정되는 것은 아닙니다. 실제 추가 공사 지시가 있었는지, 비목과 단가에 근거가 있는지, 간접비 청구가 계약상 타당한지를 항목 단위로 가려냅니다. 소송에서 감정은 공사대금을 청구하는 쪽이 신청하며 감정 사항을 설계하고, 방어하는 쪽은 그 감정신청과 감정 결과에 의견을 내며 맞섭니다.</div>
+      </details>
+      <details><summary>하도급인데, 원도급이 아니라 발주처에서 직접 받을 수는 없나요?</summary>
+        <div class="a">일정한 경우 하도급대금을 발주처에 직접 청구할 수 있는 제도가 있습니다. 다만 가능한 경우가 하도급법, 건설산업기본법, 근로기준법 등 여러 법령에 걸쳐 있고 그 경우의 수가 많고 복잡해서, 한두 가지 기준으로 답하기 어렵습니다. 지금의 계약 관계와 상황을 해당 법령에 하나씩 맞춰 봐야 하며, 그 확인부터 상담에서 해 드립니다.</div>
+      </details>
+      <details><summary>소송을 하면 거래 관계가 끝나지 않을까요?</summary>
+        <div class="a">솔직히 말씀드리면, 이 판단은 변호사가 대신할 수 없습니다. 그 거래 관계가 회사에 얼마나 중요한지는 비즈니스의 문제이고, 회사가 가장 잘 압니다. 변호사가 상담에서 드릴 수 있는 것은 소송으로 기대할 수 있는 것과 그 가능성이며, 그것과 거래 관계의 무게를 비교해 결정하는 것은 회사의 몫입니다. 한 가지 참고하실 점은, 소송이 곧 협상의 끝은 아니라는 것입니다. 소송을 제기한 뒤에 상대방이 협상을 요청해 와 합의로 마무리된 사건도 있습니다. 흔한 일은 아니지만, 소송과 협상이 반드시 양자택일은 아닙니다. 다만 한 가지는 유의해야 합니다. 공사대금 채권의 소멸시효는 3년으로 짧은 편이어서, 협상으로 시간을 보내는 동안 청구할 권리 자체가 사라질 수 있습니다. 기다리는 선택을 하더라도, 시효는 계산해 두어야 합니다.</div>
+      </details>
+      <details><summary>설계·감리비도 다루나요?</summary>
+        <div class="a">네. 설계업체를 대리한 설계비 청구 소송을 여러 건 수행했습니다. 용역의 범위와 수행 정도, 중도 해지 시의 정산이 주로 다투어지며, 계약서와 성과물을 기준으로 청구 범위를 정리합니다.</div>
+      </details>
+      <details><summary>상담만 받고 결정해도 되나요?</summary>
+        <div class="a">네. 상담 후 진행하지 않기로 정하셔도 됩니다. 먼저 상황을 정확히 아는 것이 시작입니다.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- §7 성공사례 -->
+<section>
+  <div class="wrap">
+    <div class="stitle">건설 사건의 결과들</div>
+    <div class="slead">결과는 판결문으로 보여드립니다.</div>
+    <div class="cases">
+      <div class="ccard">
+        <div class="meta"><span class="field">건설</span><span class="badge">승소</span></div>
+        <div class="t">공장 신축 공사대금 청구 승소</div>
+      </div>
+      <div class="ccard">
+        <div class="meta"><span class="field">건설</span><span class="badge">조정 성립</span></div>
+        <div class="t">추가 공사대금, 감정 후 조정</div>
+      </div>
+      <div class="ccard">
+        <div class="meta"><span class="field">건설</span><span class="badge">승소</span></div>
+        <div class="t">설계비 청구 소송 승소</div>
+      </div>
+    </div>
+    <a class="more" href="#">건설 사례 더 보기 →</a>
+  </div>
+</section>
+
+<!-- §8 수임료 -->
+<section>
+  <div class="wrap">
+    <div class="stitle">수임료</div>
+    <div class="slead">비용을 처음부터 알려드립니다.</div>
+    <div class="feebox">
+      <div class="amount">착수금 300만원부터</div>
+      <div style="margin-top:6px;font-size:12px;color:#aaa">표시 금액은 부가세(VAT) 별도입니다.</div>
+      <p>다투는 금액과 소송의 난이도에 따라 달라집니다. 정확한 금액은 사건 검토 후 안내드리고, 진행 중에 갑자기 늘어나지 않습니다.</p>
+      <div class="promise">승산이 낮은 소송은 권하지 않습니다. 상담에서는 다툼이 되는 항목별로, 가능성부터 함께 따져봅니다.</div>
+      <div class="cert">최철호 변호사는 대한변호사협회 등록 형사법·민사법 전문변호사입니다.</div>
+    </div>
+    <a class="more" href="#">수임료 자세히 보기 →</a>
+  </div>
+</section>
+
+<!-- §9 도구·글 -->
+<section>
+  <div class="wrap">
+    <div class="stitle">직접 확인해보실 수 있는 것들</div>
+    <div class="slead">상담 전에 활용해 보세요.</div>
+    <div class="reslist">
+      <a href="#"><span>법정 이자 계산기</span><span class="tag">스마트 도구</span></a>
+      <a href="#"><span>인지대·송달료 계산기</span><span class="tag">스마트 도구</span></a>
+      <a href="#"><span>증거 수집 가이드</span><span class="tag">스마트 도구</span></a>
+      <a href="#"><span>추가 공사대금, 서면 없이 받을 수 있을까</span><span class="tag">법률정보</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- §10 CTA -->
+<div class="ctasec">
+  <div class="wrap">
+    <div class="lead">먼저 상황을 정확히 아는 것이 시작입니다.<br>진행 여부는 그다음에 정하셔도 됩니다.</div>
+    <div class="btns">
+      <a class="tel" href="tel:0316586100">031-658-6100</a>
+      <a class="online" href="#">온라인 상담 신청</a>
+    </div>
+    <div class="region">법무법인 명(SOL &amp; LUNA)은 경기도 평택시 소재 법무법인으로, 필요할 때 바로 만나고 법원에 직접 출석할 수 있는 평택·안성·오산·아산 지역의 사건을 상담합니다.</div>
+  </div>
+</div>
+
+<footer>법무법인 명(SOL &amp; LUNA) · 검토용 시안</footer>
+
+</body>
+</html>
