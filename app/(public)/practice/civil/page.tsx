@@ -179,7 +179,7 @@ export default async function CivilPage() {
       {/* §8 수임료 */}
       <PSection title="수임료" lead="비용을 처음부터 알려드립니다.">
         <FeeBox
-          amount="착수금 300만원부터"
+          amount="착수금 300만 원부터"
           promise="승산이 낮은 소송은 권하지 않습니다. 다만 소송의 목적은 당장의 회수만이 아닐 수 있어 — 판결 확보, 원칙적인 대응까지 — 무엇을 위한 소송인지부터 함께 정리해 드립니다."
           cert
         >

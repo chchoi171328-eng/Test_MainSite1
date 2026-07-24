@@ -21,11 +21,11 @@ export const revalidate = 300;
 export const metadata: Metadata = {
   title: { absolute: '평택 기업 법무 변호사 | 계약서 검토·법인 등기 | 법무법인 명' },
   description:
-    'GS건설·롯데건설 사내변호사 출신이 계약서 검토·작성, 분쟁 초기 대응, 법인 등기를 다룹니다. 정기 자문 없이 건 단위 이용, 시간당 자문료 25만원.',
+    'GS건설·롯데건설 사내변호사 출신이 계약서 검토·작성, 분쟁 초기 대응, 법인 등기를 다룹니다. 정기 자문 없이 건 단위 이용, 시간당 자문료 25만 원.',
   openGraph: {
     title: '평택 기업 법무 변호사 | 계약서 검토·법인 등기 | 법무법인 명',
     description:
-      'GS건설·롯데건설 사내변호사 출신이 계약서 검토·작성, 분쟁 초기 대응, 법인 등기를 다룹니다. 정기 자문 없이 건 단위 이용, 시간당 자문료 25만원.',
+      'GS건설·롯데건설 사내변호사 출신이 계약서 검토·작성, 분쟁 초기 대응, 법인 등기를 다룹니다. 정기 자문 없이 건 단위 이용, 시간당 자문료 25만 원.',
   },
   alternates: { canonical: '/practice/corporate' },
 };
@@ -176,7 +176,7 @@ export default async function CorporatePage() {
       {/* §8 수임료 — cert 줄 없음 (마스터 플랜 2-1: 기업 미표기), 시간당 자문료 구조 */}
       <PSection title="수임료" lead="비용을 처음부터 알려드립니다.">
         <FeeBox
-          amount="자문료 시간당 25만원"
+          amount="자문료 시간당 25만 원"
           promise="필요하지 않은 일은 권하지 않습니다. 계약서 한 건의 검토로 충분한 일이라면, 그렇게 말씀드립니다."
         >
           <FeeText>

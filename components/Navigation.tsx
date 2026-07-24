@@ -12,6 +12,8 @@ interface NavItemConfig {
   href?: string;
   externalUrl?: string;
   children?: NavItemConfig[];
+  /** 드롭다운에서 이 항목 위에 구분선을 그린다 */
+  divider?: boolean;
 }
 
 const NAV_ITEMS: NavItemConfig[] = [
@@ -22,7 +24,22 @@ const NAV_ITEMS: NavItemConfig[] = [
       { label: '최철호 변호사', href: '/attorneys/choi-cheolho' }
     ]
   },
-  { label: '업무 분야', href: '/practice' },
+  {
+    // 라벨 클릭 시 /practice 이동 유지 + 세부 페이지 8종 드롭다운 (UX 수정 4, 카드 순서 기준)
+    label: '업무 분야',
+    href: '/practice',
+    children: [
+      { label: '형사 변호', href: '/practice/criminal' },
+      { label: '형사 피해자·고소', href: '/practice/criminal-victim' },
+      { label: '민사 소송', href: '/practice/civil' },
+      { label: '이혼', href: '/practice/divorce' },
+      { label: '상속', href: '/practice/inheritance' },
+      { label: '부동산', href: '/practice/real-estate' },
+      { label: '건설·공사대금', href: '/practice/construction' },
+      { label: '기업 법무', href: '/practice/corporate' },
+      { label: '업무 분야 전체 보기', href: '/practice', divider: true },
+    ],
+  },
   { label: '수임료 안내', href: '/fees' },
   { label: '성공사례', href: '/cases' },
   {
@@ -120,6 +137,12 @@ export const Navigation: React.FC = () => {
                     }`}
                 >
                   {item.label}
+                  {item.children && (
+                    <ChevronDown
+                      size={14}
+                      className={activeDropdown === item.label ? 'rotate-180 transition-transform' : 'transition-transform'}
+                    />
+                  )}
                 </Link>
               ) : (
                 <button
@@ -139,15 +162,17 @@ export const Navigation: React.FC = () => {
                 <div className="absolute top-full left-1/2 transform -translate-x-1/2 pt-2 w-48 animate-fade-in">
                   <div className="bg-white shadow-lg rounded-sm py-2 border-t-2 border-brand-gold">
                     {item.children.map((child) => (
-                      <Link
-                        key={child.label}
-                        href={child.href || '/'}
-                        onClick={() => setActiveDropdown(null)}
-                        className={`block w-full text-left px-4 py-3 text-sm hover:bg-brand-light transition-colors ${pathname === child.href ? 'text-brand-gold font-bold' : 'text-gray-600'
-                          }`}
-                      >
-                        {child.label}
-                      </Link>
+                      <React.Fragment key={child.label}>
+                        {child.divider && <div className="my-2 border-t border-gray-100" aria-hidden="true" />}
+                        <Link
+                          href={child.href || '/'}
+                          onClick={() => setActiveDropdown(null)}
+                          className={`block w-full text-left px-4 py-3 text-sm hover:bg-brand-light transition-colors ${pathname === child.href ? 'text-brand-gold font-bold' : 'text-gray-600'
+                            }`}
+                        >
+                          {child.label}
+                        </Link>
+                      </React.Fragment>
                     ))}
                   </div>
                 </div>
@@ -191,15 +216,17 @@ export const Navigation: React.FC = () => {
                       {mobileExpanded === item.label && (
                         <div className="mt-4 space-y-4 bg-gray-50 p-4 rounded-sm animate-fade-in">
                           {item.children.map((child) => (
-                            <Link
-                              key={child.label}
-                              href={child.href || '/'}
-                              onClick={() => setIsMobileMenuOpen(false)}
-                              className={`block w-full text-lg ${pathname === child.href ? 'text-brand-gold font-bold' : 'text-gray-600'
-                                }`}
-                            >
-                              {child.label}
-                            </Link>
+                            <React.Fragment key={child.label}>
+                              {child.divider && <div className="border-t border-gray-200" aria-hidden="true" />}
+                              <Link
+                                href={child.href || '/'}
+                                onClick={() => setIsMobileMenuOpen(false)}
+                                className={`block w-full text-lg ${pathname === child.href ? 'text-brand-gold font-bold' : 'text-gray-600'
+                                  }`}
+                              >
+                                {child.label}
+                              </Link>
+                            </React.Fragment>
                           ))}
                         </div>
                       )}
