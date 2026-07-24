@@ -17,7 +17,8 @@ export default function PracticePage() {
         title="업무 분야"
         subtitle="승산 없는 소송은 권하지 않습니다."
       />
-      <PracticeAreas />
+      {/* 질문형 카피는 /practice에서만 표시 (홈 상황 섹션과 중복 방지 — 라우팅 지침 작업 2) */}
+      <PracticeAreas showQuestions />
     </>
   );
 }
