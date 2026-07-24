@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>평택 기업 법무 변호사 | 계약서 검토·법인 등기 | 법무법인 명 (검토용 시안)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#C5A47E;--dark:#222222;--light:#F9F9F9;--txt:#333;--sub:#777}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Noto Sans KR',sans-serif;color:var(--txt);background:#fff;-webkit-font-smoothing:antialiased}
+  .serif{font-family:'Noto Serif KR',serif}
+  .wrap{max-width:880px;margin:0 auto;padding:0 24px}
+
+  .review-note{background:#fff8ec;border-bottom:1px solid #eaddc4;text-align:center;padding:8px 16px;font-size:12px;color:#8a6f4d}
+
+  .nav{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:14px 28px;background:rgba(255,255,255,.97);backdrop-filter:blur(6px);border-bottom:1px solid #eee}
+  .nav .logo{display:flex;flex-direction:column;line-height:1.15}
+  .nav .logo b{font-size:14px;font-weight:700}
+  .nav .logo span{font-family:'Playfair Display',serif;font-size:10px;color:var(--gold);letter-spacing:.14em}
+  .nav .menu{display:flex;gap:20px;align-items:center;font-size:12px;color:#333}
+  .nav .menu i{font-style:normal}
+  .nav .menu i.on{color:var(--gold);font-weight:700}
+  .nav .cta{background:var(--gold);color:#fff;font-size:12px;font-weight:700;padding:7px 14px;border-radius:2px}
+  @media(max-width:720px){.nav .menu i:not(.on){display:none}}
+
+  .phead{background:var(--dark);border-bottom:1px solid var(--gold);padding:52px 0 46px}
+  .phead .crumb{font-size:12px;color:rgba(255,255,255,.55);letter-spacing:.06em;margin-bottom:14px}
+  .phead .crumb b{color:var(--gold);font-weight:500}
+  .phead h1{font-family:'Noto Serif KR',serif;font-size:34px;font-weight:700;color:#fff;letter-spacing:-.01em}
+  .phead .sub{margin-top:12px;font-size:15px;color:rgba(255,255,255,.78);font-weight:300}
+  @media(max-width:720px){.phead{padding:38px 0 34px}.phead h1{font-size:26px}.phead .sub{font-size:13.5px}}
+
+  section{padding:56px 0}
+  section + section{border-top:1px solid #f2efe9}
+  .stitle{font-family:'Noto Serif KR',serif;font-size:22px;font-weight:700;color:var(--dark);margin-bottom:8px}
+  .slead{font-size:13.5px;color:#999;font-weight:300;margin-bottom:26px}
+  p.body{font-size:15.5px;line-height:1.9;color:#3a3a3a;font-weight:350;margin-bottom:16px;max-width:660px}
+  @media(max-width:720px){section{padding:42px 0}p.body{font-size:14.5px}}
+
+  .sitlist{max-width:660px}
+  .sitlist li{list-style:none;padding:13px 0 13px 26px;position:relative;font-size:15px;color:#444;border-bottom:1px solid #f4f1ea;font-weight:400}
+  .sitlist li:before{content:"";position:absolute;left:2px;top:22px;width:8px;height:8px;border:1.5px solid var(--gold);border-radius:50%}
+  .sitlist li:last-child{border-bottom:none}
+  .sitlist li.grp{margin-top:14px;padding-top:22px;border-top:1px solid #eae4d8}
+  .sitlist li.grp:before{top:31px}
+
+  .tl{max-width:680px;margin-top:10px}
+  .step{position:relative;padding:0 0 34px 54px}
+  .step:before{content:"";position:absolute;left:17px;top:34px;bottom:0;width:1px;background:#e5dfd2}
+  .step:last-of-type:before{display:none}
+  .step .no{position:absolute;left:0;top:0;width:34px;height:34px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif KR',serif;font-size:14px;color:var(--gold);background:#fff}
+  .step h3{font-family:'Noto Serif KR',serif;font-size:16.5px;font-weight:700;color:var(--dark);padding-top:5px}
+  .step .d{margin-top:6px;font-size:14px;color:#666;line-height:1.75;font-weight:300}
+  .step .can{margin-top:8px;font-size:13.5px;line-height:1.7;color:#8a6f4d;background:#faf7f1;padding:10px 14px;border-radius:3px;display:inline-block}
+  .tl-close{margin-top:6px;font-size:15px;color:var(--dark);font-weight:500;max-width:660px;line-height:1.8}
+
+  .recover{background:#faf9f6}
+
+  .faq{max-width:680px}
+  .faq details{border-bottom:1px solid #eee9df}
+  .faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 2px;font-size:15.5px;font-weight:500;color:var(--dark)}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary:after{content:"+";color:var(--gold);font-size:18px;flex-shrink:0}
+  .faq details[open] summary:after{content:"−"}
+  .faq .a{padding:0 2px 20px;font-size:14.5px;line-height:1.85;color:#555;font-weight:300;max-width:620px}
+
+  .cases{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:720px){.cases{grid-template-columns:1fr}}
+  .ccard{border:1px solid #eae6df;border-radius:4px;padding:18px}
+  .ccard .meta{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+  .ccard .field{font-size:11px;letter-spacing:.06em;color:#b0a893}
+  .ccard .badge{font-size:11.5px;font-weight:700;color:#8a6f4d;background:#f6efe3;padding:3px 9px;border-radius:2px}
+  .ccard .t{font-size:14.5px;font-weight:500;color:var(--dark);line-height:1.55}
+  .more{display:inline-block;margin-top:20px;font-size:13.5px;color:var(--gold);text-decoration:none;font-weight:500}
+
+  .feebox{max-width:660px;border:1px solid #eae6df;border-radius:4px;padding:26px 28px}
+  .feebox .amount{font-family:'Noto Serif KR',serif;font-size:19px;font-weight:700;color:var(--dark)}
+  .feebox p{font-size:14px;line-height:1.8;color:#555;font-weight:300;margin-top:10px}
+  .feebox .promise{margin-top:14px;padding-top:14px;border-top:1px solid #f0ece4;font-size:14.5px;color:var(--dark);font-weight:500}
+  .feebox .cert{margin-top:10px;font-size:12.5px;color:#999}
+
+  .reslist{max-width:660px}
+  .reslist a{display:flex;justify-content:space-between;align-items:center;padding:14px 2px;border-bottom:1px solid #f2efe9;text-decoration:none;color:#444;font-size:14.5px}
+  .reslist a span.tag{font-size:11px;color:#b0a893;letter-spacing:.04em}
+  .reslist a:hover{color:var(--dark)}
+
+  .ctasec{background:var(--dark);padding:60px 0;text-align:left}
+  .ctasec .lead{font-family:'Noto Serif KR',serif;font-size:21px;font-weight:600;color:#fff;line-height:1.7;max-width:600px}
+  .ctasec .btns{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .ctasec .tel{font-family:'Noto Serif KR',serif;font-size:18px;color:#fff;border:1px solid rgba(255,255,255,.35);padding:11px 22px;border-radius:2px;text-decoration:none}
+  .ctasec .online{background:var(--gold);color:#fff;font-size:14px;font-weight:700;padding:13px 24px;border-radius:2px;text-decoration:none;display:flex;align-items:center}
+  .ctasec .region{margin-top:26px;font-size:12.5px;color:rgba(255,255,255,.5);line-height:1.8;max-width:620px}
+  @media(max-width:720px){.ctasec .lead{font-size:18px}}
+
+  footer{padding:26px 0;font-size:11.5px;color:#aaa;text-align:center}
+</style>
+</head>
+<body>
+
+<div class="review-note">검토용 시안 — 사례 카드·수임료 금액은 표시 예시입니다</div>
+
+<nav class="nav">
+  <div class="logo"><b>법무법인 명</b><span>SOL &amp; LUNA</span></div>
+  <div class="menu"><i>법인 소개</i><i class="on">업무 분야</i><i>수임료 안내</i><i>성공사례</i><i>법률정보</i><i>스마트 도구</i><span class="cta">상담 예약</span></div>
+</nav>
+
+<!-- §1 헤더 -->
+<div class="phead">
+  <div class="wrap">
+    <div class="crumb">업무 분야 <b>›</b> 기업 법무</div>
+    <h1>기업 법무</h1>
+    <div class="sub">기업 안에서 법무를 해본 변호사가 다룹니다.</div>
+  </div>
+</div>
+
+<!-- §2 도입 -->
+<section>
+  <div class="wrap">
+    <p class="body">법무팀이 없는 회사의 사정은 비슷합니다. 계약서는 상대방이 보내온 초안에 서명하고, 거래는 관행대로 진행되고, 변호사는 문제가 터진 뒤에야 찾게 됩니다. 그런데 분쟁 단계에서 다투게 되는 것의 상당수는, 계약서를 쓰던 그 시점에 정해져 있던 것들입니다.</p>
+    <p class="body">법무법인 명의 대표변호사는 GS건설과 롯데건설에서 사내변호사로 일했습니다. 회사 안에서 계약이 만들어지고, 이행되고, 분쟁이 되는 과정을 지켜본 경력입니다. 그래서 계약서의 어느 조항이 나중에 문제가 되는지, 분쟁의 조짐이 보일 때 무엇부터 해야 하는지를 기업의 관점에서 다룹니다.</p>
+    <p class="body">건설회사와 외국계 회사의 계약서 검토·작성, 분쟁 초기 대응을 수행해 왔습니다. 정기 자문 계약이 없어도 됩니다. 계약서 한 건, 사안 하나 단위로 필요한 만큼 이용하실 수 있습니다.</p>
+  </div>
+</section>
+
+<!-- §3 이런 상황이라면 -->
+<section>
+  <div class="wrap">
+    <div class="stitle">이런 상황이라면</div>
+    <div class="slead">하나라도 해당된다면, 이 페이지가 도움이 됩니다.</div>
+    <ul class="sitlist">
+      <li>상대방이 보내온 계약서에 그대로 서명해도 될지 불안하다</li>
+      <li>중요한 거래인데 계약서 없이, 또는 오래된 양식으로 진행하고 있다</li>
+      <li>거래처와 분쟁의 조짐이 보이거나, 내용증명을 받았다</li>
+      <li class="grp">법인 설립이나 임원 변경 등 등기가 필요하다</li>
+      <li>외국 본사와의 계약·등기 문제를 영어로 처리해야 한다</li>
+    </ul>
+  </div>
+</section>
+
+<!-- §4 하는 일 (타임라인 대체) -->
+<section>
+  <div class="wrap">
+    <div class="stitle">이런 일을 합니다</div>
+    <div class="slead">정기 자문 없이, 건 단위로 이용하실 수 있습니다.</div>
+    <div class="tl">
+      <div class="step">
+        <div class="no">1</div>
+        <h3>계약서 검토와 작성</h3>
+        <div class="d">상대방이 보내온 초안의 검토, 우리 쪽 초안의 작성, 조항 협상의 지원까지. 분쟁 단계에서 다투게 될 지점을 계약 단계에서 정리합니다.</div>
+        <div class="can">공급·용역·하도급 계약, 공사 관련 계약, 영문 계약까지 다룹니다.</div>
+      </div>
+      <div class="step">
+        <div class="no">2</div>
+        <h3>분쟁 초기 대응</h3>
+        <div class="d">내용증명을 받았거나 보내야 할 때, 거래처와의 다툼이 시작될 조짐이 보일 때 — 소송 전 단계에서 위치를 잡는 일입니다. 소송까지 가면 법령과 계약이 요구하는 통지가 제때 있었는지부터 다투어지는 경우가 많습니다. 계약의 해지·해제가 이행을 요구하는 최고 통지를 먼저 거쳐야 하는 것이 대표적입니다.</div>
+        <div class="can">사실관계와 계약의 검토, 필요한 통지의 설계와 발송, 소송으로 갈 사안인지의 판단. 미리 갖춰 둔 통지는 소송에서 그대로 쓰이고, 협의의 계기가 되기도 합니다.</div>
+      </div>
+      <div class="step">
+        <div class="no">3</div>
+        <h3>법인 설립과 등기</h3>
+        <div class="d">법인 설립, 임원 변경, 본점 이전 등 회사의 등기 업무를 처리합니다.</div>
+        <div class="can">외국 기업의 한국 법인·지점 등기까지 다룹니다.</div>
+      </div>
+      <div class="step">
+        <div class="no">4</div>
+        <h3>소송이 필요해지면</h3>
+        <div class="d">분쟁이 소송으로 가야 하는 사안이라면, 공사대금·민사 소송으로 이어서 진행합니다. 계약 단계부터 본 사건은 소송에서도 빠르게 잡힙니다.</div>
+        <div class="can">건설·공사대금, 민사 소송 페이지에서 자세히 보실 수 있습니다. <span style="font-size:11.5px;color:#b6ad9c">(실제 링크: /practice/construction, /practice/civil)</span></div>
+      </div>
+    </div>
+    <div class="tl-close">필요하지 않은 일은 권하지 않습니다. 계약서 한 건의 검토로 충분한 일이라면, 그렇게 말씀드립니다.</div>
+  </div>
+</section>
+
+<!-- §5 외국 기업 (앵커 섹션) -->
+<section class="recover" id="foreign">
+  <div class="wrap">
+    <div class="stitle">외국 기업의 한국 법무</div>
+    <div class="slead">본사와 영어로 직접 소통합니다.</div>
+    <p class="body">한국에 진출한 외국 기업의 법무는 소통에서 막히는 경우가 많습니다. 한국 변호사와 본사 사이에 통역과 요약이 오가는 동안, 정작 중요한 뉘앙스가 사라집니다.</p>
+    <p class="body">법무법인 명은 본사 담당자·본사 법무팀과 영어 이메일로 직접 소통하며 일합니다. 외국계 회사의 계약서 검토·작성을 영문으로 수행해 왔고, 외국 기업의 한국 법인 등기 업무를 다룹니다. 평택·캠프 험프리스 지역의 외국인 고객을 위한 영문 홈페이지도 운영하고 있습니다.</p>
+    <p class="body" style="font-weight:500;color:#222">Contracts, corporate registration, and dispute response — handled directly in English. <span style="font-size:12px;color:#8a6f4d">(영문 사이트: lsfp.co.kr)</span></p>
+  </div>
+</section>
+
+<!-- §6 FAQ -->
+<section>
+  <div class="wrap">
+    <div class="stitle">자주 묻는 질문</div>
+    <div class="slead">상담 전에 가장 많이 물으시는 것들입니다.</div>
+    <div class="faq">
+      <details><summary>계약서 한 건만 검토받아도 되나요?</summary>
+        <div class="a">네. 정기 자문 계약 없이 계약서 한 건 단위로 이용하실 수 있습니다. 회사에 법무 수요가 매일 있는 것은 아니기 때문에, 필요한 시점에 필요한 만큼 쓰시는 것이 합리적입니다.</div>
+      </details>
+      <details><summary>계약서 검토에서는 무엇을 봐 주나요?</summary>
+        <div class="a">불리한 조항이 있는지, 분쟁이 생겼을 때 문제가 될 조항이 무엇인지, 우리 쪽에 필요한 조항이 빠져 있지 않은지를 보고 검토 의견을 드립니다. 조항을 직접 고쳐 쓰는 수정안 작성은 검토보다 시간이 더 드는 별도 업무여서, 필요하신 경우 추가 비용과 함께 미리 안내드립니다.</div>
+      </details>
+      <details><summary>내용증명을 받았습니다. 바로 변호사가 필요한가요?</summary>
+        <div class="a">내용증명 자체에 법적 강제력이 있는 것은 아닙니다. 다만 상대방이 분쟁을 준비하고 있다는 신호이고, 여기에 어떻게 답하는지가 이후 소송에서 증거가 됩니다. 답장을 보내기 전에 계약서와 함께 검토받으시길 권합니다.</div>
+      </details>
+      <details><summary>영문 계약서도 검토가 되나요?</summary>
+        <div class="a">네. 외국계 회사의 영문 계약서 검토·작성을 수행해 왔고, 필요한 경우 본사 담당자와 영어로 직접 소통하며 진행합니다.</div>
+      </details>
+      <details><summary>상담만 받고 결정해도 되나요?</summary>
+        <div class="a">네. 상담 후 진행하지 않기로 정하셔도 됩니다. 먼저 상황을 정확히 아는 것이 시작입니다.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- §7 성공사례 -->
+<section>
+  <div class="wrap">
+    <div class="stitle">기업 법무의 결과들</div>
+    <div class="slead">결과는 기록으로 보여드립니다.</div>
+    <div class="cases">
+      <div class="ccard">
+        <div class="meta"><span class="field">기업</span><span class="badge">계약 검토</span></div>
+        <div class="t">건설회사 하도급 계약서 검토</div>
+      </div>
+      <div class="ccard">
+        <div class="meta"><span class="field">기업</span><span class="badge">영문 계약</span></div>
+        <div class="t">외국계 회사 계약서 영문 작성</div>
+      </div>
+      <div class="ccard">
+        <div class="meta"><span class="field">기업</span><span class="badge">분쟁 종결</span></div>
+        <div class="t">거래처 분쟁, 소송 전 단계에서 정리</div>
+      </div>
+    </div>
+    <a class="more" href="#">사례 더 보기 →</a>
+  </div>
+</section>
+
+<!-- §8 수임료 -->
+<section>
+  <div class="wrap">
+    <div class="stitle">수임료</div>
+    <div class="slead">비용을 처음부터 알려드립니다.</div>
+    <div class="feebox">
+      <div class="amount">자문료 시간당 25만원</div>
+      <div style="margin-top:6px;font-size:12px;color:#aaa">표시 금액은 부가세(VAT) 별도입니다.</div>
+      <p>계약서 검토·작성, 분쟁 초기 대응 등 기업 법무는 사안마다 분량과 난이도가 달라, 건당 정액 대신 시간당 자문료를 기준으로 합니다. 착수 전에 내용을 확인해 예상 시간과 총액을 먼저 안내드리고, 안내한 범위를 넘게 될 상황이면 진행 전에 협의드립니다.</p>
+      <div class="promise">필요하지 않은 일은 권하지 않습니다. 계약서 한 건의 검토로 충분한 일이라면, 그렇게 말씀드립니다.</div>
+    </div>
+    <a class="more" href="#">수임료 자세히 보기 →</a>
+  </div>
+</section>
+
+<!-- §9 도구·글 -->
+<section>
+  <div class="wrap">
+    <div class="stitle">직접 확인해보실 수 있는 것들</div>
+    <div class="slead">상담 전에 활용해 보세요.</div>
+    <div class="reslist">
+      <a href="#"><span>계약서에서 먼저 확인할 조항들</span><span class="tag">법률정보</span></a>
+      <a href="#"><span>내용증명을 받았을 때 하지 말아야 할 것</span><span class="tag">법률정보</span></a>
+      <a href="#"><span>법정 이자 계산기</span><span class="tag">스마트 도구</span></a>
+      <a href="#"><span>증거 수집 가이드</span><span class="tag">스마트 도구</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- §10 CTA -->
+<div class="ctasec">
+  <div class="wrap">
+    <div class="lead">먼저 상황을 정확히 아는 것이 시작입니다.<br>진행 여부는 그다음에 정하셔도 됩니다.</div>
+    <div class="btns">
+      <a class="tel" href="tel:0316586100">031-658-6100</a>
+      <a class="online" href="#">온라인 상담 신청</a>
+    </div>
+    <div class="region">법무법인 명(SOL &amp; LUNA)은 경기도 평택시 소재 법무법인으로, 필요할 때 바로 만나고 법원에 직접 출석할 수 있는 평택·안성·오산·아산 지역의 사건을 상담합니다.</div>
+  </div>
+</div>
+
+<footer>법무법인 명(SOL &amp; LUNA) · 검토용 시안</footer>
+
+</body>
+</html>

@@ -6,12 +6,11 @@ interface FeeRow {
   note: string;
 }
 
-// TODO: 실제 수임 기준으로 확정 필요
+// 부동산·건설 착수금은 세부 페이지(/practice/real-estate, /practice/construction)에서 안내 (마스터 플랜 [D] 확정: 표에서 행 제거)
 const FEE_ROWS: FeeRow[] = [
   { area: '형사', range: '400~1,000만원', note: '사건 단계와 사실관계 복잡도에 따라' },
   { area: '이혼·가사', range: '400~700만원', note: '재산분할·양육권 쟁점 유무에 따라' },
   { area: '민사 (대여금·계약 분쟁)', range: '300만원 이상', note: '청구금액과 입증 난이도에 따라' },
-  { area: '부동산·임대차', range: '300~600만원', note: '분쟁 유형에 따라' },
 ];
 
 export const Fees: React.FC = () => {
@@ -30,7 +29,6 @@ export const Fees: React.FC = () => {
           정확한 견적은 사건 검토 후 안내드립니다. 상담 시 가격이 갑자기 달라지는 일은 없습니다.
         </p>
 
-        {/* TODO: 실제 수임 기준으로 확정 필요 */}
         <div className="overflow-x-auto mb-12">
           <table className="w-full border-collapse text-left">
             <thead>

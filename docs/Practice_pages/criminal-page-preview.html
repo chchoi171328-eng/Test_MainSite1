@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>평택 형사 변호사 | 경찰 조사·고소 대응 | 법무법인 명 (검토용 시안)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Noto+Serif+KR:wght@400;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#C5A47E;--dark:#222222;--light:#F9F9F9;--txt:#333;--sub:#777}
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Noto Sans KR',sans-serif;color:var(--txt);background:#fff;-webkit-font-smoothing:antialiased}
+  .serif{font-family:'Noto Serif KR',serif}
+  .wrap{max-width:880px;margin:0 auto;padding:0 24px}
+
+  /* 검토용 배너 */
+  .review-note{background:#fff8ec;border-bottom:1px solid #eaddc4;text-align:center;padding:8px 16px;font-size:12px;color:#8a6f4d}
+
+  /* 네비 */
+  .nav{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:14px 28px;background:rgba(255,255,255,.97);backdrop-filter:blur(6px);border-bottom:1px solid #eee}
+  .nav .logo{display:flex;flex-direction:column;line-height:1.15}
+  .nav .logo b{font-size:14px;font-weight:700}
+  .nav .logo span{font-family:'Playfair Display',serif;font-size:10px;color:var(--gold);letter-spacing:.14em}
+  .nav .menu{display:flex;gap:20px;align-items:center;font-size:12px;color:#333}
+  .nav .menu i{font-style:normal}
+  .nav .menu i.on{color:var(--gold);font-weight:700}
+  .nav .cta{background:var(--gold);color:#fff;font-size:12px;font-weight:700;padding:7px 14px;border-radius:2px}
+  @media(max-width:720px){.nav .menu i:not(.on){display:none}}
+
+  /* §1 헤더 — 단색형 표준 */
+  .phead{background:var(--dark);border-bottom:1px solid var(--gold);padding:52px 0 46px}
+  .phead .crumb{font-size:12px;color:rgba(255,255,255,.55);letter-spacing:.06em;margin-bottom:14px}
+  .phead .crumb b{color:var(--gold);font-weight:500}
+  .phead h1{font-family:'Noto Serif KR',serif;font-size:34px;font-weight:700;color:#fff;letter-spacing:-.01em}
+  .phead .sub{margin-top:12px;font-size:15px;color:rgba(255,255,255,.78);font-weight:300}
+  @media(max-width:720px){.phead{padding:38px 0 34px}.phead h1{font-size:26px}.phead .sub{font-size:13.5px}}
+
+  /* 공통 섹션 */
+  section{padding:56px 0}
+  section + section{border-top:1px solid #f2efe9}
+  .stitle{font-family:'Noto Serif KR',serif;font-size:22px;font-weight:700;color:var(--dark);margin-bottom:8px}
+  .slead{font-size:13.5px;color:#999;font-weight:300;margin-bottom:26px}
+  p.body{font-size:15.5px;line-height:1.9;color:#3a3a3a;font-weight:350;margin-bottom:16px;max-width:660px}
+  @media(max-width:720px){section{padding:42px 0}p.body{font-size:14.5px}}
+
+  /* §3 상황 리스트 */
+  .sitlist{max-width:660px}
+  .sitlist li{list-style:none;padding:13px 0 13px 26px;position:relative;font-size:15px;color:#444;border-bottom:1px solid #f4f1ea;font-weight:400}
+  .sitlist li:before{content:"";position:absolute;left:2px;top:22px;width:8px;height:8px;border:1.5px solid var(--gold);border-radius:50%}
+  .sitlist li:last-child{border-bottom:none}
+  .sitlist li.grp{margin-top:14px;padding-top:22px;border-top:1px solid #eae4d8}
+  .sitlist li.grp:before{top:31px}
+
+  /* §4 타임라인 */
+  .tl{max-width:680px;margin-top:10px}
+  .step{position:relative;padding:0 0 34px 54px}
+  .step:before{content:"";position:absolute;left:17px;top:34px;bottom:0;width:1px;background:#e5dfd2}
+  .step:last-of-type:before{display:none}
+  .step .no{position:absolute;left:0;top:0;width:34px;height:34px;border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Noto Serif KR',serif;font-size:14px;color:var(--gold);background:#fff}
+  .step h3{font-family:'Noto Serif KR',serif;font-size:16.5px;font-weight:700;color:var(--dark);padding-top:5px}
+  .step .d{margin-top:6px;font-size:14px;color:#666;line-height:1.75;font-weight:300}
+  .step .can{margin-top:8px;font-size:13.5px;line-height:1.7;color:#8a6f4d;background:#faf7f1;padding:10px 14px;border-radius:3px;display:inline-block}
+  .tl-close{margin-top:6px;font-size:15px;color:var(--dark);font-weight:500;max-width:660px;line-height:1.8}
+
+  /* §5 피해자 트랙 */
+  .victim{background:#faf9f6}
+
+  /* §6 FAQ */
+  .faq{max-width:680px}
+  .faq details{border-bottom:1px solid #eee9df}
+  .faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:18px 2px;font-size:15.5px;font-weight:500;color:var(--dark)}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary:after{content:"+";color:var(--gold);font-size:18px;flex-shrink:0}
+  .faq details[open] summary:after{content:"−"}
+  .faq .a{padding:0 2px 20px;font-size:14.5px;line-height:1.85;color:#555;font-weight:300;max-width:620px}
+
+  /* §7 사례 카드 */
+  .cases{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  @media(max-width:720px){.cases{grid-template-columns:1fr}}
+  .ccard{border:1px solid #eae6df;border-radius:4px;padding:18px}
+  .ccard .meta{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+  .ccard .field{font-size:11px;color:#a99;letter-spacing:.06em;color:#b0a893}
+  .ccard .badge{font-size:11.5px;font-weight:700;color:#8a6f4d;background:#f6efe3;padding:3px 9px;border-radius:2px}
+  .ccard .t{font-size:14.5px;font-weight:500;color:var(--dark);line-height:1.55}
+  .more{display:inline-block;margin-top:20px;font-size:13.5px;color:var(--gold);text-decoration:none;font-weight:500}
+
+  /* §8 수임료 */
+  .feebox{max-width:660px;border:1px solid #eae6df;border-radius:4px;padding:26px 28px}
+  .feebox .amount{font-family:'Noto Serif KR',serif;font-size:19px;font-weight:700;color:var(--dark)}
+  .feebox p{font-size:14px;line-height:1.8;color:#555;font-weight:300;margin-top:10px}
+  .feebox .promise{margin-top:14px;padding-top:14px;border-top:1px solid #f0ece4;font-size:14.5px;color:var(--dark);font-weight:500}
+  .feebox .cert{margin-top:10px;font-size:12.5px;color:#999}
+
+  /* §9 도구·글 */
+  .reslist{max-width:660px}
+  .reslist a{display:flex;justify-content:space-between;align-items:center;padding:14px 2px;border-bottom:1px solid #f2efe9;text-decoration:none;color:#444;font-size:14.5px}
+  .reslist a span.tag{font-size:11px;color:#b0a893;letter-spacing:.04em}
+  .reslist a:hover{color:var(--dark)}
+
+  /* §10 CTA */
+  .ctasec{background:var(--dark);padding:60px 0;text-align:left}
+  .ctasec .lead{font-family:'Noto Serif KR',serif;font-size:21px;font-weight:600;color:#fff;line-height:1.7;max-width:600px}
+  .ctasec .sub2{margin-top:8px;font-size:14px;color:rgba(255,255,255,.7);font-weight:300}
+  .ctasec .btns{display:flex;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .ctasec .tel{font-family:'Noto Serif KR',serif;font-size:18px;color:#fff;border:1px solid rgba(255,255,255,.35);padding:11px 22px;border-radius:2px;text-decoration:none}
+  .ctasec .online{background:var(--gold);color:#fff;font-size:14px;font-weight:700;padding:13px 24px;border-radius:2px;text-decoration:none;display:flex;align-items:center}
+  .ctasec .region{margin-top:26px;font-size:12.5px;color:rgba(255,255,255,.5);line-height:1.8;max-width:620px}
+  @media(max-width:720px){.ctasec .lead{font-size:18px}}
+
+  footer{padding:26px 0;font-size:11.5px;color:#aaa;text-align:center}
+</style>
+</head>
+<body>
+
+<div class="review-note">검토용 시안 (피해자 페이지 분리 반영판) — 성공사례 카드·수임료 금액은 표시 예시입니다</div>
+
+<nav class="nav">
+  <div class="logo"><b>법무법인 명</b><span>SOL &amp; LUNA</span></div>
+  <div class="menu"><i>법인 소개</i><i class="on">업무 분야</i><i>수임료 안내</i><i>성공사례</i><i>법률정보</i><i>스마트 도구</i><span class="cta">상담 예약</span></div>
+</nav>
+
+<!-- §1 헤더 -->
+<div class="phead">
+  <div class="wrap">
+    <div class="crumb">업무 분야 <b>›</b> 형사 변호</div>
+    <h1>형사 변호</h1>
+    <div class="sub">지금 어느 단계인지에 따라, 가능한 대응이 다릅니다.</div>
+  </div>
+</div>
+
+<!-- §2 도입 -->
+<section>
+  <div class="wrap">
+    <p class="body">경찰에서 연락을 받으면 대부분 두 가지가 먼저 떠오릅니다. 전과가 남을까, 직장이나 가족에게 알려질까.</p>
+    <p class="body">결론부터 말씀드리면, 같은 혐의라도 가능한 결과의 폭은 사건마다 다릅니다. 그리고 그 폭은 지금 사건이 어느 단계에 있는지, 그 단계에서 무엇을 하는지에 따라 정해집니다. 아래에서 단계별로 확인하실 수 있습니다.</p>
+    <p class="body" style="font-size:14px;color:#8a6f4d">범죄 피해를 입어 고소를 준비하고 계신 분은 <a href="#" style="color:#C5A47E;font-weight:500">피해자·고소 대응 안내</a>에서 확인하실 수 있습니다. <span style="font-size:11.5px;color:#b6ad9c">(실제 링크: /practice/criminal-victim)</span></p>
+  </div>
+</section>
+
+<!-- §3 이런 상황이라면 -->
+<section>
+  <div class="wrap">
+    <div class="stitle">이런 상황이라면</div>
+    <div class="slead">하나라도 해당된다면, 이 페이지가 도움이 됩니다.</div>
+    <ul class="sitlist">
+      <li>경찰서에서 출석 요구 연락을 받았다</li>
+      <li>음주운전·음주측정거부로 조사를 앞두고 있다</li>
+      <li>다툼이 있었는데 쌍방폭행으로 입건되었다</li>
+      <li>사기 혐의로 고소를 당했다</li>
+      <li>가족이 체포되었거나 조사를 받고 있다</li>
+      <li class="grp">경찰에서 검찰로 사건이 송치되었다</li>
+      <li>검찰에서 기소되어 재판을 앞두고 있다 (공소장을 받았다)</li>
+      <li>약식명령을 받았는데 정식재판을 청구할지 고민이다</li>
+    </ul>
+  </div>
+</section>
+
+<!-- §4 타임라인 -->
+<section>
+  <div class="wrap">
+    <div class="stitle">형사 사건은 이렇게 진행됩니다</div>
+    <div class="slead">지금 어느 단계인지 확인해 보세요.</div>
+    <div class="tl">
+      <div class="step">
+        <div class="no">1</div>
+        <h3>경찰 조사 전</h3>
+        <div class="d">출석 요구를 받았거나 조사를 앞둔 단계입니다.</div>
+        <div class="can">할 수 있는 것 — 진술 방향을 정리하고 첫 조사를 준비합니다. 선택지가 가장 많이 남아 있는 시기입니다.</div>
+      </div>
+      <div class="step">
+        <div class="no">2</div>
+        <h3>경찰 조사</h3>
+        <div class="d">피의자 신분으로 조사를 받습니다. 이때의 진술이 기록으로 남아 끝까지 따라갑니다.</div>
+        <div class="can">할 수 있는 것 — 변호인 동석, 진술 전 사실관계 정리, 조서 열람 후 수정 요청. 경찰의 질문을 통해 상대방의 주장을 파악할 수도 있습니다.</div>
+      </div>
+      <div class="step">
+        <div class="no">3</div>
+        <h3>송치 / 불송치 결정 전</h3>
+        <div class="d">조사를 마친 경찰이 사건을 검찰에 보낼지(송치), 자체 종결할지(불송치) 판단하는 시기입니다.</div>
+        <div class="can">할 수 있는 것 — 유리한 증거 제출, 탄원서 제출, 의견서 제출(필요한 경우). 결정이 내려지기 전이 마지막으로 적극 대응할 수 있는 시점입니다.</div>
+      </div>
+      <div class="step">
+        <div class="no">4</div>
+        <h3>검찰 처분 전</h3>
+        <div class="d">송치된 사건을 검사가 기소, 불기소(기소유예 포함), 약식명령 청구 등으로 판단하는 시기입니다. 검사가 직접 조사하는 경우도 있습니다.</div>
+        <div class="can">할 수 있는 것 — 양형 자료 제출, 피해 회복·합의 진행, 의견서 제출(필요한 경우). 처분이 내려지기 전에 하는 대응입니다.</div>
+      </div>
+      <div class="step">
+        <div class="no">5</div>
+        <h3>재판 (공판)</h3>
+        <div class="d">기소된 경우 법원에서 유무죄와 형이 정해집니다.</div>
+        <div class="can">할 수 있는 것 — 증거에 대한 의견(증거인부), 증인신문, 변론. 유리한 추가 증거 제출, 반성문·탄원서 제출.</div>
+      </div>
+    </div>
+    <div class="tl-close">단계가 뒤로 갈수록 선택지는 줄어듭니다. 그래서 형사 사건은 지금 단계를 정확히 아는 것이 첫 번째입니다.</div>
+  </div>
+</section>
+
+<!-- §5 제거됨 — 피해자 분기는 §2 도입부 링크로 일원화 -->
+
+
+<!-- §6 FAQ -->
+<section>
+  <div class="wrap">
+    <div class="stitle">자주 묻는 질문</div>
+    <div class="slead">상담 전에 가장 많이 물으시는 것들입니다.</div>
+    <div class="faq">
+      <details><summary>초범이면 처벌이 어떻게 되나요?</summary>
+        <div class="a">초범이라는 사정은 유리하게 고려되지만, 결과는 죄명·피해 정도·합의 여부에 따라 크게 달라집니다. 같은 혐의의 초범이라도 기소유예로 끝나는 경우와 재판까지 가는 경우가 모두 있습니다. 사건 내용을 들어야 가능한 범위를 말씀드릴 수 있습니다.</div>
+      </details>
+      <details><summary>경찰 조사에 변호사가 꼭 동행해야 하나요?</summary>
+        <div class="a">모든 사건에 필수는 아닙니다. 다만 첫 조사의 진술은 기록으로 남아 이후 절차 전체에 영향을 주기 때문에, 동행 여부와 별개로 조사 전에 사실관계를 정리하고 가시는 것은 권합니다.</div>
+      </details>
+      <details><summary>회사나 가족에게 알려지나요?</summary>
+        <div class="a">직장과 집을 나눠서 말씀드립니다. <strong>직장</strong>에는 통보되지 않는 것이 원칙입니다. 조사 일정은 수사기관이 피의자 본인에게 직접 연락해 조율하고, 공무원처럼 자동 통보 규정이 적용되는 일부 직군이 아니라면 회사로 통보가 가지 않습니다. <strong>집</strong>의 경우, 송치·불송치 결정 같은 공식 절차는 주거지로 우편이 발송될 수 있습니다. 다만 우편물 수령 주소는 변경할 수 있어, 가족에게 알려지는 것이 걱정되신다면 상담에서 방법을 함께 정리해 드립니다.</div>
+      </details>
+      <details><summary>변호사 없이 혼자 대응해도 되는 사건도 있나요?</summary>
+        <div class="a">네, 있습니다. 사실관계가 단순하고 다툼이 없는 경미한 사건은 혼자 대응하셔도 됩니다. 상담에서 선임이 필요한 사건인지부터 말씀드립니다.</div>
+      </details>
+      <details><summary>상담만 받고 결정해도 되나요?</summary>
+        <div class="a">네. 상담 후 의뢰하지 않으셔도 됩니다. 먼저 상황을 정확히 아는 것이 시작입니다.</div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- §7 성공사례 -->
+<section>
+  <div class="wrap">
+    <div class="stitle">형사 사건의 결과들</div>
+    <div class="slead">결과는 판결문으로 보여드립니다.</div>
+    <div class="cases">
+      <div class="ccard">
+        <div class="meta"><span class="field">형사</span><span class="badge">기소유예</span></div>
+        <div class="t">음주측정거부, 수사 단계 대응</div>
+      </div>
+      <div class="ccard">
+        <div class="meta"><span class="field">형사</span><span class="badge">무죄</span></div>
+        <div class="t">쌍방폭행 주장 사건, 정당방위 인정</div>
+      </div>
+      <div class="ccard">
+        <div class="meta"><span class="field">형사</span><span class="badge">불송치</span></div>
+        <div class="t">사기 고소 사건, 혐의없음 종결</div>
+      </div>
+    </div>
+    <a class="more" href="#">형사 사례 더 보기 →</a>
+  </div>
+</section>
+
+<!-- §8 수임료 -->
+<section>
+  <div class="wrap">
+    <div class="stitle">수임료</div>
+    <div class="slead">비용을 처음부터 알려드립니다.</div>
+    <div class="feebox">
+      <div class="amount">착수금 400~1,000만원</div>
+      <div style="margin-top:6px;font-size:12px;color:#aaa">표시 금액은 부가세(VAT) 별도입니다.</div>
+      <p>사건 단계와 사실관계 복잡도에 따라 달라집니다. 정확한 금액은 사건 검토 후 안내드리고, 진행 중에 갑자기 늘어나지 않습니다.</p>
+      <div class="promise">상담 후 승산이 낮다고 판단되면 수임을 권하지 않습니다.</div>
+      <div class="cert">최철호 변호사는 대한변호사협회 등록 형사법·민사법 전문변호사입니다. <span style="color:#b6ad9c">&lt;!-- 등록증 표기가 다르면 그대로 교체 --&gt;</span></div>
+    </div>
+    <a class="more" href="#">수임료 자세히 보기 →</a>
+  </div>
+</section>
+
+<!-- §9 도구·글 -->
+<section>
+  <div class="wrap">
+    <div class="stitle">직접 확인해보실 수 있는 것들</div>
+    <div class="slead">상담 전에 활용해 보세요.</div>
+    <div class="reslist">
+      <a href="#"><span>증거 수집 가이드</span><span class="tag">스마트 도구</span></a>
+      <a href="#"><span>관할법원 찾기</span><span class="tag">스마트 도구</span></a>
+      <a href="#"><span>공갈죄, 송금 전 확인할 것</span><span class="tag">법률정보</span></a>
+      <a href="#"><span>경찰 조사 전 준비 체크리스트</span><span class="tag">법률정보</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- §10 CTA -->
+<div class="ctasec">
+  <div class="wrap">
+    <div class="lead">먼저 상황을 정확히 아는 것이 시작입니다.<br>의뢰 여부는 그다음에 정하셔도 됩니다.</div>
+    <div class="btns">
+      <a class="tel" href="tel:0316586100">031-658-6100</a>
+      <a class="online" href="#">온라인 상담 신청</a>
+    </div>
+    <div class="region">법무법인 명(SOL &amp; LUNA)은 경기도 평택시 소재 법무법인으로, 필요할 때 바로 만나고 법원에 직접 출석할 수 있는 평택·안성·오산·아산 지역의 사건을 상담합니다.</div>
+  </div>
+</div>
+
+<footer>법무법인 명(SOL &amp; LUNA) · 검토용 시안</footer>
+
+</body>
+</html>

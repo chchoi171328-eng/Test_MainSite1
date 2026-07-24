@@ -455,7 +455,7 @@ export const SmartTools: React.FC = () => {
           {/* Left Column: Calculators */}
           <div className="space-y-8">
             {/* Tool 1: Legal Interest Calculator */}
-            <div className="bg-white p-6 md:p-8 rounded-sm shadow-sm border border-gray-100">
+            <div id="interest-calculator" className="scroll-mt-24 bg-white p-6 md:p-8 rounded-sm shadow-sm border border-gray-100">
               <div className="flex items-center gap-3 mb-6 border-b border-gray-100 pb-4">
                 <div className="bg-brand-light p-3 rounded-full text-brand-gold">
                   <Calculator size={24} />
@@ -533,7 +533,7 @@ export const SmartTools: React.FC = () => {
             </div>
 
             {/* Tool 2: Legal Cost (Stamp & Service Fee) Calculator */}
-            <div className="bg-white p-6 md:p-8 rounded-sm shadow-sm border border-gray-100">
+            <div id="cost-calculator" className="scroll-mt-24 bg-white p-6 md:p-8 rounded-sm shadow-sm border border-gray-100">
               <div className="flex items-center gap-3 mb-6 border-b border-gray-100 pb-4">
                 <div className="bg-brand-light p-3 rounded-full text-brand-gold">
                   <Coins size={24} />
@@ -619,7 +619,7 @@ export const SmartTools: React.FC = () => {
             </div>
 
             {/* Tool 3: Child Support Calculator */}
-            <div className="bg-white p-6 md:p-8 rounded-sm shadow-sm border border-gray-100">
+            <div id="child-support-calculator" className="scroll-mt-24 bg-white p-6 md:p-8 rounded-sm shadow-sm border border-gray-100">
               <div className="flex items-center gap-3 mb-6 border-b border-gray-100 pb-4">
                 <div className="bg-brand-light p-3 rounded-full text-brand-gold">
                   <Baby size={24} />
@@ -687,7 +687,7 @@ export const SmartTools: React.FC = () => {
             </div>
 
             {/* Tool 4: Inheritance Share Calculator */}
-            <div className="bg-white p-6 md:p-8 rounded-sm shadow-sm border border-gray-100">
+            <div id="inheritance-calculator" className="scroll-mt-24 bg-white p-6 md:p-8 rounded-sm shadow-sm border border-gray-100">
               <div className="flex items-center gap-3 mb-6 border-b border-gray-100 pb-4">
                 <div className="bg-brand-light p-3 rounded-full text-brand-gold">
                   <PieChart size={24} />
@@ -816,7 +816,7 @@ export const SmartTools: React.FC = () => {
             </div>
 
             {/* Tool 6: Wage Arrears Calculator - Moved from Right */}
-            <div className="bg-white p-6 md:p-8 rounded-sm shadow-sm border border-gray-100">
+            <div id="wage-calculator" className="scroll-mt-24 bg-white p-6 md:p-8 rounded-sm shadow-sm border border-gray-100">
                 <div className="flex items-center gap-3 mb-6 border-b border-gray-100 pb-4">
                 <div className="bg-brand-light p-3 rounded-full text-brand-gold">
                     <Banknote size={24} />
@@ -976,7 +976,7 @@ export const SmartTools: React.FC = () => {
             </div>
 
             {/* Tool: Evidence Collection Guide (New) */}
-            <div className="bg-white p-6 md:p-8 rounded-sm shadow-sm border border-gray-100 relative">
+            <div id="evidence-guide" className="scroll-mt-24 bg-white p-6 md:p-8 rounded-sm shadow-sm border border-gray-100 relative">
               <div className="flex items-center gap-3 mb-6 border-b border-gray-100 pb-4">
                 <div className="bg-brand-light p-3 rounded-full text-brand-gold">
                   <ClipboardList size={24} />
@@ -1064,7 +1064,7 @@ export const SmartTools: React.FC = () => {
             </div>
 
             {/* Tool 6: Court Finder */}
-            <div className="bg-white p-6 md:p-8 rounded-sm shadow-sm border border-gray-100">
+            <div id="court-finder" className="scroll-mt-24 bg-white p-6 md:p-8 rounded-sm shadow-sm border border-gray-100">
               <div className="flex items-center gap-3 mb-6 border-b border-gray-100 pb-4">
                 <div className="bg-brand-light p-3 rounded-full text-brand-gold">
                   <Map size={24} />

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import React, { Suspense } from 'react';
 import { Hero } from '../../components/Hero';
+import { SituationRouting } from '../../components/SituationRouting';
 import { About } from '../../components/About';
 import { SuccessCases } from '../../components/SuccessCases';
 import { LegalCases } from '../../components/LegalCases';
@@ -30,6 +31,8 @@ export default async function HomePage() {
   return (
     <>
       <Hero />
+      {/* 상황 라우팅 — 히어로 아래·철학 섹션(About) 위, 홈 전용 (라우팅 지침 작업 1) */}
+      <SituationRouting />
       <About />
       <Suspense>
         <SuccessCases cases={successCases} limit={3} />
