@@ -457,7 +457,8 @@ export const Admin: React.FC = () => {
         <div className="flex flex-wrap gap-2 mb-8 border-b border-gray-200 pb-2">
           {[
             { id: 'success', label: '성공 사례' },
-            { id: 'posts', label: '최신 법률 정보' },
+            // 법률정보(구 블로그)는 MDX 파일 기반 가이드로 전환되어 관리 탭에서 제외한다.
+            // Supabase legal_posts 테이블·데이터는 보존되어 있다 (덤프: docs/archive/blog-dump/)
             { id: 'forms', label: '법률 서식' },
             { id: 'cases', label: '주요 판례' },
           ].map((tab) => (

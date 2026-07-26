@@ -10,10 +10,10 @@ import {
   FeeBox,
   FeeText,
   MoreLink,
-  ResourceList,
   PracticeCta,
 } from '../../../../components/practice/PracticeShared';
 import { PracticeCases } from '../../../../components/practice/PracticeCases';
+import { PracticeResources } from '../../../../components/practice/PracticeResources';
 import { getAllSuccessCases } from '../../../../api/successCases';
 
 export const revalidate = 300;
@@ -198,22 +198,8 @@ export default async function DivorcePage() {
         </FeeBox>
         <MoreLink href="/fees">수임료 자세히 보기 →</MoreLink>
       </PSection>
-
-      {/* §9 도구·글 */}
-      <PSection title="직접 확인해보실 수 있는 것들" lead="상담 전에 활용해 보세요.">
-        <ResourceList
-          items={[
-            { label: '양육비 계산기', tag: '스마트 도구', href: '/tools#child-support-calculator' },
-            { label: '증거 수집 가이드', tag: '스마트 도구', href: '/tools#evidence-guide' },
-            {
-              label: '이혼 전 재산 정리, 무엇부터 확인할까',
-              tag: '법률정보',
-              href: '/insights?category=가사',
-            },
-            { label: '관할법원 찾기', tag: '스마트 도구', href: '/tools#court-finder' },
-          ]}
-        />
-      </PSection>
+      {/* §9 도구·글 — 가이드 frontmatter와 스마트 도구에서 빌드 시 자동 생성 (지침 작업 5) */}
+      <PracticeResources field="divorce" />
 
       {/* §10 CTA */}
       <PracticeCta
