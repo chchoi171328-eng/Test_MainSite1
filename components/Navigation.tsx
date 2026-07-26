@@ -43,12 +43,22 @@ const NAV_ITEMS: NavItemConfig[] = [
   { label: '수임료 안내', href: '/fees' },
   { label: '성공사례', href: '/cases' },
   {
+    // 라벨 클릭 시 /legal-info 이동 + 분야별 가이드 8종 드롭다운 (지침 작업 7)
     label: '법률정보',
+    href: '/legal-info',
     children: [
-      { label: '최신 법률 정보', href: '/insights' },
+      { label: '형사 변호', href: '/guides/criminal' },
+      { label: '형사 피해자·고소', href: '/guides/criminal-victim' },
+      { label: '민사 소송', href: '/guides/civil' },
+      { label: '이혼', href: '/guides/divorce' },
+      { label: '상속', href: '/guides/inheritance' },
+      { label: '부동산', href: '/guides/real-estate' },
+      { label: '건설·공사대금', href: '/guides/construction' },
+      { label: '기업 법무', href: '/guides/corporate' },
+      { label: '소식', href: '/news', divider: true },
       { label: '법률 서식', href: '/legal-forms' },
-      { label: '주요 판례', href: '/legal-cases' }
-    ]
+      { label: '주요 판례', href: '/legal-cases' },
+    ],
   },
   { label: '스마트 도구', href: '/tools' },
   { label: '오시는 길', href: '/contact' },

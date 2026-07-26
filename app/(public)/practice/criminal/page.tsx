@@ -10,10 +10,10 @@ import {
   FeeBox,
   FeeText,
   MoreLink,
-  ResourceList,
   PracticeCta,
 } from '../../../../components/practice/PracticeShared';
 import { PracticeCases } from '../../../../components/practice/PracticeCases';
+import { PracticeResources } from '../../../../components/practice/PracticeResources';
 import { getAllSuccessCases } from '../../../../api/successCases';
 
 export const revalidate = 300;
@@ -169,18 +169,8 @@ export default async function CriminalPage() {
         </FeeBox>
         <MoreLink href="/fees">수임료 자세히 보기 →</MoreLink>
       </PSection>
-
-      {/* §9 도구·글 */}
-      <PSection title="직접 확인해보실 수 있는 것들" lead="상담 전에 활용해 보세요.">
-        <ResourceList
-          items={[
-            { label: '증거 수집 가이드', tag: '스마트 도구', href: '/tools#evidence-guide' },
-            { label: '관할법원 찾기', tag: '스마트 도구', href: '/tools#court-finder' },
-            { label: '공갈죄, 송금 전 확인할 것', tag: '법률정보', href: '/insights/87' },
-            { label: '경찰 조사 전 준비 체크리스트', tag: '법률정보', href: '/insights?category=형사' },
-          ]}
-        />
-      </PSection>
+      {/* §9 도구·글 — 가이드 frontmatter와 스마트 도구에서 빌드 시 자동 생성 (지침 작업 5) */}
+      <PracticeResources field="criminal" />
 
       {/* §10 CTA */}
       <PracticeCta

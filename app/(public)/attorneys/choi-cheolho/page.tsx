@@ -6,7 +6,7 @@ import { JsonLd } from '../../../../components/JsonLd';
 import { TrackedLink } from '../../../../components/TrackedLink';
 import { buildAttorneyJsonLd, SITE_URL } from '../../../../lib/organization';
 import { getAllSuccessCases } from '../../../../api/successCases';
-import { getAllLegalPosts } from '../../../../api/legalPosts';
+import { getAllGuides, FIELD_LABELS } from '../../../../lib/content';
 
 export const revalidate = 300;
 
@@ -44,13 +44,12 @@ const PRINCIPLES = [
 ];
 
 export default async function AttorneyProfilePage() {
-  const [successCases, legalPosts] = await Promise.all([
-    getAllSuccessCases().catch(() => []),
-    getAllLegalPosts().catch(() => []),
-  ]);
+  const successCases = await getAllSuccessCases().catch(() => []);
 
   const relatedCases = successCases.slice(0, 3);
-  const relatedPosts = legalPosts.slice(0, 3);
+  const relatedGuides = getAllGuides()
+    .filter((g) => !g.draft)
+    .slice(0, 3);
 
   const profilePageJsonLd = {
     '@context': 'https://schema.org',
@@ -179,24 +178,26 @@ export default async function AttorneyProfilePage() {
             </div>
           )}
 
-          {/* Related Legal Insights */}
-          {relatedPosts.length > 0 && (
+          {/* 관련 법률정보 — 가이드에서 자동 생성 (가이드 0건이면 섹션 숨김) */}
+          {relatedGuides.length > 0 && (
             <div className="mb-20">
               <div className="flex justify-between items-end mb-6">
                 <h2 className="text-2xl font-serif font-bold text-brand-dark">관련 법률정보</h2>
-                <Link href="/insights" className="text-sm text-gray-500 hover:text-brand-gold transition-colors">
+                <Link href="/legal-info" className="text-sm text-gray-500 hover:text-brand-gold transition-colors">
                   전체 보기 &rarr;
                 </Link>
               </div>
               <div className="grid md:grid-cols-3 gap-6">
-                {relatedPosts.map((post) => (
+                {relatedGuides.map((guide) => (
                   <Link
-                    key={post.id}
-                    href={`/insights/${post.id}`}
+                    key={guide.slug}
+                    href={`/guides/${guide.field}/${guide.slug}`}
                     className="block border border-gray-100 p-6 rounded-sm hover:shadow-md transition-shadow group"
                   >
-                    <div className="text-xs text-gray-400 mb-2">{post.date}</div>
-                    <p className="font-bold text-brand-dark group-hover:text-brand-gold transition-colors line-clamp-2 break-keep">{post.title}</p>
+                    <div className="text-xs text-gray-400 mb-2">{FIELD_LABELS[guide.field]}</div>
+                    <p className="font-bold text-brand-dark group-hover:text-brand-gold transition-colors line-clamp-2 break-keep">
+                      {guide.listingTitle}
+                    </p>
                   </Link>
                 ))}
               </div>

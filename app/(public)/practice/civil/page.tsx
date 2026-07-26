@@ -10,10 +10,10 @@ import {
   FeeBox,
   FeeText,
   MoreLink,
-  ResourceList,
   PracticeCta,
 } from '../../../../components/practice/PracticeShared';
 import { PracticeCases } from '../../../../components/practice/PracticeCases';
+import { PracticeResources } from '../../../../components/practice/PracticeResources';
 import { getAllSuccessCases } from '../../../../api/successCases';
 
 export const revalidate = 300;
@@ -191,18 +191,8 @@ export default async function CivilPage() {
         </FeeBox>
         <MoreLink href="/fees">수임료 자세히 보기 →</MoreLink>
       </PSection>
-
-      {/* §9 도구·글 */}
-      <PSection title="직접 확인해보실 수 있는 것들" lead="상담 전에 활용해 보세요.">
-        <ResourceList
-          items={[
-            { label: '법정 이자 계산기', tag: '스마트 도구', href: '/tools#interest-calculator' },
-            { label: '인지대·송달료 계산기', tag: '스마트 도구', href: '/tools#cost-calculator' },
-            { label: '관할법원 찾기', tag: '스마트 도구', href: '/tools#court-finder' },
-            { label: '증거 수집 가이드', tag: '스마트 도구', href: '/tools#evidence-guide' },
-          ]}
-        />
-      </PSection>
+      {/* §9 도구·글 — 가이드 frontmatter와 스마트 도구에서 빌드 시 자동 생성 (지침 작업 5) */}
+      <PracticeResources field="civil" />
 
       {/* §10 CTA */}
       <PracticeCta
