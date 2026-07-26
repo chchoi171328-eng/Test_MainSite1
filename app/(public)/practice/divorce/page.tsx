@@ -62,6 +62,14 @@ export default async function DivorcePage() {
           아는 것입니다. 알고 나면 협의가 정리되기도 하고, 협의로 될 일이 아니라는 것이 분명해지기도
           합니다. 결정하지 않고 돌아가셔도 됩니다.
         </PBody>
+        {/* 상속 분기 라인 — 배포 실측 후 복원 결정 (마스터 플랜 1-3, UX 수정 3) */}
+        <PBody className="!text-sm !text-[#8a6f4d]">
+          상속 문제로 오신 분은{' '}
+          <Link href="/practice/inheritance" className="text-brand-gold font-medium hover:underline">
+            상속 안내
+          </Link>
+          에서 확인하실 수 있습니다.
+        </PBody>
       </PSection>
 
       {/* §3 이런 상황이라면 */}
@@ -180,7 +188,7 @@ export default async function DivorcePage() {
       {/* §8 수임료 — cert 줄 없음 (마스터 플랜 2-1: 이혼 페이지 미표기) */}
       <PSection title="수임료" lead="비용을 처음부터 알려드립니다.">
         <FeeBox
-          amount="착수금 400~700만원"
+          amount="착수금 400~700만 원"
           promise="이혼을 권하지도, 말리지도 않습니다. 지금 상황에서 무엇을 지킬 수 있는지부터 말씀드립니다."
         >
           <FeeText>

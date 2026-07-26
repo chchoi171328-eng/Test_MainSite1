@@ -189,7 +189,7 @@ export default async function ConstructionPage() {
       {/* §8 수임료 — cert 줄 포함 (마스터 플랜 2-1: 공사대금 소송=민사소송) */}
       <PSection title="수임료" lead="비용을 처음부터 알려드립니다.">
         <FeeBox
-          amount="착수금 300만원부터"
+          amount="착수금 400만 원부터"
           promise="승산이 낮은 소송은 권하지 않습니다. 상담에서는 다툼이 되는 항목별로, 가능성부터 함께 따져봅니다."
           cert
         >

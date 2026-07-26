@@ -176,7 +176,7 @@ export default function CriminalVictimPage() {
       {/* §8 수임료 */}
       <PSection title="수임료" lead="비용을 처음부터 알려드립니다.">
         <FeeBox
-          amount="착수금 400~1,000만원"
+          amount="착수금 400~1,000만 원"
           promise="상담 후 고소의 실익이 낮다고 판단되면, 그렇게 말씀드립니다."
           cert
         >

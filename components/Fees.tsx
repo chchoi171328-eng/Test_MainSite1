@@ -1,16 +1,38 @@
 import React from 'react';
+import Link from 'next/link';
 
 interface FeeRow {
   area: string;
+  href: string;
   range: string;
+  /** 금액 아래 각주 (한정승인·기업 행) */
+  footnote?: string;
   note: string;
 }
 
-// 부동산·건설 착수금은 세부 페이지(/practice/real-estate, /practice/construction)에서 안내 (마스터 플랜 [D] 확정: 표에서 행 제거)
+// 8분야 체계 9행 — 금액은 각 세부 페이지 수임료 박스와 동일 (UX 수정 5, 원천: fees-page-preview.html)
 const FEE_ROWS: FeeRow[] = [
-  { area: '형사', range: '400~1,000만원', note: '사건 단계와 사실관계 복잡도에 따라' },
-  { area: '이혼·가사', range: '400~700만원', note: '재산분할·양육권 쟁점 유무에 따라' },
-  { area: '민사 (대여금·계약 분쟁)', range: '300만원 이상', note: '청구금액과 입증 난이도에 따라' },
+  { area: '형사 변호', href: '/practice/criminal', range: '400~1,200만 원', note: '사건 단계와 사실관계 복잡도에 따라' },
+  { area: '형사 피해자·고소', href: '/practice/criminal-victim', range: '400~1,000만 원', note: '고소 준비와 절차 대응 범위에 따라' },
+  { area: '민사 소송', href: '/practice/civil', range: '300만 원부터', note: '청구금액과 입증 난이도에 따라' },
+  { area: '부동산', href: '/practice/real-estate', range: '300만 원부터', note: '분쟁 유형과 다투는 금액에 따라' },
+  { area: '건설·공사대금', href: '/practice/construction', range: '400만 원부터', note: '다투는 금액과 소송의 난이도에 따라' },
+  { area: '이혼', href: '/practice/divorce', range: '400~700만 원', note: '재산분할·양육권 쟁점 유무에 따라' },
+  { area: '상속 분쟁', href: '/practice/inheritance', range: '400만 원부터', note: '재산 규모와 쟁점에 따라' },
+  {
+    area: '상속포기 / 한정승인',
+    href: '/practice/inheritance',
+    range: '10만 원 / 100만 원 (정액)',
+    footnote: '한정승인은 정리할 재산이 특별히 많은 경우, 사건 검토 시 증액된 금액을 미리 안내드립니다.',
+    note: '정형화된 절차, 정액 진행',
+  },
+  {
+    area: '기업 법무',
+    href: '/practice/corporate',
+    range: '자문료 시간당 25만 원',
+    footnote: '착수 전에 예상 시간과 총액을 먼저 안내드립니다.',
+    note: '계약서 검토·작성, 분쟁 초기 대응 등',
+  },
 ];
 
 export const Fees: React.FC = () => {
@@ -34,16 +56,31 @@ export const Fees: React.FC = () => {
             <thead>
               <tr className="border-b-2 border-brand-dark">
                 <th className="py-4 pr-4 text-sm font-bold text-brand-dark whitespace-nowrap">사건 영역</th>
-                <th className="py-4 pr-4 text-sm font-bold text-brand-dark whitespace-nowrap">착수금 범위</th>
-                <th className="py-4 text-sm font-bold text-brand-dark">비고</th>
+                <th className="py-4 pr-4 text-sm font-bold text-brand-dark whitespace-nowrap">착수금 기준</th>
+                {/* 모바일: 기준 컬럼 숨김 — 행 클릭으로 세부 확인 (fees-page-preview) */}
+                <th className="hidden md:table-cell py-4 text-sm font-bold text-brand-dark">기준</th>
               </tr>
             </thead>
             <tbody>
               {FEE_ROWS.map((row) => (
-                <tr key={row.area} className="border-b border-gray-200">
-                  <td className="py-4 pr-4 text-brand-dark font-medium break-keep">{row.area}</td>
-                  <td className="py-4 pr-4 text-brand-dark whitespace-nowrap">{row.range}</td>
-                  <td className="py-4 text-gray-600 break-keep">{row.note}</td>
+                <tr key={row.area} className="border-b border-gray-200 hover:bg-brand-light/40 transition-colors">
+                  <td className="py-4 pr-4 break-keep">
+                    <Link
+                      href={row.href}
+                      className="text-brand-dark font-medium border-b border-brand-dark/25 hover:text-brand-gold hover:border-brand-gold transition-colors"
+                    >
+                      {row.area}
+                    </Link>
+                  </td>
+                  <td className="py-4 pr-4 text-brand-dark break-keep">
+                    {row.range}
+                    {row.footnote && (
+                      <span className="block mt-1.5 text-xs text-[#a08b5f] font-light break-keep">
+                        {row.footnote}
+                      </span>
+                    )}
+                  </td>
+                  <td className="hidden md:table-cell py-4 text-gray-600 text-sm break-keep">{row.note}</td>
                 </tr>
               ))}
             </tbody>

@@ -108,7 +108,11 @@ function KeywordList({ keywords, className = '' }: { keywords: { label: string; 
         <React.Fragment key={k.label}>
           {i > 0 && <span aria-hidden="true"> / </span>}
           {k.href ? (
-            <Link href={k.href} className="hover:text-brand-gold underline decoration-gray-300 underline-offset-2">
+            // 카드 전체 링크(stretched-link) 위에서 독립 클릭 영역 유지 (UX 수정 2)
+            <Link
+              href={k.href}
+              className="relative z-10 hover:text-brand-gold underline decoration-gray-300 underline-offset-2"
+            >
               {k.label}
             </Link>
           ) : (
@@ -121,57 +125,36 @@ function KeywordList({ keywords, className = '' }: { keywords: { label: string; 
 }
 
 export const PracticeAreas: React.FC<{ showQuestions?: boolean }> = ({ showQuestions }) => {
+  // 전 카드 동일 크기, 순서는 그물 우선 현행 유지 (UX 수정 1)
+  const AREAS = [...PRIMARY_AREAS, ...SECONDARY_AREAS];
+
   return (
     <section id="practice" className="py-16 md:py-20 bg-brand-light">
       <div className="container mx-auto px-6 md:px-12">
         {/* 제목·서브 메시지는 PageHeader가 담당 */}
 
-        {/* 그물 분야 (형사·민사·가사) */}
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
-          {PRIMARY_AREAS.map((area) => (
+        <div className="grid md:grid-cols-3 gap-6">
+          {AREAS.map((area) => (
             <div
               key={area.id}
-              className="bg-white p-8 lg:p-10 group hover:-translate-y-2 transition-transform duration-300 shadow-sm hover:shadow-xl border border-transparent hover:border-brand-gold/20"
+              className="relative bg-white p-8 group hover:-translate-y-1 transition-transform duration-300 shadow-sm hover:shadow-xl border border-transparent hover:border-brand-gold/20"
             >
-              <div className="w-16 h-16 bg-brand-light rounded-full flex items-center justify-center mb-6 group-hover:bg-brand-gold transition-colors duration-300">
-                <area.icon className="text-brand-dark group-hover:text-white transition-colors duration-300" size={32} />
+              <div className="w-14 h-14 bg-brand-light rounded-full flex items-center justify-center mb-5 group-hover:bg-brand-gold transition-colors duration-300">
+                <area.icon className="text-brand-dark group-hover:text-white transition-colors duration-300" size={28} />
               </div>
-              <h2 className="text-2xl lg:text-3xl font-serif font-bold text-brand-dark mb-4 group-hover:text-brand-gold transition-colors break-keep">
-                <Link href={area.href}>{area.title}</Link>
+              <h2 className="text-xl lg:text-2xl font-serif font-bold text-brand-dark mb-3 group-hover:text-brand-gold transition-colors break-keep">
+                {/* stretched-link — 카드 전체 클릭 영역 (UX 수정 2) */}
+                <Link href={area.href} className="after:absolute after:inset-0 after:content-['']">
+                  {area.title}
+                </Link>
               </h2>
               {showQuestions && (
                 <p className="text-sm font-medium text-[#8a6f4d] mb-3 break-keep">{area.question}</p>
               )}
-              <p className="text-gray-500 leading-relaxed break-keep">
-                {area.description}
-              </p>
-              {area.keywords && <KeywordList keywords={area.keywords} className="mt-4 pt-4 border-t border-gray-100" />}
-            </div>
-          ))}
-        </div>
-
-        {/* 창끝 분야 (부동산·건설·기업) */}
-        <div className="grid md:grid-cols-3 gap-6">
-          {SECONDARY_AREAS.map((area) => (
-            <div
-              key={area.id}
-              className="bg-white/70 p-6 group hover:-translate-y-1 transition-transform duration-300 shadow-sm hover:shadow-md border border-transparent hover:border-brand-gold/20"
-            >
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-10 h-10 bg-brand-light rounded-full flex items-center justify-center group-hover:bg-brand-gold transition-colors duration-300 shrink-0">
-                  <area.icon className="text-brand-dark group-hover:text-white transition-colors duration-300" size={20} />
-                </div>
-                <h2 className="text-lg font-serif font-bold text-brand-dark group-hover:text-brand-gold transition-colors break-keep">
-                  <Link href={area.href}>{area.title}</Link>
-                </h2>
-              </div>
-              {showQuestions && (
-                <p className="text-[13px] font-medium text-[#8a6f4d] mb-2 break-keep">{area.question}</p>
-              )}
               <p className="text-sm text-gray-500 leading-relaxed break-keep">
                 {area.description}
               </p>
-              {area.keywords && <KeywordList keywords={area.keywords} className="mt-3 pt-3 border-t border-gray-100" />}
+              {area.keywords && <KeywordList keywords={area.keywords} className="mt-4 pt-4 border-t border-gray-100" />}
             </div>
           ))}
         </div>

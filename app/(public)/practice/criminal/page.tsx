@@ -161,7 +161,7 @@ export default async function CriminalPage() {
 
       {/* §8 수임료 */}
       <PSection title="수임료" lead="비용을 처음부터 알려드립니다.">
-        <FeeBox amount="착수금 400~1,000만원" cert>
+        <FeeBox amount="착수금 400~1,200만 원" cert>
           <FeeText>
             사건 단계와 사실관계 복잡도에 따라 달라집니다. 정확한 금액은 사건 검토 후 안내드리고, 진행
             중에 갑자기 늘어나지 않습니다.
