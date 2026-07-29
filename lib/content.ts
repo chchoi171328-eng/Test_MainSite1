@@ -253,6 +253,7 @@ export function extractToc(body: string): { id: string; text: string }[] {
  */
 export function withHeadingIds(body: string): string {
   let auto = 0;
+  let num = 0;
   let inCode = false;
 
   return body
@@ -272,7 +273,10 @@ export function withHeadingIds(body: string): string {
       const idMatch = raw.match(/\{#([\w-]+)\}\s*$/);
       const id = idMatch ? idMatch[1] : `s${auto}`;
       const text = raw.replace(/\{#[\w-]+\}\s*$/, '').trim();
-      return `<h2 id="${id}">${text}</h2>`;
+      // 원시 <h2> 태그는 MDX components 매핑을 타지 않으므로(스타일 미적용)
+      // 커스텀 컴포넌트로 변환한다. 목차에 오르는 H2에는 목차와 같은 순번(num)을 부여
+      const numAttr = TOC_EXCLUDED.includes(text) ? '' : ` num="${(num += 1)}"`;
+      return `<GuideH2 id="${id}"${numAttr}>${text}</GuideH2>`;
     })
     .join('\n');
 }
