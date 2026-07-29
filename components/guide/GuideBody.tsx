@@ -37,10 +37,21 @@ const components = {
   Q,
   A,
 
+  // withHeadingIds()가 `## 제목 {#id}` 를 <GuideH2 id num>으로 변환해 내려보낸다
+  // (원시 <h2> 태그는 MDX components 매핑을 타지 않아 커스텀 컴포넌트를 쓴다)
+  GuideH2: ({ id, num, children }: { id: string; num?: string; children: React.ReactNode }) => (
+    <h2
+      id={id}
+      className="font-serif text-[21.5px] md:text-[25px] font-semibold text-brand-dark mt-12 md:mt-14 mb-6 break-keep scroll-mt-24"
+    >
+      {num && <span className="text-brand-gold mr-2.5">{num}.</span>}
+      {children}
+    </h2>
+  ),
   h2: (props: React.ComponentProps<'h2'>) => (
     <h2
       {...props}
-      className="font-serif text-[19.5px] md:text-[22.5px] font-semibold text-brand-dark mt-11 mb-4 break-keep scroll-mt-24"
+      className="font-serif text-[21.5px] md:text-[25px] font-semibold text-brand-dark mt-12 md:mt-14 mb-6 break-keep scroll-mt-24"
     />
   ),
   h3: (props: React.ComponentProps<'h3'>) => (
