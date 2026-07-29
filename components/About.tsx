@@ -181,6 +181,14 @@ export const About: React.FC = () => {
                   한 사건을 끝까지 책임지기 위해, 동시에 진행하는 사건 수를 의도적으로 제한합니다.<br />
                   상담부터 변론까지 같은 변호사가 담당합니다.
                 </p>
+                <p className="mt-4 text-brand-dark font-medium leading-relaxed break-keep">
+                  연락을 주시면 늦어도 다음 영업일에는 담당 변호사와 직접 통화하실 수 있습니다.
+                </p>
+                <p className="mt-4 text-brand-dark font-medium leading-relaxed break-keep">
+                  법원에 제출하는 서면은 제출 전에 미리 보여드립니다. 사실관계 확인을 위해서도
+                  필요한 절차입니다. 확정된 사실관계로 법리만 다투는 서면은 제출 후에 공유드리는
+                  경우도 있지만, 원하시면 모든 서면을 보실 수 있습니다.
+                </p>
                 {/* 지역 정체성 명시 — 서울 서초 소재 동명 법인과의 구분 (지침 7단계 v2) */}
                 <p className="mt-4 text-sm text-gray-500 leading-relaxed break-keep">
                   법무법인 명(SOL &amp; LUNA)은 경기도 평택시 소재 법무법인으로,
