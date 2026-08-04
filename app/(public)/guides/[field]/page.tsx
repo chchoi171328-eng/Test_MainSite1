@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { PageHeader } from '../../../../components/PageHeader';
 import {
@@ -64,23 +65,39 @@ export default function GuideFieldPage({ params }: { params: { field: string } }
               </p>
             </div>
           ) : (
-            <ul className="space-y-4">
+            <ul className="space-y-6">
               {guides.map((g) => (
-                <li key={g.slug} className="border-b border-gray-100 pb-4 last:border-b-0">
-                  <Link href={`/guides/${g.field}/${g.slug}`} className="group block">
-                    <h2 className="text-lg font-bold text-brand-dark group-hover:text-brand-gold transition-colors break-keep">
-                      {g.listingTitle}
-                    </h2>
-                    {g.summary && (
-                      <p className="mt-1.5 text-sm text-gray-500 leading-relaxed break-keep">
-                        {g.summary}
-                      </p>
+                <li key={g.slug} className="border-b border-gray-100 pb-6 last:border-b-0">
+                  <Link
+                    href={`/guides/${g.field}/${g.slug}`}
+                    className="group flex items-start gap-4 md:gap-5"
+                  >
+                    {g.thumbnail && (
+                      <span className="block w-28 md:w-40 shrink-0 aspect-video overflow-hidden rounded-sm bg-gray-100">
+                        <Image
+                          src={g.thumbnail}
+                          alt=""
+                          width={320}
+                          height={180}
+                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        />
+                      </span>
                     )}
-                    {g.reviewedAt && (
-                      <p className="mt-1.5 text-xs text-gray-400">
-                        {formatReviewedAt(g.reviewedAt)} 확인
-                      </p>
-                    )}
+                    <span className="block min-w-0">
+                      <h2 className="text-lg font-bold text-brand-dark group-hover:text-brand-gold transition-colors break-keep">
+                        {g.listingTitle}
+                      </h2>
+                      {g.summary && (
+                        <p className="mt-1.5 text-sm text-gray-500 leading-relaxed break-keep">
+                          {g.summary}
+                        </p>
+                      )}
+                      {g.reviewedAt && (
+                        <p className="mt-1.5 text-xs text-gray-400">
+                          {formatReviewedAt(g.reviewedAt)} 확인
+                        </p>
+                      )}
+                    </span>
                   </Link>
                 </li>
               ))}

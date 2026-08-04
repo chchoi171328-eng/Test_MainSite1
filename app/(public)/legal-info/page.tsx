@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { PageHeader } from '../../../components/PageHeader';
 import {
   FIELDS,
@@ -76,23 +77,39 @@ export default function LegalInfoPage() {
                       분야 전체 보기 →
                     </Link>
                   </div>
-                  <ul className="space-y-3.5">
+                  <ul className="space-y-5">
                     {section.items.map((g) => (
                       <li key={g.slug}>
-                        <Link href={`/guides/${g.field}/${g.slug}`} className="group block">
-                          <span className="text-[15px] font-medium text-brand-dark group-hover:text-brand-gold transition-colors break-keep">
-                            {g.listingTitle}
+                        <Link
+                          href={`/guides/${g.field}/${g.slug}`}
+                          className="group flex items-start gap-4"
+                        >
+                          {g.thumbnail && (
+                            <span className="block w-28 md:w-32 shrink-0 aspect-video overflow-hidden rounded-sm bg-gray-100">
+                              <Image
+                                src={g.thumbnail}
+                                alt=""
+                                width={320}
+                                height={180}
+                                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                              />
+                            </span>
+                          )}
+                          <span className="block min-w-0">
+                            <span className="text-[15px] font-medium text-brand-dark group-hover:text-brand-gold transition-colors break-keep">
+                              {g.listingTitle}
+                            </span>
+                            {g.summary && (
+                              <span className="block mt-1 text-sm text-gray-500 leading-relaxed break-keep">
+                                {g.summary}
+                              </span>
+                            )}
+                            {g.reviewedAt && (
+                              <span className="block mt-1 text-xs text-gray-400">
+                                {formatReviewedAt(g.reviewedAt)} 확인
+                              </span>
+                            )}
                           </span>
-                          {g.summary && (
-                            <span className="block mt-1 text-sm text-gray-500 leading-relaxed break-keep">
-                              {g.summary}
-                            </span>
-                          )}
-                          {g.reviewedAt && (
-                            <span className="block mt-1 text-xs text-gray-400">
-                              {formatReviewedAt(g.reviewedAt)} 확인
-                            </span>
-                          )}
                         </Link>
                       </li>
                     ))}
