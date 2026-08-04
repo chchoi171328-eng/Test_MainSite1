@@ -37,10 +37,12 @@
 | 24 | civil | payment-order | 3,317 | 소형 |
 | 25 | civil | provisional-remedies | 3,334 | 민사 1차 세트 완결 |
 | 26 | divorce | divorce-procedure | 3,923 | 이혼 기둥 (이혼은 7편 연속 세트) |
+| 27 | divorce | property-division | 5,127 | 이혼 2/7 |
 
 ## 다음 차례
 
-1. **divorce 2편 property-division (다음)** → ③custody-support → ④alimony → ⑤adultery-claim → ⑥international-divorce(영문 병행 확인 필요) → ⑦divorce-preparation(소형) (DIVORCE_GUIDES_BRIEF.md — 가사 수위 규칙 유지)
+1. **divorce 3편 custody-support (다음)** → ④alimony → ⑤adultery-claim → ⑥international-divorce(영문 병행 확인 필요) → ⑦divorce-preparation(소형) (DIVORCE_GUIDES_BRIEF.md — 가사 수위 규칙 유지)
+   - 3·4편 발행 시 **property-division의 `related`를 ["divorce-procedure","custody-support","alimony"]로 갱신** (현재는 미발행이라 divorce-procedure만)
 2. civil 1차 6편 → divorce 1~4편(1차 분할은 제안 상태) → inheritance 1차 4편 → corporate 1차 3편
 3. 전 분야 1차 완료 후 2차 세트 (합계 약 41편)
 
@@ -87,6 +89,8 @@
 
 ### divorce
 - **divorce-procedure**: ①**협의이혼 확인 후 신고 기한 — 가족관계등록법(3개월 추정)의 조문·기간 미검증으로 "정해진 기간"으로 처리, 확인 요망** ②숙려기간 예외(폭력 등 급박 사정) — 제836조의2 단서 요약, 문언 미검증 ③이혼 후 재산분할 2년(제839조의2) — 조문 인용했으나 직접 미검증(2편에서 검증 예정) ④가사조사·사전처분·재산명시 — 세부 페이지 수위의 존재·역할 서술 ⑤불법 증거 수집 경고 — 수위 규칙 이행(조장 아닌 경고). 제836조의2(숙려 3개월/1개월)·제840조(6사유)·가사소송법 제50조(조정전치·예외)는 웹 검증 완료
+
+- **property-division**: ①**2년 제척기간의 성격 — "기간 내에 법원에 청구해야 하는 기간"으로 서술(판례 법리이므로 조문 인용 없이 "다루어집니다"로 완충), 서술 수위 확인 요망** ②**퇴직금·연금의 분할 대상성 — 판례 법리 영역이라 표에 "혼인 기간에 대응하는 부분이 논의 대상"으로만 적고 근거 열 비움. 공적연금 분할(국민연금법 계열) 조문 기재 여부 판단 요망** ③전업주부 가사·양육 기여 인정 — 세부 페이지 확정 카피와 동일 수위로 서술(판례 출처 미표기) ④특유재산 경계가 흐려지는 경우(유지·증가 기여) — 법리 요약, 조문 미인용 ⑤채무의 분할 반영 기준(공동생활 목적 여부) — 조문 미인용 실무론 ⑥"재산분할 합의 후 재청구 곤란" FAQ — 합의의 효력 문제로 완충 서술. **민법 제839조의2(①②③항)·제830조(①②항)·제831조·제843조 준용·제839조의3(제406조 제2항 기간)·가사소송법 제48조의2·제48조의3·제62조·제63조는 웹 검증 완료**
 
 ### criminal-victim
 - **criminal-complaint**: ①**제258조 처분 통지 — 조문 인용했으나 "7일" 미검증으로 숫자 뺌, 확인 요망** ②**이의신청 기간 제한 없음 여부 — 미검증, 4편에서 확정 필수** ③제236조 대리 고소 미검증 ④혐의없음≠무고(판례 요약) ⑤형사사법포털 명칭·기능 확인
