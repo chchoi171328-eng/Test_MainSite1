@@ -48,13 +48,14 @@
 | 35 | inheritance | inheritance-order | 4,981 | 상속 3/4 — 표 중심. 4편 발행으로 related에 estate-division 추가 완료 |
 | 36 | inheritance | estate-division | 5,001 | **상속 1차 세트(4편) 완결.** 수행 이력 경계 준수 — 절차 정보 수위, 수행 경험 암시 0건 |
 | 37 | corporate | contract-review | 4,967 | 기업 기둥 1/3 — 3분면 구조, 검토/수정안 경계 반영 |
+| 38 | corporate | termination-notice | 4,991 | 기업 2/3 — 최고→해지 순서 축, 1↔2 상호 연결 완료 |
 
 ## 다음 차례
 
-1. **corporate 2편 termination-notice (다음)** → ③trade-agreement — 완료 시 **전 분야 1차 세트 완결(39편)** (CORPORATE_GUIDES_BRIEF.md)
-   - 2편 발행 시 **contract-review의 related에 termination-notice 추가** (계약 클러스터 1↔2↔3 상호). 1편은 분야 내 첫 편이라 related 비어 있음
-   - 2편은 civil 내용증명 편과 역할 분담 — 내용증명 편은 2차 세트 미발행이라 크로스 링크 보류
-   - 8편 전 편 발행 후 §9 `featured` 4편: contract-review / termination-notice / serious-accidents-act / foreign-business-korea (1편은 발행 시 featured 선지정함)
+1. **corporate 3편 trade-agreement (다음)** — 완료 시 **전 분야 1차 세트 완결(39편)** (CORPORATE_GUIDES_BRIEF.md)
+   - 3편 발행 시 계약 클러스터 1↔2↔3 완성 — 1·2편 related에 trade-agreement 추가
+   - 3편에서 civil/goods-payment(물품대금 — 발행됨)로 크로스 링크 가능("소송 국면이면 그쪽"). civil 내용증명 편은 2차 미발행이라 보류 유지
+   - 8편 전 편 발행 후 §9 `featured` 4편: contract-review / termination-notice / serious-accidents-act / foreign-business-korea (1·2편은 발행 시 featured 선지정함)
 2. 전 분야 1차 완료 후 2차 세트 (inheritance 5~7편의 forced-heirship은 헌재 결정 변동 영역 — 웹 검증 필수 유의)
 3. **미결 — international-divorce 영문판은 영문 사이트 세션에서 진행하기로 확정** (2026-08-05 사용자 지시)
 4. **상속 §9 featured 메모** — 지시서의 4편 지정(renunciation/asset-search/inherited-debt/estate-division) 중 inherited-debt는 2차 세트 미발행. 현재 1·2·4편에 featured 지정됨(3편 제외). inherited-debt 발행 시 featured 추가
@@ -136,6 +137,8 @@
 
 ### corporate
 - **contract-review**: ①**"위약벌은 법적 취급이 달라질 수 있다" — 위약벌/손해배상 예정 구분(판례 법리)을 "검토가 필요한 신호" 수준으로 완충, 수위 확인 요망** ②"완전합의 조항이 있으면 구두 약속은 힘을 잃는다" — 법리 요약, 조문 미인용 ③이메일·메시지 합의의 구속력 FAQ — 낙성계약 일반론, 완충 서술 ④"계약서 없이 시작한 일의 정리 문구(소급 적용 조항)" — 실무 조언 수위 ⑤관할 합의 서술 — 민소법 제29조 미인용 ⑥검토/수정안 경계와 추가 비용 안내 — 세부 페이지 FAQ 확정 카피와 동일 수위로 반영(지시서 요구). **민법 제398조(①~⑤항, 위약금=예정 추정·과다 시 감액)는 조문 원문으로 직접 확인 완료.** 실적 수위 — 수행 이력 서술 없음("수행해 왔다" 표현 미사용), cert 미표기 준수
+
+- **termination-notice**: ①**"상당한 기간"의 판단(의무 성격 따라 다름·너무 짧으면 최고 적법성 다툼) — 판례 법리 영역을 일반론으로 완충, 수위 확인 요망** ②"부적법 해지 시 오히려 우리가 위반한 쪽이 된다" — 법리 요약(조문 미인용), 확인 요망 ③계속적 계약의 해지 인정("사안에 따라") — 판례 영역 완충 ④법인 수신인(등기 본점·대표자) 서술 — 실무론, "원칙에 가깝습니다"로 완충 ⑤통지 유보 문구·즉시 해지 조항 우선 — 실무 조언 수위 ⑥수령 거부 시 대응(반송 기록의 증거 가치) — 실무론. **민법 제543조(①②)·제544조(본문·단서)·제548조(①②)·제550조·제551조는 조문 원문으로 직접 확인 완료.** civil 내용증명 편 크로스 링크는 미발행이라 보류(계획대로), 소송 국면 안내는 civil 물품대금 편 언급으로 처리. 실적 수위 위반 0건
 
 ### criminal-victim
 - **criminal-complaint**: ①**제258조 처분 통지 — 조문 인용했으나 "7일" 미검증으로 숫자 뺌, 확인 요망** ②**이의신청 기간 제한 없음 여부 — 미검증, 4편에서 확정 필수** ③제236조 대리 고소 미검증 ④혐의없음≠무고(판례 요약) ⑤형사사법포털 명칭·기능 확인
