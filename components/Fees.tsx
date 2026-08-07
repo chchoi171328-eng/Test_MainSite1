@@ -91,6 +91,32 @@ export const Fees: React.FC = () => {
           위 금액은 부가세 별도입니다.
         </p>
 
+        {/* 성공보수 — fees-page-preview.html 원안 그대로 */}
+        <div className="mb-12 border border-gray-200 border-t-[3px] border-t-brand-dark bg-white p-6 md:p-7">
+          <p className="font-bold text-brand-dark mb-4">성공보수에 대하여</p>
+          <div className="space-y-3 text-gray-600 font-light leading-relaxed break-keep">
+            <p>
+              착수금 외에 성공보수를 약정할 수 있습니다. 민사·부동산·건설·가사 사건은 통상{' '}
+              <b className="font-medium text-brand-dark">다투는 금액의 1~10% 사이</b>에서 정해지며, 금액이
+              클수록 비율은 낮아집니다. 형사사건은{' '}
+              <b className="font-medium text-brand-dark">착수금 금액을 넘지 않는 범위</b>에서 정합니다.
+            </p>
+            <p>
+              간단한 사건은 성공보수를 약정하지 않기도 하고, 사건의 성격상 통상 범위와 다르게 정해야
+              하는 경우에는 계약 전에 미리 안내드립니다. 어느 경우든{' '}
+              <b className="font-medium text-brand-dark">
+                계약 전에 서면으로 확정하며, 진행 중에 새로 생기거나 오르지 않습니다.
+              </b>
+            </p>
+            <p>
+              무엇을 &lsquo;성공&rsquo;으로 볼지 — 판결 금액인지, 실제로 회수된 금액인지, 형사사건이라면
+              어떤 결과인지 — 를 계약서에 미리 적습니다. 성공보수를 둘러싼 다툼의 대부분은 이 정의를
+              미리 정하지 않아 생깁니다.
+            </p>
+            <p>상속포기·한정승인(정액)과 시간당 자문(기업 법무)에는 성공보수가 없습니다.</p>
+          </div>
+        </div>
+
         {/* 표준 상담료 블록 — 한/영 단일 요금 (kr-fee-unification 지침) */}
         <div className="mb-4 border border-gray-200 bg-gray-50 p-5 rounded-sm text-gray-600 space-y-1 break-keep">
           <p className="font-bold text-brand-dark">상담 안내 — 30분, 100,000원 (VAT 포함)</p>
