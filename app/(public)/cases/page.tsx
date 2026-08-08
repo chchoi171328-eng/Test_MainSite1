@@ -1,10 +1,8 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { PageHeader } from '../../../components/PageHeader';
-import { SuccessCases } from '../../../components/SuccessCases';
-import { getAllSuccessCases } from '../../../api/successCases';
-
-export const revalidate = 300;
+import { SuccessCases, CaseCard } from '../../../components/SuccessCases';
+import { getAllCases, getCaseExcerpt } from '../../../lib/cases';
 
 export const metadata: Metadata = {
   title: '성공사례',
@@ -12,8 +10,16 @@ export const metadata: Metadata = {
   alternates: { canonical: '/cases' },
 };
 
-export default async function CasesPage() {
-  const cases = await getAllSuccessCases().catch(() => []);
+export default function CasesPage() {
+  const cards: CaseCard[] = getAllCases().map((c) => ({
+    slug: c.slug,
+    listTitle: c.listTitle,
+    category: c.category,
+    result: c.result,
+    // summary가 있으면 그대로, 없는 기존 이관 사례는 본문 발췌로 폴백
+    summary: c.summary || getCaseExcerpt(c.body),
+    hasJudgment: Boolean(c.judgmentUrl),
+  }));
 
   return (
     <>
@@ -25,7 +31,7 @@ export default async function CasesPage() {
         imageAlt="끈으로 묶인 사건 서류 묶음"
       />
       <Suspense>
-        <SuccessCases cases={cases} hideHeading showFilter />
+        <SuccessCases cases={cards} hideHeading showFilter />
       </Suspense>
     </>
   );

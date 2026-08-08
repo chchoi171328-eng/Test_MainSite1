@@ -13,7 +13,7 @@ import {
 } from '../../../../components/practice/PracticeShared';
 import { PracticeCases } from '../../../../components/practice/PracticeCases';
 import { PracticeResources } from '../../../../components/practice/PracticeResources';
-import { getAllSuccessCases } from '../../../../api/successCases';
+import { getAllCases } from '../../../../lib/cases';
 
 export const revalidate = 300;
 
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 };
 
 export default async function InheritancePage() {
-  const cases = await getAllSuccessCases().catch(() => []);
+  const cases = getAllCases();
 
   return (
     <>

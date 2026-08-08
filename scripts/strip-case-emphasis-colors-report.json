@@ -1,0 +1,154 @@
+{
+  "totalSpots": 57,
+  "files": 37,
+  "detail": [
+    {
+      "slug": "dui-serious-injury-fine",
+      "spots": 4
+    },
+    {
+      "slug": "indecent-assault-suspended-indictment",
+      "spots": 3
+    },
+    {
+      "slug": "unlicensed-dui-suspended-sentence",
+      "spots": 3
+    },
+    {
+      "slug": "unlicensed-dui-suspended-sentence-2",
+      "spots": 3
+    },
+    {
+      "slug": "dangerous-driving-injury-appeal-fine",
+      "spots": 2
+    },
+    {
+      "slug": "dangerous-driving-injury-fine",
+      "spots": 2
+    },
+    {
+      "slug": "dui-acquittal",
+      "spots": 2
+    },
+    {
+      "slug": "dui-fine",
+      "spots": 2
+    },
+    {
+      "slug": "dui-fine-2",
+      "spots": 2
+    },
+    {
+      "slug": "dui-suspended-sentence",
+      "spots": 2
+    },
+    {
+      "slug": "fraud-acquittal",
+      "spots": 2
+    },
+    {
+      "slug": "fraud-no-charge",
+      "spots": 2
+    },
+    {
+      "slug": "manslaughter-suspended-sentence",
+      "spots": 2
+    },
+    {
+      "slug": "obstruction-of-official-duties-fine",
+      "spots": 2
+    },
+    {
+      "slug": "theft-acquittal",
+      "spots": 2
+    },
+    {
+      "slug": "abuse-of-authority-indecent-assault-fine",
+      "spots": 1
+    },
+    {
+      "slug": "aggravated-rape-no-disposition",
+      "spots": 1
+    },
+    {
+      "slug": "assault-dismissal",
+      "spots": 1
+    },
+    {
+      "slug": "assault-no-prosecution",
+      "spots": 1
+    },
+    {
+      "slug": "bodily-injury-fine",
+      "spots": 1
+    },
+    {
+      "slug": "defamation-acquittal",
+      "spots": 1
+    },
+    {
+      "slug": "defamation-complaint-fine",
+      "spots": 1
+    },
+    {
+      "slug": "defamation-no-charge",
+      "spots": 1
+    },
+    {
+      "slug": "embezzlement-fraud-suspended-indictment",
+      "spots": 1
+    },
+    {
+      "slug": "fraud-suspended-sentence",
+      "spots": 1
+    },
+    {
+      "slug": "indecent-assault-no-charge",
+      "spots": 1
+    },
+    {
+      "slug": "indecent-assault-no-charge-2",
+      "spots": 1
+    },
+    {
+      "slug": "indecent-assault-no-charge-3",
+      "spots": 1
+    },
+    {
+      "slug": "indecent-assault-non-indictment",
+      "spots": 1
+    },
+    {
+      "slug": "occupational-breach-no-charge",
+      "spots": 1
+    },
+    {
+      "slug": "occupational-breach-no-charge-2",
+      "spots": 1
+    },
+    {
+      "slug": "quasi-rape-no-charge",
+      "spots": 1
+    },
+    {
+      "slug": "quasi-rape-suspended-sentence",
+      "spots": 1
+    },
+    {
+      "slug": "quasi-sexual-act-suspended-sentence",
+      "spots": 1
+    },
+    {
+      "slug": "sexual-violence-act-suspended-sentence",
+      "spots": 1
+    },
+    {
+      "slug": "sexual-violence-act-suspended-sentence-2",
+      "spots": 1
+    },
+    {
+      "slug": "voice-phishing-fine",
+      "spots": 1
+    }
+  ]
+}

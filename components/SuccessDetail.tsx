@@ -1,80 +1,64 @@
 import React from 'react';
 import Link from 'next/link';
-import { ArrowLeft, Trophy, FileText, AlertCircle } from 'lucide-react';
-import { SuccessCase } from '../types';
+import { CaseItem } from '../lib/cases';
+import { JudgmentDocCard } from './JudgmentDocCard';
 
-interface SuccessDetailProps {
-    caseItem: SuccessCase;
-}
+/**
+ * 성공사례 상세 (CASE_BOARD_BRIEF 작업 4)
+ * 시각 정본: docs/SucessCases_pages/case-detail-preview.html
+ * 본문 스타일(.case-*)은 app/globals.css에 클래스 스코프로 정의 —
+ * 기존 <p> 나열 이관 본문과 신규 구조 본문이 같은 컨테이너에서 공존한다.
+ */
+export const SuccessDetail: React.FC<{ caseItem: CaseItem }> = ({ caseItem }) => {
+  return (
+    <article className="max-w-[720px] mx-auto px-6 pt-[52px] pb-20">
+      <div className="text-[12.5px] text-[#8a8578] mb-[18px]">
+        <Link href="/cases" className="hover:text-brand-dark transition-colors">
+          성공사례
+        </Link>
+        <span className="mx-1.5">›</span>
+        <Link
+          href={`/cases?category=${encodeURIComponent(caseItem.category)}`}
+          className="hover:text-brand-dark transition-colors"
+        >
+          {caseItem.category}
+        </Link>
+      </div>
 
-export const SuccessDetail: React.FC<SuccessDetailProps> = ({ caseItem }) => {
-    return (
-        <section className="py-20 bg-white min-h-screen">
-            <div className="container mx-auto px-6 md:px-12">
-                <Link
-                    href="/cases"
-                    className="inline-flex items-center text-sm text-gray-500 hover:text-brand-dark mb-8 transition-colors group"
-                >
-                    <ArrowLeft size={16} className="mr-2 group-hover:-translate-x-1 transition-transform" /> 목록으로
-                </Link>
+      <div className="flex gap-2 mb-3.5">
+        {caseItem.result && (
+          <span className="text-[12.5px] px-3 py-[5px] rounded-sm font-medium bg-[#1e3a5f] text-white">
+            {caseItem.result}
+          </span>
+        )}
+        <span className="text-[12.5px] px-3 py-[5px] rounded-sm font-medium bg-[#f1eee7] text-[#6b6353]">
+          {caseItem.category}
+        </span>
+      </div>
 
-                <div className="grid lg:grid-cols-2 gap-12">
-                    {/* Left: Case Information */}
-                    <div>
-                        <header className="mb-8">
-                            <div className="flex items-center gap-2 mb-4">
-                                <span className="text-xs font-bold uppercase tracking-wider bg-brand-light text-brand-dark px-2 py-1 rounded-sm border border-gray-200">
-                                    {caseItem.category}
-                                </span>
-                                <span className="flex items-center gap-1 text-xs font-bold text-brand-gold px-2 py-1 border border-brand-gold/30 rounded-sm">
-                                    <Trophy size={12} /> {caseItem.result}
-                                </span>
-                            </div>
-                            <h1 className="text-3xl md:text-4xl font-serif font-bold text-brand-dark leading-tight mb-6">
-                                {caseItem.title}
-                            </h1>
-                        </header>
+      <h1 className="font-serif text-[26px] font-bold leading-[1.5] break-keep mb-[26px] text-brand-dark">
+        {caseItem.title}
+      </h1>
 
-                        <article className="prose prose-lg max-w-none text-gray-600 mb-8">
-                            <h2 className="text-xl font-bold text-brand-dark mb-4">사건 개요 및 결과</h2>
-                            <div className="prose prose-lg max-w-none leading-relaxed bg-gray-50 p-6 rounded-sm border-l-4 border-brand-dark" dangerouslySetInnerHTML={{ __html: caseItem.description || '' }} />
-                        </article>
+      <div className="case-body" dangerouslySetInnerHTML={{ __html: caseItem.body }} />
 
-                        {!caseItem.judgmentUrl && (
-                            <div className="p-4 bg-gray-50 text-gray-500 text-sm flex items-center gap-2 rounded-sm">
-                                <AlertCircle size={16} />
-                                등록된 판결문 이미지가 없습니다.
-                            </div>
-                        )}
-                    </div>
+      {caseItem.judgmentUrl && caseItem.judgmentFormat && (
+        <JudgmentDocCard url={caseItem.judgmentUrl} format={caseItem.judgmentFormat} />
+      )}
 
-                    {/* Right: Judgment Document Viewer */}
-                    {caseItem.judgmentUrl && (
-                        <div className="bg-gray-100 rounded-sm border border-gray-200 overflow-hidden flex flex-col h-[800px] shadow-lg">
-                            <div className="bg-brand-dark text-white px-4 py-3 flex items-center justify-between">
-                                <span className="font-bold flex items-center gap-2">
-                                    <FileText size={18} /> 판결문/결정문 확인
-                                </span>
-                            </div>
-                            <div className="flex-grow bg-gray-200 overflow-auto flex items-center justify-center p-4 relative">
-                                {caseItem.judgmentFormat === 'pdf' ? (
-                                    <iframe
-                                        src={caseItem.judgmentUrl}
-                                        className="w-full h-full border-none bg-white shadow-sm"
-                                        title="판결문 뷰어"
-                                    />
-                                ) : (
-                                    <img
-                                        src={caseItem.judgmentUrl}
-                                        alt="판결문"
-                                        className="max-w-full h-auto shadow-md"
-                                    />
-                                )}
-                            </div>
-                        </div>
-                    )}
-                </div>
-            </div>
-        </section>
-    );
+      <div className="case-notice">
+        본 사례는 개별 사건의 결과로, 유사한 사건에서 동일한 결과를 보장하지 않습니다. 의뢰인
+        보호를 위해 일부 정보는 변경하거나 생략했습니다.
+      </div>
+
+      <div className="mt-10 pt-6 border-t border-[#e7e3db]">
+        <Link
+          href="/cases"
+          className="text-[13.5px] text-[#8a8578] hover:text-brand-dark transition-colors"
+        >
+          ← 성공사례 목록으로
+        </Link>
+      </div>
+    </article>
+  );
 };

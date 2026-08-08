@@ -57,6 +57,8 @@ export interface Guide {
   author: string;
   /** frontmatter의 상대 경로(./thumbnail.jpg)를 public 기준 URL로 변환한 값 */
   thumbnail?: string;
+  /** 분야 내 발행 순번 — 목록 정렬 기준. 없으면 뒤로 밀린다 */
+  order: number;
   related: string[];
   tools: string[];
   /** 세부 페이지 §9에서 우선 노출 */
@@ -131,6 +133,7 @@ export function getAllGuides(): Guide[] {
         reviewedAt: (fm.reviewedAt as string) || '',
         author: (fm.author as string) || '최철호',
         thumbnail: assetUrl('guides', [field, folder], fm.thumbnail as string | undefined),
+        order: typeof fm.order === 'number' ? fm.order : Number.MAX_SAFE_INTEGER,
         related: (fm.related as string[]) || [],
         tools: (fm.tools as string[]) || [],
         featured: fm.featured === true,
@@ -140,8 +143,11 @@ export function getAllGuides(): Guide[] {
     }
   }
 
-  // 검토일 최신순 (지침 작업 5의 기본 정렬)
-  return guides.sort((a, b) => b.reviewedAt.localeCompare(a.reviewedAt));
+  // 분야 내 발행 순번(order) 오름차순, 순번이 없으면 검토일 최신순으로 뒤에
+  return guides.sort((a, b) => {
+    if (a.order !== b.order) return a.order - b.order;
+    return b.reviewedAt.localeCompare(a.reviewedAt);
+  });
 }
 
 export function getGuidesByField(field: FieldKey): Guide[] {
@@ -161,6 +167,7 @@ export function getGuidesForPractice(field: FieldKey, limit = 4): Guide[] {
     .filter((g) => g.field === field && !g.draft)
     .sort((a, b) => {
       if (a.featured !== b.featured) return a.featured ? -1 : 1;
+      if (a.order !== b.order) return a.order - b.order;
       return b.reviewedAt.localeCompare(a.reviewedAt);
     })
     .slice(0, limit);

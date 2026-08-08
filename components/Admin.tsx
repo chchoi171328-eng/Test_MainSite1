@@ -3,24 +3,25 @@
 import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import { useData } from '../contexts/DataContext';
-import { SuccessCase, LegalPost, LegalForm, LegalCase } from '../types';
-import { Trash2, Edit, Plus, Save, X, Lock, ArrowLeft, Upload, FileText, Image as ImageIcon } from 'lucide-react';
+import { LegalPost, LegalForm, LegalCase } from '../types';
+import { Trash2, Edit, Plus, Save, X, Lock, ArrowLeft, Upload, FileText } from 'lucide-react';
 import { supabase } from '../lib/supabaseClient';
 import { RichTextEditor } from './RichTextEditor';
 
-type Tab = 'success' | 'posts' | 'forms' | 'cases';
+// 성공사례는 파일 기반(/content/cases)으로 전환되어 관리 탭에서 제외한다.
+// Supabase success_cases 테이블·데이터는 백업으로 보존되어 있다 (CASE_BOARD_BRIEF 작업 2-3).
+type Tab = 'posts' | 'forms' | 'cases';
 
 export const Admin: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [activeTab, setActiveTab] = useState<Tab>('success');
+  const [activeTab, setActiveTab] = useState<Tab>('forms');
   const [isProcessing, setIsProcessing] = useState(false);
 
   // Data Context
   const {
-    successCases, addSuccessCase, updateSuccessCase, deleteSuccessCase,
     legalPosts, addLegalPost, updateLegalPost, deleteLegalPost,
     legalForms, addLegalForm, updateLegalForm, deleteLegalForm,
     legalCases, addLegalCase, updateLegalCase, deleteLegalCase
@@ -105,8 +106,7 @@ export const Admin: React.FC = () => {
     if (currentImages.length === 0) return;
 
     let contentToCheck = '';
-    if (activeTab === 'success') contentToCheck = formData.description || '';
-    else if (activeTab === 'posts') contentToCheck = formData.content || '';
+    if (activeTab === 'posts') contentToCheck = formData.content || '';
     else if (activeTab === 'cases') contentToCheck = formData.content || '';
 
     const remainingImages = currentImages.filter(url => contentToCheck.includes(url));
@@ -129,18 +129,7 @@ export const Admin: React.FC = () => {
     // Cleanup unused images from Editor
     await cleanupUnusedImages();
 
-    if (activeTab === 'success') {
-      const cleanData = {
-        ...formData,
-        category: formData.category || '',
-        result: formData.result || '',
-        description: formData.description || '',
-        judgmentUrl: formData.judgmentUrl || null,
-        judgmentFormat: formData.judgmentFormat || null
-      };
-      if (editId) updateSuccessCase(cleanData as SuccessCase);
-      else addSuccessCase(cleanData as SuccessCase);
-    } else if (activeTab === 'posts') {
+    if (activeTab === 'posts') {
       const cleanData = {
         ...formData,
         category: formData.category || '',
@@ -241,67 +230,8 @@ export const Admin: React.FC = () => {
     }
   };
 
-  // Handler for Success Case Judgment file upload
-  const handleJudgmentFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (!file) return;
-
-    // Allow PDF, JPG, PNG
-    const validTypes = ['application/pdf', 'image/jpeg', 'image/png'];
-    if (!validTypes.includes(file.type)) {
-      alert("PDF, JPG, PNG 파일만 업로드 가능합니다.");
-      return;
-    }
-
-    // 50MB limit
-    if (file.size > 50 * 1024 * 1024) {
-      alert("파일 크기는 50MB 이하여야 합니다.");
-      return;
-    }
-
-    try {
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
-      const filePath = `judgments/${fileName}`;
-
-      const { error: uploadError } = await supabase.storage
-        .from('judgments')
-        .upload(filePath, file);
-
-      if (uploadError) throw uploadError;
-
-      const { data: { publicUrl } } = supabase.storage
-        .from('judgments')
-        .getPublicUrl(filePath);
-
-      let format = 'image';
-      if (file.type === 'application/pdf') format = 'pdf';
-
-      setFormData((prev: any) => ({
-        ...prev,
-        judgmentUrl: publicUrl,
-        judgmentFormat: format
-      }));
-
-      alert('판결문이 업로드되었습니다.');
-    } catch (error) {
-      console.error('Upload error:', error);
-      alert('파일 업로드 중 오류가 발생했습니다: ' + (error as Error).message);
-    }
-  };
-
-  const handleRemoveJudgment = async () => {
-    if (window.confirm('판결문 파일을 삭제하시겠습니까?')) {
-      if (formData.judgmentUrl) {
-        await deleteFileFromStorage(formData.judgmentUrl, 'judgments');
-      }
-      setFormData((prev: any) => ({
-        ...prev,
-        judgmentUrl: null,
-        judgmentFormat: null
-      }));
-    }
-  };
+  // 판결문 업로드 핸들러는 성공사례 전용이었으므로 제거되었다.
+  // 판결문은 이제 /content/cases/{slug}/judgment-masked.* 파일로 관리한다.
 
   const handleRemoveFile = async () => {
     if (window.confirm('첨부 파일을 삭제하시겠습니까?')) {
@@ -456,9 +386,9 @@ export const Admin: React.FC = () => {
         {/* Tabs */}
         <div className="flex flex-wrap gap-2 mb-8 border-b border-gray-200 pb-2">
           {[
-            { id: 'success', label: '성공 사례' },
+            // 성공사례는 /content/cases 파일 기반으로 전환되어 관리 탭에서 제외한다.
             // 법률정보(구 블로그)는 MDX 파일 기반 가이드로 전환되어 관리 탭에서 제외한다.
-            // Supabase legal_posts 테이블·데이터는 보존되어 있다 (덤프: docs/archive/blog-dump/)
+            // Supabase 테이블·데이터는 모두 보존되어 있다 (덤프: docs/archive/blog-dump/)
             { id: 'forms', label: '법률 서식' },
             { id: 'cases', label: '주요 판례' },
           ].map((tab) => (
@@ -476,7 +406,6 @@ export const Admin: React.FC = () => {
         {/* Action Bar */}
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-bold text-gray-800">
-            {activeTab === 'success' && '성공 사례 관리'}
             {activeTab === 'posts' && '최신 법률 정보 관리'}
             {activeTab === 'forms' && '법률 서식 관리'}
             {activeTab === 'cases' && '주요 판례 관리'}
@@ -499,72 +428,6 @@ export const Admin: React.FC = () => {
               </div>
 
               <div className="space-y-4 max-w-2xl">
-                {activeTab === 'success' && (
-                  <>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">제목 <span className="text-red-500">*</span></label>
-                      <input name="title" value={formData.title || ''} onChange={handleChange} maxLength={100} className="w-full border p-2 rounded" />
-                    </div>
-                    {listTitleField}
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">카테고리</label>
-                      <input name="category" value={formData.category || ''} onChange={handleChange} maxLength={50} className="w-full border p-2 rounded" placeholder="예: 형사, 민사" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">결과</label>
-                      <input name="result" value={formData.result || ''} onChange={handleChange} maxLength={50} className="w-full border p-2 rounded" placeholder="예: 무죄, 승소" />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">설명</label>
-                      <RichTextEditor
-                        value={formData.description || ''}
-                        onChange={(html) => setFormData((prev: any) => ({ ...prev, description: html }))}
-                        maxLength={1000}
-                        placeholder="성공 사례 설명을 작성하세요..."
-                        onImageUpload={(url) => {
-                          setFormData((prev: any) => {
-                            const currentUrls = prev.imageUrls || [];
-                            return { ...prev, imageUrls: [...currentUrls, url] };
-                          });
-                        }}
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-1">판결문 업로드 (선택)</label>
-                      <div className="flex items-center gap-4">
-                        <input
-                          type="file"
-                          id="judgmentFile"
-                          onChange={handleJudgmentFileChange}
-                          className="hidden"
-                          accept=".pdf, .jpg, .jpeg, .png"
-                        />
-                        <button
-                          onClick={() => document.getElementById('judgmentFile')?.click()}
-                          className="px-4 py-2 bg-gray-100 border border-gray-300 rounded hover:bg-gray-200 flex items-center gap-2 text-sm text-gray-700"
-                        >
-                          <Upload size={16} /> 파일 선택 (PDF/JPG)
-                        </button>
-                        {formData.judgmentUrl && (
-                          <div className="flex items-center gap-2">
-                            <span className="text-sm text-green-600 flex items-center gap-1">
-                              <ImageIcon size={14} /> 파일 등록됨 ({formData.judgmentFormat})
-                            </span>
-                            <button
-                              onClick={handleRemoveJudgment}
-                              className="text-gray-400 hover:text-red-500"
-                              title="파일 삭제"
-                            >
-                              <X size={16} />
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                      <p className="text-xs text-gray-400 mt-1">※ 3MB 이하의 PDF 또는 이미지 파일만 업로드 가능합니다.</p>
-                    </div>
-                  </>
-                )}
-
                 {activeTab === 'posts' && (
                   <>
                     <div>
@@ -709,20 +572,6 @@ export const Admin: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {activeTab === 'success' && successCases.map((item) => (
-                    <tr key={item.id} className="hover:bg-gray-50">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.id}</td>
-                      <td className="px-6 py-4 text-sm font-medium text-gray-900">{item.title}</td>
-                      <td className="px-6 py-4 text-sm text-gray-500">
-                        {item.category} / {item.result}
-                        {item.judgmentUrl && <span className="ml-2 px-2 py-0.5 bg-green-100 text-green-700 text-xs rounded-full">파일있음</span>}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                        <button onClick={() => startEdit(item)} className="text-brand-gold hover:text-yellow-700 mr-4"><Edit size={18} /></button>
-                        <button onClick={() => deleteSuccessCase(item.id)} className="text-red-400 hover:text-red-600"><Trash2 size={18} /></button>
-                      </td>
-                    </tr>
-                  ))}
                   {activeTab === 'posts' && legalPosts.map((item) => (
                     <tr key={item.id} className="hover:bg-gray-50">
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{item.id}</td>

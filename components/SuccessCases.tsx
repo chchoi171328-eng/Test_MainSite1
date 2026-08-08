@@ -3,24 +3,47 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ArrowUpRight, ArrowRight, FileCheck } from 'lucide-react';
-import { SuccessCase } from '../types';
+import { ArrowRight } from 'lucide-react';
+
+/** 서버에서 직렬화해 넘기는 카드 데이터 (lib/cases.ts CaseItem의 표시용 부분) */
+export interface CaseCard {
+  slug: string;
+  listTitle: string;
+  category: string;
+  result: string;
+  /**
+   * 카드 요약. frontmatter의 summary를 우선 쓰고, 없으면(기존 이관 사례)
+   * 본문 첫 문단 발췌로 폴백한다 — 폴백은 .case-brief의 dl 텍스트를 제외하고
+   * 서버(getCaseExcerpt)에서 계산한다 (CASES_LIST_BRIEF 작업 1·3)
+   */
+  summary: string;
+  hasJudgment: boolean;
+}
 
 interface SuccessCasesProps {
-  cases: SuccessCase[];
+  cases: CaseCard[];
   limit?: number;
   /** 전용 페이지에서 true — 제목은 PageHeader가 담당하므로 컴포넌트 제목을 숨긴다 */
   hideHeading?: boolean;
-  /** 전용 페이지에서 true — 분야 필터 탭 표시 (URL 쿼리로 상태 유지) */
+  /** 전용 페이지에서 true — 분야 필터 칩 표시 (URL 쿼리로 상태 유지) */
   showFilter?: boolean;
 }
+
+/** 지시서 5의 표시 순서. 사례가 없는 분야는 칩 자체를 렌더하지 않는다 */
+const CATEGORY_ORDER = ['형사', '민사', '가사', '부동산·건설', '기업'];
 
 export const SuccessCases: React.FC<SuccessCasesProps> = ({ cases, limit, hideHeading, showFilter }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const activeCategory = showFilter ? searchParams.get('category') : null;
 
-  const categories = Array.from(new Set(cases.map((c) => c.category).filter(Boolean)));
+  const present = new Set(cases.map((c) => c.category).filter(Boolean));
+  const categories = [
+    ...CATEGORY_ORDER.filter((c) => present.has(c)),
+    // 표준 5분야에 없는 값(예: '기타')도 누락 없이 뒤에 붙인다
+    ...Array.from(present).filter((c) => !CATEGORY_ORDER.includes(c)),
+  ];
+
   const filtered = activeCategory ? cases.filter((c) => c.category === activeCategory) : cases;
   const displayCases = limit ? filtered.slice(0, limit) : filtered;
 
@@ -40,17 +63,8 @@ export const SuccessCases: React.FC<SuccessCasesProps> = ({ cases, limit, hideHe
         )}
 
         {showFilter && categories.length > 1 && (
-          <div className="mb-10 flex flex-wrap gap-2" role="tablist" aria-label="분야 필터">
-            <button
-              role="tab"
-              aria-selected={!activeCategory}
-              onClick={() => selectCategory(null)}
-              className={`px-4 py-2 text-sm rounded-sm border transition-colors ${
-                !activeCategory
-                  ? 'bg-brand-dark text-white border-brand-dark'
-                  : 'bg-white text-gray-600 border-gray-200 hover:border-brand-dark'
-              }`}
-            >
+          <div className="cases-filters" role="tablist" aria-label="분야 필터">
+            <button role="tab" aria-selected={!activeCategory} onClick={() => selectCategory(null)}>
               전체
             </button>
             {categories.map((category) => (
@@ -59,11 +73,6 @@ export const SuccessCases: React.FC<SuccessCasesProps> = ({ cases, limit, hideHe
                 role="tab"
                 aria-selected={activeCategory === category}
                 onClick={() => selectCategory(category)}
-                className={`px-4 py-2 text-sm rounded-sm border transition-colors ${
-                  activeCategory === category
-                    ? 'bg-brand-dark text-white border-brand-dark'
-                    : 'bg-white text-gray-600 border-gray-200 hover:border-brand-dark'
-                }`}
               >
                 {category}
               </button>
@@ -71,38 +80,21 @@ export const SuccessCases: React.FC<SuccessCasesProps> = ({ cases, limit, hideHe
           </div>
         )}
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="cases-grid">
           {displayCases.map((item) => (
-            <Link
-              key={item.id}
-              href={`/cases/${item.id}`}
-              className="block border border-gray-100 p-8 rounded-sm hover:shadow-lg transition-shadow duration-300 relative group overflow-hidden cursor-pointer"
-            >
-              <div className="absolute top-0 left-0 w-1 h-full bg-brand-gold transform -translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
-              <div className="mb-4 flex items-center gap-2 flex-wrap">
-                <span className="text-xs font-bold text-gray-400 uppercase tracking-wider border border-gray-200 px-2 py-1">{item.category}</span>
-                {item.result && (
-                  <span className="text-sm font-bold text-brand-gold bg-brand-gold/10 border border-brand-gold/40 px-3 py-1 rounded-sm">
-                    {item.result}
-                  </span>
-                )}
+            // 카드 전체가 클릭 영역 (지시서 2)
+            <Link key={item.slug} href={`/cases/${item.slug}`} className="case-card">
+              <div className="cc-badges">
+                {/* 결과가 카드의 첫 정보 — 네이비 솔리드 */}
+                {item.result && <span className="cc-result">{item.result}</span>}
+                {item.category && <span className="cc-cat">{item.category}</span>}
               </div>
-              <h3 className="text-lg font-bold text-brand-dark mb-3 line-clamp-2 break-keep group-hover:text-brand-gold transition-colors">
-                {item.listTitle || item.title}
-              </h3>
-              <div
-                className="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-1 prose prose-sm max-w-none text-left"
-                dangerouslySetInnerHTML={{ __html: item.description || '' }}
-              />
-              <div className="flex justify-between items-center">
-                <span className="inline-flex items-center text-sm font-semibold text-brand-dark group-hover:text-brand-gold transition-colors">
-                  자세히 보기 <ArrowUpRight size={16} className="ml-1" />
-                </span>
-                {item.judgmentUrl && (
-                  <span className="text-xs text-green-600 flex items-center gap-1">
-                    <FileCheck size={14} /> 판결문 포함
-                  </span>
-                )}
+              <h3 className="cc-title">{item.listTitle}</h3>
+              <p className="cc-sum">{item.summary}</p>
+              <div className="cc-foot">
+                {/* 판결문이 없는 사례도 푸터 정렬이 유지되도록 빈 span을 둔다 */}
+                {item.hasJudgment ? <span className="cc-doc">판결문 마스킹본</span> : <span />}
+                <span className="cc-more">자세히 →</span>
               </div>
             </Link>
           ))}
@@ -120,5 +112,5 @@ export const SuccessCases: React.FC<SuccessCasesProps> = ({ cases, limit, hideHe
         )}
       </div>
     </section>
-  )
-}
+  );
+};

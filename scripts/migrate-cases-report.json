@@ -1,0 +1,420 @@
+{
+  "total": 38,
+  "ok": [
+    {
+      "id": 49,
+      "slug": "fraud-no-charge",
+      "judgment": "judgment-masked.pdf (880KB)"
+    },
+    {
+      "id": 48,
+      "slug": "assault-dismissal",
+      "judgment": "judgment-masked.jpg (39KB)"
+    },
+    {
+      "id": 47,
+      "slug": "theft-acquittal",
+      "judgment": "judgment-masked.jpg (24KB)"
+    },
+    {
+      "id": 46,
+      "slug": "defamation-acquittal",
+      "judgment": "judgment-masked.jpg (32KB)"
+    },
+    {
+      "id": 45,
+      "slug": "voice-phishing-fine",
+      "judgment": "judgment-masked.jpg (59KB)"
+    },
+    {
+      "id": 44,
+      "slug": "fraud-suspended-sentence",
+      "judgment": "judgment-masked.pdf (246KB)"
+    },
+    {
+      "id": 43,
+      "slug": "sexual-violence-act-suspended-sentence",
+      "judgment": "judgment-masked.png (250KB)"
+    },
+    {
+      "id": 42,
+      "slug": "fraud-acquittal",
+      "judgment": "judgment-masked.png (328KB)"
+    },
+    {
+      "id": 41,
+      "slug": "dui-acquittal",
+      "judgment": "judgment-masked.png (356KB)"
+    },
+    {
+      "id": 40,
+      "slug": "dui-fine",
+      "judgment": "judgment-masked.png (442KB)"
+    },
+    {
+      "id": 39,
+      "slug": "dangerous-driving-injury-appeal-fine",
+      "judgment": "judgment-masked.png (61KB)"
+    },
+    {
+      "id": 38,
+      "slug": "obstruction-of-official-duties-fine",
+      "judgment": "judgment-masked.png (458KB)"
+    },
+    {
+      "id": 37,
+      "slug": "dangerous-driving-injury-fine",
+      "judgment": "judgment-masked.png (212KB)"
+    },
+    {
+      "id": 36,
+      "slug": "defamation-no-charge",
+      "judgment": "judgment-masked.jpg (88KB)"
+    },
+    {
+      "id": 35,
+      "slug": "fraud-complaint-imprisonment",
+      "judgment": "judgment-masked.jpg (57KB)"
+    },
+    {
+      "id": 34,
+      "slug": "manslaughter-suspended-sentence",
+      "judgment": "judgment-masked.jpg (60KB)"
+    },
+    {
+      "id": 33,
+      "slug": "indecent-assault-no-charge",
+      "judgment": "judgment-masked.jpg (225KB)"
+    },
+    {
+      "id": 32,
+      "slug": "quasi-rape-no-charge",
+      "judgment": "judgment-masked.jpg (79KB)"
+    },
+    {
+      "id": 31,
+      "slug": "dui-fine-2",
+      "judgment": "judgment-masked.jpg (47KB)"
+    },
+    {
+      "id": 30,
+      "slug": "occupational-breach-no-charge",
+      "judgment": "judgment-masked.jpg (84KB)"
+    },
+    {
+      "id": 29,
+      "slug": "aggravated-rape-no-disposition",
+      "judgment": "judgment-masked.jpg (198KB)"
+    },
+    {
+      "id": 28,
+      "slug": "abuse-of-authority-indecent-assault-fine",
+      "judgment": "judgment-masked.jpg (211KB)"
+    },
+    {
+      "id": 27,
+      "slug": "defamation-complaint-fine",
+      "judgment": "judgment-masked.jpg (250KB)"
+    },
+    {
+      "id": 26,
+      "slug": "occupational-breach-no-charge-2",
+      "judgment": "judgment-masked.jpg (93KB)"
+    },
+    {
+      "id": 25,
+      "slug": "indecent-assault-no-charge-2",
+      "judgment": "judgment-masked.jpg (79KB)"
+    },
+    {
+      "id": 24,
+      "slug": "indecent-assault-suspended-indictment",
+      "judgment": "judgment-masked.pdf (933KB)"
+    },
+    {
+      "id": 23,
+      "slug": "dui-serious-injury-fine",
+      "judgment": "judgment-masked.jpg (180KB)"
+    },
+    {
+      "id": 22,
+      "slug": "bodily-injury-fine",
+      "judgment": "judgment-masked.jpg (74KB)"
+    },
+    {
+      "id": 21,
+      "slug": "assault-no-prosecution",
+      "judgment": "judgment-masked.jpg (71KB)"
+    },
+    {
+      "id": 20,
+      "slug": "unlicensed-dui-suspended-sentence",
+      "judgment": "judgment-masked.jpg (54KB)"
+    },
+    {
+      "id": 19,
+      "slug": "unlicensed-dui-suspended-sentence-2",
+      "judgment": "judgment-masked.jpg (38KB)"
+    },
+    {
+      "id": 18,
+      "slug": "embezzlement-fraud-suspended-indictment",
+      "judgment": "judgment-masked.jpg (226KB)"
+    },
+    {
+      "id": 17,
+      "slug": "indecent-assault-non-indictment",
+      "judgment": "judgment-masked.jpg (218KB)"
+    },
+    {
+      "id": 16,
+      "slug": "quasi-sexual-act-suspended-sentence",
+      "judgment": "judgment-masked.jpg (214KB)"
+    },
+    {
+      "id": 15,
+      "slug": "indecent-assault-no-charge-3",
+      "judgment": "judgment-masked.jpg (57KB)"
+    },
+    {
+      "id": 14,
+      "slug": "dui-suspended-sentence",
+      "judgment": "judgment-masked.jpg (172KB)"
+    },
+    {
+      "id": 13,
+      "slug": "sexual-violence-act-suspended-sentence-2",
+      "judgment": "judgment-masked.jpg (29KB)"
+    },
+    {
+      "id": 12,
+      "slug": "quasi-rape-suspended-sentence",
+      "judgment": "judgment-masked.png (251KB)"
+    }
+  ],
+  "judgmentFail": [],
+  "imageFail": [
+    {
+      "id": 34,
+      "slug": "manslaughter-suspended-sentence",
+      "file": "image-1.jpg",
+      "reason": "HTTP 400"
+    },
+    {
+      "id": 30,
+      "slug": "occupational-breach-no-charge",
+      "file": "image-1.jpg",
+      "reason": "HTTP 400"
+    },
+    {
+      "id": 27,
+      "slug": "defamation-complaint-fine",
+      "file": "image-1.jpg",
+      "reason": "HTTP 400"
+    },
+    {
+      "id": 13,
+      "slug": "sexual-violence-act-suspended-sentence-2",
+      "file": "image-1.jpg",
+      "reason": "HTTP 400"
+    },
+    {
+      "id": 12,
+      "slug": "quasi-rape-suspended-sentence",
+      "file": "image-1.png",
+      "reason": "HTTP 400"
+    }
+  ],
+  "listTitles": [
+    {
+      "id": 49,
+      "slug": "fraud-no-charge",
+      "list_title": "사기 사건"
+    },
+    {
+      "id": 48,
+      "slug": "assault-dismissal",
+      "list_title": "폭행 사건"
+    },
+    {
+      "id": 47,
+      "slug": "theft-acquittal",
+      "list_title": "절도 등 사건"
+    },
+    {
+      "id": 46,
+      "slug": "defamation-acquittal",
+      "list_title": "명예훼손 사건"
+    },
+    {
+      "id": 45,
+      "slug": "voice-phishing-fine",
+      "list_title": "보이스피싱 사건"
+    },
+    {
+      "id": 44,
+      "slug": "fraud-suspended-sentence",
+      "list_title": "사기 등 사건"
+    },
+    {
+      "id": 43,
+      "slug": "sexual-violence-act-suspended-sentence",
+      "list_title": "성폭력처벌법 위반 사건"
+    },
+    {
+      "id": 42,
+      "slug": "fraud-acquittal",
+      "list_title": "사기 사건"
+    },
+    {
+      "id": 41,
+      "slug": "dui-acquittal",
+      "list_title": "음주운전 사건"
+    },
+    {
+      "id": 40,
+      "slug": "dui-fine",
+      "list_title": "음주운전 사건"
+    },
+    {
+      "id": 39,
+      "slug": "dangerous-driving-injury-appeal-fine",
+      "list_title": "위험운전치상 항소심 사건"
+    },
+    {
+      "id": 38,
+      "slug": "obstruction-of-official-duties-fine",
+      "list_title": "공무집행방해 사건"
+    },
+    {
+      "id": 37,
+      "slug": "dangerous-driving-injury-fine",
+      "list_title": "위험운전치상 사건"
+    },
+    {
+      "id": 36,
+      "slug": "defamation-no-charge",
+      "list_title": "명예훼손 사건"
+    },
+    {
+      "id": 35,
+      "slug": "fraud-complaint-imprisonment",
+      "list_title": "사기 고소대리 사건"
+    },
+    {
+      "id": 34,
+      "slug": "manslaughter-suspended-sentence",
+      "list_title": "치사 사건"
+    },
+    {
+      "id": 33,
+      "slug": "indecent-assault-no-charge",
+      "list_title": "강제추행 사건"
+    },
+    {
+      "id": 32,
+      "slug": "quasi-rape-no-charge",
+      "list_title": "준강간 사건"
+    },
+    {
+      "id": 31,
+      "slug": "dui-fine-2",
+      "list_title": "음주운전 사건"
+    },
+    {
+      "id": 30,
+      "slug": "occupational-breach-no-charge",
+      "list_title": "업무상배임 사건"
+    },
+    {
+      "id": 29,
+      "slug": "aggravated-rape-no-disposition",
+      "list_title": "특수강간 사건"
+    },
+    {
+      "id": 28,
+      "slug": "abuse-of-authority-indecent-assault-fine",
+      "list_title": "업무상 위력에 의한 추행 사건"
+    },
+    {
+      "id": 27,
+      "slug": "defamation-complaint-fine",
+      "list_title": "명예훼손 고소대리 사건"
+    },
+    {
+      "id": 26,
+      "slug": "occupational-breach-no-charge-2",
+      "list_title": "업무상배임 사건"
+    },
+    {
+      "id": 25,
+      "slug": "indecent-assault-no-charge-2",
+      "list_title": "강제추행 사건"
+    },
+    {
+      "id": 24,
+      "slug": "indecent-assault-suspended-indictment",
+      "list_title": "강제추행·폭행 사건"
+    },
+    {
+      "id": 23,
+      "slug": "dui-serious-injury-fine",
+      "list_title": "음주운전·중상해 사건"
+    },
+    {
+      "id": 22,
+      "slug": "bodily-injury-fine",
+      "list_title": "상해 사건"
+    },
+    {
+      "id": 21,
+      "slug": "assault-no-prosecution",
+      "list_title": "폭행 사건"
+    },
+    {
+      "id": 20,
+      "slug": "unlicensed-dui-suspended-sentence",
+      "list_title": "무면허·음주운전 사건"
+    },
+    {
+      "id": 19,
+      "slug": "unlicensed-dui-suspended-sentence-2",
+      "list_title": "무면허·음주운전 사건"
+    },
+    {
+      "id": 18,
+      "slug": "embezzlement-fraud-suspended-indictment",
+      "list_title": "업무상 횡령·사기 사건"
+    },
+    {
+      "id": 17,
+      "slug": "indecent-assault-non-indictment",
+      "list_title": "강제추행 사건"
+    },
+    {
+      "id": 16,
+      "slug": "quasi-sexual-act-suspended-sentence",
+      "list_title": "유사성행위 사건"
+    },
+    {
+      "id": 15,
+      "slug": "indecent-assault-no-charge-3",
+      "list_title": "강제추행 사건"
+    },
+    {
+      "id": 14,
+      "slug": "dui-suspended-sentence",
+      "list_title": "음주운전 사건"
+    },
+    {
+      "id": 13,
+      "slug": "sexual-violence-act-suspended-sentence-2",
+      "list_title": "성폭법 위반 사건"
+    },
+    {
+      "id": 12,
+      "slug": "quasi-rape-suspended-sentence",
+      "list_title": "준강간 사건"
+    }
+  ]
+}
