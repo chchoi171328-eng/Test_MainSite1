@@ -22,6 +22,11 @@ export interface CaseItem {
   listTitle: string;
   /** 결과 배지 (네이비) */
   result: string;
+  /**
+   * 목록 카드용 한 줄 요약 (40~80자 완결 문장, 결과 포함 — success-case-writer가 채운다).
+   * 기존 이관 사례에는 없으며, 그 경우 목록은 본문 발췌로 폴백한다 (CASES_LIST_BRIEF 작업 1).
+   */
+  summary?: string;
   /** 형사 | 민사 | 가사 | 부동산·건설 | 기업 | 기타 */
   category: string;
   /** YYYY-MM-DD — 목록 정렬용 */
@@ -64,6 +69,7 @@ export function getAllCases(): CaseItem[] {
       title: (fm.title as string) || slug,
       listTitle: (fm.list_title as string) || (fm.title as string) || slug,
       result: (fm.result as string) || '',
+      summary: (fm.summary as string) || undefined,
       category: (fm.category as string) || '기타',
       date: (fm.date as string) || '',
       judgmentUrl: assetUrl(folder, judgment),
@@ -118,5 +124,19 @@ export function getCaseExcerpt(body: string, maxLen = 90): string {
     .replace(/&nbsp;/g, ' ')
     .replace(/\s+/g, ' ')
     .trim();
-  return text.length > maxLen ? `${text.slice(0, maxLen)}…` : text;
+  if (text.length <= maxLen) return text;
+
+  // 가능하면 문장 끝에서 끊는다 — 단어 중간에서 잘린 발췌가 카드의 기존 문제였다
+  // (CASES_LIST_BRIEF). 단, 본문에는 "2019.4. 25." 같은 날짜가 흔해 마침표만으로는
+  // 문장 끝을 판별할 수 없으므로 앞 글자가 한글인 마침표(…되었습니다.)만 인정한다.
+  // 너무 짧아지면(60% 미만) 의미가 남지 않으므로 말줄임으로 폴백.
+  const head = text.slice(0, maxLen);
+  let cut = -1;
+  for (let i = head.length - 1; i >= Math.ceil(maxLen * 0.6); i--) {
+    if (head[i] === '.' && /[가-힣]/.test(head[i - 1] ?? '')) {
+      cut = i + 1;
+      break;
+    }
+  }
+  return cut > 0 ? head.slice(0, cut) : `${head}…`;
 }

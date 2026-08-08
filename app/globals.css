@@ -32,6 +32,150 @@ h6 {
 }
 
 /* ==========================================================================
+   성공사례 목록 카드 (cases-list-preview.html 시각 정본 이식 — CASES_LIST_BRIEF)
+   - 수치는 preview 그대로. 카드 내부 요소는 .cc-* 로 스코프해 전역 충돌을 막는다
+   - 모바일 기준선 680px 는 preview와 동일 (Tailwind 기본 브레이크포인트와 다름)
+   ========================================================================== */
+.cases-filters {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+.cases-filters button {
+  font-size: 13.5px;
+  padding: 8px 16px;
+  border: 1px solid #e7e3db;
+  background: #fff;
+  color: #555;
+  border-radius: 2px;
+  transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+}
+.cases-filters button:hover { border-color: #cfc7b4; }
+.cases-filters button[aria-selected='true'] {
+  background: #1e3a5f;
+  border-color: #1e3a5f;
+  color: #fff;
+}
+
+.cases-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.case-card {
+  background: #fff;
+  border: 1px solid #e7e3db;
+  padding: 22px 22px 18px;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+.case-card:hover {
+  border-color: #cfc7b4;
+  box-shadow: 0 6px 20px rgba(30, 40, 60, 0.07);
+}
+.case-card .cc-badges {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+  align-items: center;
+}
+.case-card .cc-result {
+  font-size: 12px;
+  padding: 4px 10px;
+  background: #1e3a5f;
+  color: #fff;
+  font-weight: 500;
+  border-radius: 2px;
+}
+.case-card .cc-cat {
+  font-size: 12px;
+  padding: 4px 10px;
+  background: #f1eee7;
+  color: #6b6353;
+  border-radius: 2px;
+}
+.case-card .cc-title {
+  font-family: 'Playfair Display', 'Noto Serif KR', serif;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.5;
+  color: #1c1c1c;
+  word-break: keep-all;
+  margin-bottom: 8px;
+}
+.case-card .cc-sum {
+  font-size: 13.8px;
+  color: #666;
+  line-height: 1.75;
+  word-break: keep-all;
+  flex: 1;
+}
+.case-card .cc-foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #f2efe9;
+}
+.case-card .cc-doc {
+  font-size: 12px;
+  color: #8a8578;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+/* 회색 문서 아이콘 (기존 초록 FileCheck 아이콘 대체) */
+.case-card .cc-doc:before {
+  content: '';
+  width: 10px;
+  height: 13px;
+  border: 1.2px solid #b0a98f;
+  border-radius: 1px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+.case-card .cc-more { font-size: 12.5px; color: #1e3a5f; }
+
+/* 태블릿: preview에는 없는 중간 단계. 681~860px에서 3열은 열폭이 좁아 2열로 둔다 */
+@media (max-width: 860px) {
+  .cases-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 680px) {
+  .cases-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .case-card { padding: 16px 16px 13px; }
+  .case-card .cc-title {
+    font-size: 15.5px;
+    margin-bottom: 5px;
+  }
+  .case-card .cc-sum {
+    font-size: 13px;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .case-card .cc-foot {
+    margin-top: 10px;
+    padding-top: 9px;
+  }
+  .case-card .cc-result,
+  .case-card .cc-cat {
+    font-size: 11px;
+    padding: 3px 8px;
+  }
+  /* 필터 칩: 좁은 화면에서 줄바꿈 허용 (지시서 4) */
+  .cases-filters { gap: 6px; margin-bottom: 18px; }
+  .cases-filters button { font-size: 12.5px; padding: 6px 12px; }
+}
+
+/* ==========================================================================
    성공사례 본문 (case-detail-preview.html 시각 정본 이식)
    - 전부 .case-* 클래스 스코프 → 기존 <p> 나열 본문(Quill 이관분)에 영향 없음
    - 본문은 dangerouslySetInnerHTML로 들어오므로 Tailwind 유틸리티가 아닌 CSS로 정의

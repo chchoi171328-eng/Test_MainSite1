@@ -33,7 +33,8 @@ export default async function HomePage() {
       listTitle: c.listTitle,
       category: c.category,
       result: c.result,
-      excerpt: getCaseExcerpt(c.body),
+      // summary가 있으면 그대로, 없는 기존 이관 사례는 본문 발췌로 폴백
+      summary: c.summary || getCaseExcerpt(c.body),
       hasJudgment: Boolean(c.judgmentUrl),
     }));
 
