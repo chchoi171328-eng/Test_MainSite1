@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#C9A84C;--navy:#1E3A5F;--line:#e7e3db;--muted:#8a8578}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans KR',sans-serif;color:#2c2c2c;background:#faf9f7;line-height:1.7}
+  .wrap{max-width:1100px;margin:0 auto;padding:48px 24px}
+
+  .filters{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap}
+  .filters a{font-size:13.5px;padding:8px 16px;border:1px solid var(--line);background:#fff;color:#555;text-decoration:none;border-radius:2px}
+  .filters a.on{background:var(--navy);border-color:var(--navy);color:#fff}
+
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{background:#fff;border:1px solid var(--line);padding:22px 22px 18px;text-decoration:none;color:inherit;display:flex;flex-direction:column;transition:box-shadow .15s,border-color .15s}
+  .card:hover{border-color:#cfc7b4;box-shadow:0 6px 20px rgba(30,40,60,.07)}
+  .c-badges{display:flex;gap:6px;margin-bottom:12px;align-items:center}
+  .b-result{font-size:12px;padding:4px 10px;background:var(--navy);color:#fff;font-weight:500;border-radius:2px}
+  .b-cat{font-size:12px;padding:4px 10px;background:#f1eee7;color:#6b6353;border-radius:2px}
+  .c-title{font-family:'Noto Serif KR',serif;font-size:17px;font-weight:600;line-height:1.5;color:#1c1c1c;word-break:keep-all;margin-bottom:8px}
+  .c-sum{font-size:13.8px;color:#666;line-height:1.75;word-break:keep-all;flex:1}
+  .c-foot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid #f2efe9}
+  .c-doc{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:5px}
+  .c-doc:before{content:'';width:10px;height:13px;border:1.2px solid #b0a98f;border-radius:1px;display:inline-block}
+  .c-more{font-size:12.5px;color:var(--navy)}
+
+  @media(max-width:680px){
+    .wrap{padding:28px 16px}
+    .grid{grid-template-columns:1fr;gap:10px}
+    .card{padding:16px 16px 13px}
+    .c-title{font-size:15.5px;margin-bottom:5px}
+    .c-sum{font-size:13px;-webkit-line-clamp:2;display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}
+    .c-foot{margin-top:10px;padding-top:9px}
+    .b-result,.b-cat{font-size:11px;padding:3px 8px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="filters">
+    <a class="on" href="#">전체</a><a href="#">형사</a><a href="#">민사</a><a href="#">가사</a><a href="#">부동산·건설</a><a href="#">기업</a>
+  </div>
+  <div class="grid">
+    <a class="card" href="#">
+      <div class="c-badges"><span class="b-result">무혐의</span><span class="b-cat">형사</span></div>
+      <div class="c-title">사기 고소를 당한 사업 거래, 무혐의로 종결</div>
+      <div class="c-sum">거래 실패가 기망이었는지가 쟁점이 된 사건에서, 거래 경위 소명으로 채무불이행과 사기의 경계를 입증해 무혐의 처분을 받았습니다.</div>
+      <div class="c-foot"><span class="c-doc">판결문 마스킹본</span><span class="c-more">자세히 →</span></div>
+    </a>
+    <a class="card" href="#">
+      <div class="c-badges"><span class="b-result">공소기각</span><span class="b-cat">형사</span></div>
+      <div class="c-title">쌍방 폭행 주장 사건, 합의로 공소기각</div>
+      <div class="c-sum">반의사불벌죄 구조에서 처벌불원 의사를 확보해 재판 진행 중 공소기각 판결로 종결된 사건입니다.</div>
+      <div class="c-foot"><span class="c-doc">판결문 마스킹본</span><span class="c-more">자세히 →</span></div>
+    </a>
+    <a class="card" href="#">
+      <div class="c-badges"><span class="b-result">무죄</span><span class="b-cat">형사</span></div>
+      <div class="c-title">절도·업무방해 기소, 1심 무죄</div>
+      <div class="c-sum">CCTV와 동선 재구성으로 공소사실의 시간대가 성립할 수 없음을 입증해 무죄 판결을 받았습니다.</div>
+      <div class="c-foot"><span class="c-doc">판결문 마스킹본</span><span class="c-more">자세히 →</span></div>
+    </a>
+    <a class="card" href="#">
+      <div class="c-badges"><span class="b-result">청구 인용</span><span class="b-cat">부동산·건설</span></div>
+      <div class="c-title">하도급대금, 발주처 직접청구로 회수</div>
+      <div class="c-sum">원도급사의 자금 악화로 막힌 공사대금을 하도급법상 직접지급 청구와 채권가압류로 발주처에서 회수한 사건입니다.</div>
+      <div class="c-foot"><span class="c-doc">판결문 마스킹본</span><span class="c-more">자세히 →</span></div>
+    </a>
+    <a class="card" href="#">
+      <div class="c-badges"><span class="b-result">벌금형</span><span class="b-cat">형사</span></div>
+      <div class="c-title">보이스피싱 수거책 연루, 벌금형 방어</div>
+      <div class="c-sum">구속과 징역형이 구형된 사건에서 가담 경위와 고의 인식의 정도를 다투어 벌금형으로 마무리했습니다.</div>
+      <div class="c-foot"><span class="c-doc">판결문 마스킹본</span><span class="c-more">자세히 →</span></div>
+    </a>
+    <a class="card" href="#">
+      <div class="c-badges"><span class="b-result">조정 성립</span><span class="b-cat">가사</span></div>
+      <div class="c-title">재산분할 다툼, 조회 신청으로 조정 성립</div>
+      <div class="c-sum">상대방 명의 재산이 확인되지 않던 사건에서 금융거래정보 조회로 분할 대상을 특정해 조정으로 종결했습니다.</div>
+      <div class="c-foot"><span class="c-doc">판결문 마스킹본</span><span class="c-more">자세히 →</span></div>
+    </a>
+  </div>
+</div>
+</body>
+</html>
