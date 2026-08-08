@@ -4,10 +4,20 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowUpRight, ArrowRight, FileCheck } from 'lucide-react';
-import { SuccessCase } from '../types';
+
+/** 서버에서 직렬화해 넘기는 카드 데이터 (lib/cases.ts CaseItem의 표시용 부분) */
+export interface CaseCard {
+  slug: string;
+  listTitle: string;
+  category: string;
+  result: string;
+  /** 목록 발췌 — .case-brief의 dl 텍스트를 제외하고 서버에서 계산 (작업 3) */
+  excerpt: string;
+  hasJudgment: boolean;
+}
 
 interface SuccessCasesProps {
-  cases: SuccessCase[];
+  cases: CaseCard[];
   limit?: number;
   /** 전용 페이지에서 true — 제목은 PageHeader가 담당하므로 컴포넌트 제목을 숨긴다 */
   hideHeading?: boolean;
@@ -74,8 +84,8 @@ export const SuccessCases: React.FC<SuccessCasesProps> = ({ cases, limit, hideHe
         <div className="grid md:grid-cols-3 gap-8">
           {displayCases.map((item) => (
             <Link
-              key={item.id}
-              href={`/cases/${item.id}`}
+              key={item.slug}
+              href={`/cases/${item.slug}`}
               className="block border border-gray-100 p-8 rounded-sm hover:shadow-lg transition-shadow duration-300 relative group overflow-hidden cursor-pointer"
             >
               <div className="absolute top-0 left-0 w-1 h-full bg-brand-gold transform -translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
@@ -88,17 +98,16 @@ export const SuccessCases: React.FC<SuccessCasesProps> = ({ cases, limit, hideHe
                 )}
               </div>
               <h3 className="text-lg font-bold text-brand-dark mb-3 line-clamp-2 break-keep group-hover:text-brand-gold transition-colors">
-                {item.listTitle || item.title}
+                {item.listTitle}
               </h3>
-              <div
-                className="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-1 prose prose-sm max-w-none text-left"
-                dangerouslySetInnerHTML={{ __html: item.description || '' }}
-              />
+              <p className="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-2 break-keep">
+                {item.excerpt}
+              </p>
               <div className="flex justify-between items-center">
                 <span className="inline-flex items-center text-sm font-semibold text-brand-dark group-hover:text-brand-gold transition-colors">
                   자세히 보기 <ArrowUpRight size={16} className="ml-1" />
                 </span>
-                {item.judgmentUrl && (
+                {item.hasJudgment && (
                   <span className="text-xs text-green-600 flex items-center gap-1">
                     <FileCheck size={14} /> 판결문 포함
                   </span>

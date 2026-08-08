@@ -28,17 +28,8 @@ export interface Stat {
 }
 
 // Content Types
-export interface SuccessCase {
-  id: number;
-  title: string;
-  listTitle?: string; // 목록 카드 표시용 짧은 제목 (없으면 title 사용)
-  category: string;
-  result: string;
-  description: string;
-  judgmentUrl?: string; // Base64 string for judgment document (PDF/Image)
-  judgmentFormat?: string; // 'pdf' | 'image' | etc
-  imageUrls?: string[]; // 성공 사례 이미지 URLs
-}
+// SuccessCase 타입은 파일 기반 전환으로 제거되었다 — lib/cases.ts의 CaseItem 사용
+// (CASE_BOARD_BRIEF 작업 2-3, Supabase success_cases 테이블은 백업으로 보존)
 
 export interface LegalPost {
   id: number;

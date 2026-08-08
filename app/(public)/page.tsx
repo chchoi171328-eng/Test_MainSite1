@@ -3,10 +3,10 @@ import React, { Suspense } from 'react';
 import { Hero } from '../../components/Hero';
 import { SituationRouting } from '../../components/SituationRouting';
 import { About } from '../../components/About';
-import { SuccessCases } from '../../components/SuccessCases';
+import { SuccessCases, CaseCard } from '../../components/SuccessCases';
 import { LegalCases } from '../../components/LegalCases';
 import { Contact } from '../../components/Contact';
-import { getAllSuccessCases } from '../../api/successCases';
+import { getAllCases, getCaseExcerpt } from '../../lib/cases';
 import { getAllLegalCases } from '../../api/legalCases';
 
 // Supabase 콘텐츠는 5분 주기 ISR로 재생성
@@ -23,10 +23,19 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
-  const [successCases, legalCases] = await Promise.all([
-    getAllSuccessCases().catch(() => []),
-    getAllLegalCases().catch(() => []),
-  ]);
+  const legalCases = await getAllLegalCases().catch(() => []);
+
+  // 성공사례는 파일 기반 (CASE_BOARD_BRIEF 작업 5)
+  const successCases: CaseCard[] = getAllCases()
+    .slice(0, 3)
+    .map((c) => ({
+      slug: c.slug,
+      listTitle: c.listTitle,
+      category: c.category,
+      result: c.result,
+      excerpt: getCaseExcerpt(c.body),
+      hasJudgment: Boolean(c.judgmentUrl),
+    }));
 
   return (
     <>

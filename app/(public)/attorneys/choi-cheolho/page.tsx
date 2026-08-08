@@ -5,7 +5,7 @@ import { ArrowRight, Phone, Scale, ExternalLink } from 'lucide-react';
 import { JsonLd } from '../../../../components/JsonLd';
 import { TrackedLink } from '../../../../components/TrackedLink';
 import { buildAttorneyJsonLd, SITE_URL } from '../../../../lib/organization';
-import { getAllSuccessCases } from '../../../../api/successCases';
+import { getAllCases } from '../../../../lib/cases';
 import { getAllGuides, FIELD_LABELS } from '../../../../lib/content';
 
 export const revalidate = 300;
@@ -44,9 +44,7 @@ const PRINCIPLES = [
 ];
 
 export default async function AttorneyProfilePage() {
-  const successCases = await getAllSuccessCases().catch(() => []);
-
-  const relatedCases = successCases.slice(0, 3);
+  const relatedCases = getAllCases().slice(0, 3);
   const relatedGuides = getAllGuides()
     .filter((g) => !g.draft)
     .slice(0, 3);
@@ -163,8 +161,8 @@ export default async function AttorneyProfilePage() {
               <div className="grid md:grid-cols-3 gap-6">
                 {relatedCases.map((item) => (
                   <Link
-                    key={item.id}
-                    href={`/cases/${item.id}`}
+                    key={item.slug}
+                    href={`/cases/${item.slug}`}
                     className="block border border-gray-100 p-6 rounded-sm hover:shadow-md transition-shadow group"
                   >
                     <div className="flex items-center gap-2 mb-3">

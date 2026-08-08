@@ -1,22 +1,18 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { SuccessCase, LegalPost, LegalForm, LegalCase } from '../types';
-import * as successCasesAPI from '../api/successCases';
+import { LegalPost, LegalForm, LegalCase } from '../types';
 import * as legalPostsAPI from '../api/legalPosts';
 import * as legalFormsAPI from '../api/legalForms';
 import * as legalCasesAPI from '../api/legalCases';
 
 interface DataContextType {
-  successCases: SuccessCase[];
+  // 성공사례는 파일 기반(/content/cases)으로 전환되어 이 컨텍스트에서 제외됨
+  // (CASE_BOARD_BRIEF 작업 2-3 — success_cases 테이블은 백업으로 보존)
   legalPosts: LegalPost[];
   legalForms: LegalForm[];
   legalCases: LegalCase[];
   loading: boolean;
-
-  addSuccessCase: (item: Omit<SuccessCase, 'id'>) => Promise<void>;
-  updateSuccessCase: (item: SuccessCase) => Promise<void>;
-  deleteSuccessCase: (id: number) => Promise<void>;
 
   addLegalPost: (item: Omit<LegalPost, 'id'>) => Promise<void>;
   updateLegalPost: (item: LegalPost) => Promise<void>;
@@ -36,7 +32,6 @@ interface DataContextType {
 export const DataContext = createContext<DataContextType | undefined>(undefined);
 
 export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [successCases, setSuccessCases] = useState<SuccessCase[]>([]);
   const [legalPosts, setLegalPosts] = useState<LegalPost[]>([]);
   const [legalForms, setLegalForms] = useState<LegalForm[]>([]);
   const [legalCases, setLegalCases] = useState<LegalCase[]>([]);
@@ -47,20 +42,17 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setLoading(true);
 
     // 각 API를 개별적으로 호출하여 하나가 실패해도 다른 것은 로드됨
-    const [casesResult, postsResult, formsResult, legalCasesResult] = await Promise.allSettled([
-      successCasesAPI.getAllSuccessCases(),
+    const [postsResult, formsResult, legalCasesResult] = await Promise.allSettled([
       legalPostsAPI.getAllLegalPosts(),
       legalFormsAPI.getAllLegalForms(),
       legalCasesAPI.getAllLegalCases(),
     ]);
 
-    setSuccessCases(casesResult.status === 'fulfilled' ? casesResult.value : []);
     setLegalPosts(postsResult.status === 'fulfilled' ? postsResult.value : []);
     setLegalForms(formsResult.status === 'fulfilled' ? formsResult.value : []);
     setLegalCases(legalCasesResult.status === 'fulfilled' ? legalCasesResult.value : []);
 
     // 에러 로깅
-    if (casesResult.status === 'rejected') console.error('Error loading success cases:', casesResult.reason);
     if (postsResult.status === 'rejected') console.error('Error loading legal posts:', postsResult.reason);
     if (formsResult.status === 'rejected') console.error('Error loading legal forms:', formsResult.reason);
     if (legalCasesResult.status === 'rejected') console.error('Error loading legal cases:', legalCasesResult.reason);
@@ -72,37 +64,6 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   useEffect(() => {
     loadData();
   }, []);
-
-  // Success Cases CRUD
-  const addSuccessCase = async (item: Omit<SuccessCase, 'id'>) => {
-    try {
-      const newCase = await successCasesAPI.createSuccessCase(item);
-      setSuccessCases(prev => [newCase, ...prev]);
-    } catch (error) {
-      console.error('Error adding success case:', error);
-      throw error;
-    }
-  };
-
-  const updateSuccessCase = async (item: SuccessCase) => {
-    try {
-      const updated = await successCasesAPI.updateSuccessCase(item);
-      setSuccessCases(prev => prev.map(c => c.id === updated.id ? updated : c));
-    } catch (error) {
-      console.error('Error updating success case:', error);
-      throw error;
-    }
-  };
-
-  const deleteSuccessCase = async (id: number) => {
-    try {
-      await successCasesAPI.deleteSuccessCase(id);
-      setSuccessCases(prev => prev.filter(c => c.id !== id));
-    } catch (error) {
-      console.error('Error deleting success case:', error);
-      throw error;
-    }
-  };
 
   // Legal Posts CRUD
   const addLegalPost = async (item: Omit<LegalPost, 'id'>) => {
@@ -204,14 +165,10 @@ export const DataProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   return (
     <DataContext.Provider
       value={{
-        successCases,
         legalPosts,
         legalForms,
         legalCases,
         loading,
-        addSuccessCase,
-        updateSuccessCase,
-        deleteSuccessCase,
         addLegalPost,
         updateLegalPost,
         deleteLegalPost,
