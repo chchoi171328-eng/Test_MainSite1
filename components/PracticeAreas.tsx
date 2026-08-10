@@ -24,9 +24,9 @@ const PRIMARY_AREAS: AreaWithKeywords[] = [
     href: '/practice/criminal',
     question: '경찰 조사를 앞두고 계시거나, 고소를 생각하고 계신가요?',
     keywords: [
-      { label: '음주·교통', slug: 'criminal-defense' },
-      { label: '폭력·상해', slug: 'criminal-defense' },
-      { label: '사기·재산범죄', slug: 'criminal-defense' },
+      { label: '음주·교통', slug: 'criminal' },
+      { label: '폭력·상해', slug: 'criminal' },
+      { label: '사기·재산범죄', slug: 'criminal' },
     ],
   },
   {
@@ -37,9 +37,9 @@ const PRIMARY_AREAS: AreaWithKeywords[] = [
     href: '/practice/civil',
     question: '받을 돈이 있거나, 법원에서 소장을 받으셨나요?',
     keywords: [
-      { label: '대여금·채권 회수', slug: 'debt-collection' },
-      { label: '손해배상', slug: 'civil-litigation' },
-      { label: '계약 분쟁', slug: 'civil-litigation' },
+      { label: '대여금·채권 회수', slug: 'civil' },
+      { label: '손해배상', slug: 'civil' },
+      { label: '계약 분쟁', slug: 'civil' },
     ],
   },
   {
@@ -50,8 +50,8 @@ const PRIMARY_AREAS: AreaWithKeywords[] = [
     href: '/practice/divorce',
     question: '이혼을 생각 중이시거나, 상속 문제가 생기셨나요?',
     keywords: [
-      { label: '이혼·재산분할', slug: 'divorce-inheritance' },
-      { label: '양육권', slug: 'divorce-inheritance' },
+      { label: '이혼·재산분할', slug: 'divorce' },
+      { label: '양육권', slug: 'divorce' },
       // 상속 분쟁 세부 키워드 직링크 — 동시 배포 필수 항목 (마스터 플랜 1-3)
       { label: '상속 분쟁', href: '/practice/inheritance' },
     ],
@@ -67,9 +67,9 @@ const SECONDARY_AREAS: AreaWithKeywords[] = [
     href: '/practice/real-estate',
     question: '임대차·매매나 보증금 문제가 있으신가요?',
     keywords: [
-      { label: '매매·임대차', slug: 'real-estate-litigation' },
-      { label: '보증금 반환', slug: 'real-estate-litigation' },
-      { label: '토지·상가 분쟁', slug: 'real-estate-litigation' },
+      { label: '매매·임대차', slug: 'real-estate' },
+      { label: '보증금 반환', slug: 'real-estate' },
+      { label: '토지·상가 분쟁', slug: 'real-estate' },
     ],
   },
   {
@@ -80,9 +80,9 @@ const SECONDARY_AREAS: AreaWithKeywords[] = [
     href: '/practice/construction',
     question: '공사대금이나 하도급대금을 받지 못하고 계신가요?',
     keywords: [
-      { label: '공사대금·하도급대금', slug: 'construction-payment' },
-      { label: '하자보수', slug: 'construction-disputes' },
-      { label: '건설 분쟁', slug: 'construction-disputes' },
+      { label: '공사대금·하도급대금', slug: 'construction' },
+      { label: '하자보수', slug: 'construction' },
+      { label: '건설 분쟁', slug: 'construction' },
     ],
   },
   {
@@ -93,9 +93,9 @@ const SECONDARY_AREAS: AreaWithKeywords[] = [
     href: '/practice/corporate',
     question: '회사 운영 중 법률 문제가 생기셨나요?',
     keywords: [
-      { label: '계약서 검토·자문', slug: 'corporate-law' },
-      { label: '기업 분쟁 대응', slug: 'corporate-law' },
-      { label: '인사·노동', slug: 'corporate-law' },
+      { label: '계약서 검토·자문', slug: 'corporate' },
+      { label: '기업 분쟁 대응', slug: 'corporate' },
+      { label: '인사·노동', slug: 'corporate' },
     ],
   },
 ];

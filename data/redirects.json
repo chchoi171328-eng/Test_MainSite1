@@ -33,14 +33,25 @@
     }
   },
   "static": {
-    "/sub1_1.php": "/practice/criminal-defense",
-    "/sub1_2.php": "/practice/civil-litigation",
+    "/sub1_1.php": "/practice/criminal",
+    "/sub1_2.php": "/practice/civil",
     "/sub1_3.php": "/practice",
-    "/sub1_4.php": "/practice/divorce-inheritance",
+    "/sub1_4.php": "/practice/divorce",
     "/sub1_5.php": "/practice",
     "/sub2_1.php": "/about",
     "/sub2_2.php": "/attorneys/choi-cheolho",
     "/sub_map.php": "/locations/pyeongtaek"
+  },
+  "_practiceLegacyComment": "구판 업무분야 URL(/practice/{구slug}) → 정본 /practice/{분야키} 301. 구판 [slug] 라우트를 제거하면서 이미 색인·외부 링크가 걸렸을 수 있는 경로를 보존한다.",
+  "practiceLegacy": {
+    "/practice/real-estate-litigation": "/practice/real-estate",
+    "/practice/construction-disputes": "/practice/construction",
+    "/practice/construction-payment": "/practice/construction",
+    "/practice/civil-litigation": "/practice/civil",
+    "/practice/debt-collection": "/practice/civil",
+    "/practice/criminal-defense": "/practice/criminal",
+    "/practice/divorce-inheritance": "/practice/divorce",
+    "/practice/corporate-law": "/practice/corporate"
   },
   "_staticNotes": {
     "/sub1_1.php": "형사",

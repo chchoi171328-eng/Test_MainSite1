@@ -19,6 +19,7 @@ interface BoardRedirect {
 
 const BOARDS = redirects.boards as unknown as Record<string, BoardRedirect>;
 const STATIC = redirects.static as Record<string, string>;
+const PRACTICE_LEGACY = redirects.practiceLegacy as Record<string, string>;
 
 export function middleware(request: NextRequest) {
   const { pathname, searchParams, search } = request.nextUrl;
@@ -32,7 +33,15 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL(`${pathname}${search}`, SITE_URL), 308);
   }
 
-  // ── 2. 구 사이트 URL 301 ──────────────────────────────────────────────
+  // ── 2. 구판 업무분야 URL → 정본 301 ───────────────────────────────────
+  // 정본은 /practice/{분야키} 8종. 구판 [slug] 라우트는 제거했고, 이미 색인되었거나
+  // 외부에 걸린 구 경로만 여기서 흡수한다.
+  const practiceDestination = PRACTICE_LEGACY[pathname];
+  if (practiceDestination) {
+    return NextResponse.redirect(new URL(practiceDestination, request.url), 301);
+  }
+
+  // ── 3. 구 사이트 URL 301 ──────────────────────────────────────────────
   // 그누보드 게시판 URL: /bbs/board.php?bo_table=...&wr_id=...
   if (pathname === '/bbs/board.php' || pathname.startsWith('/bbs/')) {
     const boTable = searchParams.get('bo_table') || '';

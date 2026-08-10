@@ -22,14 +22,45 @@
 
 | 구 URL | 구 페이지 | 새 URL |
 |---|---|---|
-| `/sub1_1.php` | 형사 | `/practice/criminal-defense` |
-| `/sub1_2.php` | 민사일반 | `/practice/civil-litigation` |
+| `/sub1_1.php` | 형사 | `/practice/criminal` |
+| `/sub1_2.php` | 민사일반 | `/practice/civil` |
 | `/sub1_3.php` | 건설부동산 | `/practice` (부동산·건설 두 페이지에 걸쳐 있어 허브로) |
-| `/sub1_4.php` | 이혼상속 | `/practice/divorce-inheritance` |
+| `/sub1_4.php` | 이혼상속 | `/practice/divorce` |
 | `/sub1_5.php` | 법인회생 | `/practice` (새 사이트 미취급 분야) |
 | `/sub2_1.php` | 법무법인 소개 | `/about` |
 | `/sub2_2.php` | 구성원 소개 | `/attorneys/choi-cheolho` |
 | `/sub_map.php` | 찾아오시는 길 | `/locations/pyeongtaek` |
+
+## 구판 업무분야 URL 매핑 (2026-08-10 일원화)
+
+업무분야 URL이 두 벌로 운영되던 것을 **정본 `/practice/{분야키}` 8종**으로 통일했다.
+구판 `[slug]` 라우트(`data/practice-areas.ts`의 정의 8종)는 페이지 렌더를 중단하고
+301로만 남긴다. `data/redirects.json`의 `practiceLegacy` 항목이 이 표에 대응한다.
+
+| 구판 URL | 구판 명칭 | 정본 URL |
+|---|---|---|
+| `/practice/criminal-defense` | 형사 변호 | `/practice/criminal` |
+| `/practice/civil-litigation` | 민사소송 | `/practice/civil` |
+| `/practice/debt-collection` | 대여금·채권 회수 | `/practice/civil` |
+| `/practice/divorce-inheritance` | 이혼·상속 | `/practice/divorce` |
+| `/practice/real-estate-litigation` | 부동산 소송 | `/practice/real-estate` |
+| `/practice/construction-payment` | 공사대금 소송 | `/practice/construction` |
+| `/practice/construction-disputes` | 건설 분쟁 | `/practice/construction` |
+| `/practice/corporate-law` | 기업 법무 | `/practice/corporate` |
+
+### 1:1이 아닌 항목 — 판단이 들어간 곳
+
+구판 8종과 정본 8종은 이름만 다른 것이 아니라 분류 자체가 다르다. 세 곳은 선택이 필요했다.
+
+- **`debt-collection` → `/practice/civil`** — 정본에 대여금 전용 페이지가 없다. 민사 소송
+  페이지가 대여금·채권 회수를 다루므로 그리로 보낸다.
+- **`construction-payment`·`construction-disputes` → `/practice/construction`** — 정본은
+  둘을 «건설·공사대금» 한 페이지로 합쳤다. 구판 2종이 같은 곳으로 모인다.
+- **`divorce-inheritance` → `/practice/divorce`** — 정본은 이혼과 상속을 분리했다(`divorce`,
+  `inheritance`). 구판 한 URL을 둘로 쪼갤 수 없어 이혼으로 보낸다.
+  **검색 유입이 상속 쪽에 쏠린 것으로 확인되면 `/practice/inheritance`로 바꿀 것.**
+
+정본에만 있는 `criminal-victim`(형사 피해자·고소), `inheritance`(상속)는 구판에 대응이 없다.
 
 ## 게시판 매핑 (목록 단위 확정, 개별 글 미확정)
 
