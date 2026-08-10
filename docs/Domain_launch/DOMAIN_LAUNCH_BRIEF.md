@@ -75,6 +75,25 @@ Sitemap: https://www.sllaw.co.kr/sitemap.xml
 
 # B. 계정 작업 (사용자 직접 — 순서대로)
 
+> **진행 기록 (2026-08-10, Claude Code가 사용자 Chrome 세션으로 수행):**
+> - **B-1 완료** — GA 계정을 새로 만들지 않고 영문 사이트 GA 계정(Myeong_foreign, 401244447)
+>   아래에 속성 「법무법인 명」(549314337)을 추가. 시간대 서울·통화 KRW·업종 사법 및 정부
+>   기관·목표 리드 생성+트래픽. 웹 스트림 「법무법인 명 (한글 사이트)」(15411023111),
+>   **측정 ID G-EDYWN18WZ3**. Vercel 환경변수 `NEXT_PUBLIC_GA_ID`(Production 전용) 설정
+>   후 재배포 — 실사이트 태그 로드·실시간 보고서(call_click 4·booking_click 1) 확인 완료.
+> - **B-2 부분 완료** — Search Console에 **URL 접두어** 속성 `https://www.sllaw.co.kr/` 등록.
+>   도메인 속성은 가비아 DNS TXT가 필요해 보류(원하면 사용자가 추가). 소유권은 HTML 태그
+>   방식(`NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION` env + 재배포)으로 자동 확인. GA 방식은
+>   gtag가 afterInteractive 로드라 실패했음. sitemap.xml 제출됨 — 제출 직후 상태
+>   "가져올 수 없음"은 GSC 초기 표시로 보이며, **하루 뒤에도 그대로면 재확인 필요**.
+>   주요 페이지 URL 검사(색인 요청)는 미실시 — 사용자 몫.
+> - **B-5 부분 완료** — 데이터 보존 14개월(이벤트 데이터) 설정, GA↔Search Console 연결 완료.
+>   **주요 이벤트 표시는 대기** — call_click 등이 GA 이벤트 목록에 나타나면(최대 24시간)
+>   관리→데이터 표시→이벤트에서 별표 3개(call_click·consult_submit·booking_click)를 켤 것.
+>   ※ 리드 생성 목표 선택으로 close_convert_lead·qualify_lead가 자동 주요 이벤트로 켜져
+>   있음 — 우리 이벤트와 무관하므로 꺼도 됨.
+> - B-3(네이버)·B-4(외부 링크)는 사용자 지시로 제외.
+
 ## B-1. GA4 계정 생성
 analytics.google.com → 계정·속성 생성(속성명: 법무법인 명, 시간대 서울, 통화 KRW)
 → 데이터 스트림(웹, www.sllaw.co.kr) → **측정 ID(G-…)를 Claude Code에 전달** (A-5)
