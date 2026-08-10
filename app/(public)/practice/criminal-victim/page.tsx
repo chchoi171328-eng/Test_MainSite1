@@ -21,6 +21,7 @@ export const metadata: Metadata = {
   description:
     '고소는 접수보다 준비가 중요합니다. 고소 절차의 단계별 권리와, 형사·민사 진행 방식의 판단을 안내합니다.',
   openGraph: {
+      url: './',
     title: '형사 고소·피해자 대응 | 평택 법무법인 명',
     description:
       '고소는 접수보다 준비가 중요합니다. 고소 절차의 단계별 권리와, 형사·민사 진행 방식의 판단을 안내합니다.',

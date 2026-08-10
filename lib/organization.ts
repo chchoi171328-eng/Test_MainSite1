@@ -25,7 +25,9 @@ export const ORG = {
   sameAs: ['https://www.lsfp.co.kr/'],
 } as const;
 
-export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://test-main-site1.vercel.app';
+// 도메인 단일 출처는 lib/site.ts — 기존 import 경로 호환을 위해 여기서 재수출한다
+export { SITE_URL } from './site';
+import { SITE_URL } from './site';
 
 /** LegalService(Organization) JSON-LD — 동명 법인 구분 필드 포함 */
 export function buildOrganizationJsonLd() {
@@ -86,7 +88,7 @@ export function buildAttorneyJsonLd() {
     name: '최철호',
     alternateName: 'Cheolho Choi',
     jobTitle: '대표변호사',
-    image: `${SITE_URL}/images/attorney-choi.jpg`,
+    image: `${SITE_URL}/images/attorney-profile.jpg`,
     url: `${SITE_URL}/attorneys/choi-cheolho`,
     worksFor: { '@id': `${SITE_URL}/#organization` },
     alumniOf: [

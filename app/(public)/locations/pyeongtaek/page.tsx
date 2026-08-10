@@ -5,7 +5,7 @@ import { MapPin, Phone, Clock, ChevronRight, ArrowRight, MessageSquare } from 'l
 import { JsonLd } from '../../../../components/JsonLd';
 import { TrackedLink } from '../../../../components/TrackedLink';
 import { ORG, SITE_URL } from '../../../../lib/organization';
-import { PRACTICE_AREA_DEFINITIONS } from '../../../../data/practice-areas';
+import { FIELDS, FIELD_LABELS } from '../../../../lib/content';
 
 export const metadata: Metadata = {
   title: { absolute: '평택 변호사 사무실 | 법무법인 명 오시는 길·상담 안내' },
@@ -72,7 +72,7 @@ export default function PyeongtaekPage() {
                 </div>
                 <div>
                   <h2 className="font-bold text-brand-dark mb-1">전화</h2>
-                  <TrackedLink href="tel:0316586100" event="phone_click" eventParams={{ location: 'pyeongtaek_page' }} className="text-gray-600 hover:text-brand-gold transition-colors">
+                  <TrackedLink href="tel:0316586100" event="call_click" eventParams={{ location: 'pyeongtaek_page' }} className="text-gray-600 hover:text-brand-gold transition-colors">
                     {ORG.telephone}
                   </TrackedLink>
                 </div>
@@ -121,14 +121,14 @@ export default function PyeongtaekPage() {
           <div className="mb-16">
             <h2 className="text-2xl font-serif font-bold text-brand-dark mb-6">주요 업무 분야</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              {PRACTICE_AREA_DEFINITIONS.map((area) => (
+              {FIELDS.map((field) => (
                 <Link
-                  key={area.slug}
-                  href={`/practice/${area.slug}`}
+                  key={field}
+                  href={`/practice/${field}`}
                   className="flex items-center justify-between px-5 py-4 bg-brand-light/50 rounded-sm border border-gray-100 hover:border-brand-gold/40 transition-all group"
                 >
                   <span className="text-brand-dark font-medium group-hover:text-brand-gold transition-colors break-keep">
-                    {area.title}
+                    {FIELD_LABELS[field]}
                   </span>
                   <ChevronRight size={16} className="text-gray-300 group-hover:text-brand-gold transition-colors shrink-0" />
                 </Link>
@@ -141,11 +141,13 @@ export default function PyeongtaekPage() {
           {/* 대표변호사 */}
           <div className="mb-16 bg-brand-light p-8 md:p-10 rounded-sm flex flex-col md:flex-row md:items-center gap-6">
             <Image
-              src="/images/attorney-choi.jpg"
+              src="/images/attorney-profile.jpg"
               alt="최철호 대표변호사"
               width={96}
               height={96}
-              className="w-24 h-24 object-cover rounded-full shadow-md shrink-0"
+              // 2:3 세로 원본을 정사각형으로 자르므로 기본값(중앙)이면 얼굴 윗부분이 잘린다.
+              // 얼굴이 원본 상단 약 26% 지점에 있어 크롭 창을 위로 올린다.
+              className="w-24 h-24 object-cover object-[50%_20%] rounded-full shadow-md shrink-0"
             />
             <div>
               <h2 className="text-xl font-serif font-bold text-brand-dark mb-2">최철호 대표변호사</h2>
@@ -188,7 +190,7 @@ export default function PyeongtaekPage() {
               </Link>
               <TrackedLink
                 href="tel:0316586100"
-                event="phone_click"
+                event="call_click"
                 eventParams={{ location: 'pyeongtaek_page' }}
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-brand-dark text-brand-dark font-bold rounded-sm hover:bg-brand-dark hover:text-white transition-all"
               >

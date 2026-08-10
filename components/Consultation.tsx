@@ -88,7 +88,7 @@ export const Consultation: React.FC = () => {
       const result = await response.json().catch(() => ({ ok: false }));
 
       if (response.ok && result.ok) {
-        trackEvent('consultation_submit_success', { category: formData.category });
+        trackEvent('consult_submit', { category: formData.category });
         setSubmitStatus('sent');
         setFormData(INITIAL_FORM);
         setPrivacyAgreed(false);

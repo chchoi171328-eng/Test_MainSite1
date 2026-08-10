@@ -1,10 +1,8 @@
 import type { MetadataRoute } from 'next';
 import { getAllCases } from '../lib/cases';
 import { getAllLegalCases } from '../api/legalCases';
-import { PRACTICE_AREA_DEFINITIONS, getReviewedContent } from '../data/practice-areas';
 import { FIELDS, getAllGuides, getAllNews } from '../lib/content';
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://test-main-site1.vercel.app';
+import { SITE_URL } from '../lib/site';
 
 // 콘텐츠 갱신을 반영하도록 sitemap도 주기 재생성
 export const revalidate = 3600;
@@ -31,14 +29,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/email-policy`, changeFrequency: 'yearly', priority: 0.2 },
   ];
 
-  // 업무 분야 상세: 검수(reviewedBy) 완료된 콘텐츠만 sitemap에 포함 (noindex 페이지 제외)
-  const practicePages: MetadataRoute.Sitemap = PRACTICE_AREA_DEFINITIONS
-    .filter((d) => getReviewedContent(d.slug))
-    .map((d) => ({
-      url: `${SITE_URL}/practice/${d.slug}`,
-      changeFrequency: 'monthly' as const,
-      priority: 0.8,
-    }));
+  // 업무 분야 상세 8종 — 이 사이트의 최우선 유입 페이지이므로 조건 없이 전부 포함한다.
+  // (구판은 검수 완료분만 넣는 필터가 있었고, 검수 등록분이 0건이라 sitemap에서 통째로
+  //  빠져 있었다. 정본 8종은 실제 콘텐츠가 있는 정적 라우트라 필터 대상이 아니다.)
+  const practicePages: MetadataRoute.Sitemap = FIELDS.map((field) => ({
+    url: `${SITE_URL}/practice/${field}`,
+    changeFrequency: 'monthly' as const,
+    priority: 0.9,
+  }));
   staticPages.push(...practicePages);
 
   // 가이드·소식 — 파일 기반이므로 동기 로드. lastmod는 reviewedAt / publishedAt (지침 작업 8-4)

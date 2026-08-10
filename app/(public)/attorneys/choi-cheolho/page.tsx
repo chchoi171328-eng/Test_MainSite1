@@ -69,10 +69,10 @@ export default async function AttorneyProfilePage() {
             <div className="md:col-span-4">
               <div className="relative">
                 <Image
-                  src="/images/attorney-choi.jpg"
+                  src="/images/attorney-profile.jpg"
                   alt="법무법인 명 최철호 대표변호사 프로필 사진"
-                  width={663}
-                  height={994}
+                  width={1200}
+                  height={1800}
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="w-full h-auto object-cover shadow-lg"
                 />
@@ -226,7 +226,7 @@ export default async function AttorneyProfilePage() {
               </Link>
               <TrackedLink
                 href="tel:0316586100"
-                event="phone_click"
+                event="call_click"
                 eventParams={{ location: 'attorney_profile' }}
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-brand-dark text-brand-dark font-bold rounded-sm hover:bg-brand-dark hover:text-white transition-all"
               >

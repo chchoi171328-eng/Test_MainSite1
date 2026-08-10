@@ -11,18 +11,21 @@
 
 Claude Code는 법률 콘텐츠 본문을 창작하지 않는다. 제공된 데이터 파일을 사이트에 반영하는 것까지가 역할이다.
 
-## 업무 분야 콘텐츠 등록 방법
+## 업무 분야 페이지 (2026-08-10 구조 변경)
 
-1. `data/templates/practice-area-content-template.ts`를 `data/content/<slug>.ts`로 복사
-2. 모든 필드를 변호사 검수를 거친 콘텐츠로 채움
-3. `reviewedBy: "최철호 2026-07-15"` 형식으로 검수자·검수일 기입
-   — **reviewedBy가 비어 있으면 페이지는 noindex로 유지되고 sitemap에서 제외됨** (자동)
-4. `data/practice-areas.ts`의 `CONTENT`에 등록:
-   ```typescript
-   import { constructionPayment } from './content/construction-payment';
-   export const CONTENT = { 'construction-payment': constructionPayment };
-   ```
-5. 등록 즉시 해당 페이지는 index 허용 + sitemap 포함으로 자동 전환
+업무분야 URL이 두 벌이던 것을 **`/practice/{분야키}` 8종으로 일원화**했다.
+분야키는 `lib/content.ts`의 `FIELDS`와 같다 — 가이드(`/guides/{분야키}`)와 키를 공유한다.
+
+```
+criminal · criminal-victim · civil · divorce · inheritance · real-estate · construction · corporate
+```
+
+- 각 페이지는 `app/(public)/practice/{분야키}/page.tsx`에 직접 작성된 정적 라우트다.
+  데이터 파일에 콘텐츠를 등록하는 방식(`data/practice-areas.ts`의 `CONTENT`)은 폐지했다.
+- sitemap은 8종을 **조건 없이 전부 포함**한다. 구판의 `reviewedBy` 게이트는 없앴다 —
+  등록분이 0건이라 업무분야가 sitemap에서 통째로 빠져 있던 원인이었다.
+- 구판 URL(`/practice/criminal-defense` 등 8종)은 `data/redirects.json`의
+  `practiceLegacy`에서 301로 흡수한다. 매핑표는 `docs/redirects-legacy.md` 참조.
 
 ## 구 사이트 게시글 이관 방법
 
@@ -51,14 +54,13 @@ noindex 상태. 콘텐츠 제공 시 해당 페이지 구현을 확장하고 noi
   홈, /about, /attorneys/choi-cheolho, /contact, /consultation,
   /locations/pyeongtaek, /privacy
 
-2차 (핵심 업무 3개):
-  /practice/construction-payment   (공사대금)
-  /practice/construction-disputes  (건설 분쟁)
-  /practice/real-estate-litigation (부동산)
+2차 (핵심 업무) — 완료:
+  /practice/construction  (건설·공사대금)
+  /practice/real-estate   (부동산)
 
-3차: /practice/civil-litigation, /practice/debt-collection
-4차: /practice/criminal-defense, /practice/divorce-inheritance
-5차 (지속): /service-areas/*, /insights 신규 글 (월 2-4건 목표)
+3차 — 완료: /practice/civil, /practice/criminal, /practice/criminal-victim,
+           /practice/divorce, /practice/inheritance, /practice/corporate
+4차 (지속): /service-areas/*, /guides/* 가이드 발행, /insights 신규 글
 ```
 
 ## 도메인 전환일 체크리스트 (지침 13-4)

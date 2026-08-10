@@ -115,7 +115,7 @@ export default function ServiceAreaPage({ params }: Props) {
             </Link>
             <TrackedLink
               href="tel:0316586100"
-              event="phone_click"
+              event="call_click"
               eventParams={{ location: 'service_area' }}
               className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-brand-dark text-brand-dark font-bold rounded-sm hover:bg-brand-dark hover:text-white transition-all"
             >

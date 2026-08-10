@@ -1,6 +1,7 @@
 import React, { isValidElement } from 'react';
 import Link from 'next/link';
 import { JsonLd } from '../JsonLd';
+import { TrackedLink } from '../TrackedLink';
 
 /**
  * 가이드 본문 MDX 컴포넌트 (지침 작업 4)
@@ -267,12 +268,14 @@ export function BrandCta({ topic, what }: { topic: string; what: string }) {
         정직하게 말씀드리겠습니다. 사무소는 경기도 평택시에 있습니다.
       </p>
       <div className="flex gap-3 flex-wrap">
-        <a
+        <TrackedLink
           href="tel:0316586100"
+          event="call_click"
+          eventParams={{ location: 'guide_cta' }}
           className="bg-brand-dark text-white py-[13px] px-[26px] no-underline text-[14.5px] font-medium rounded-sm hover:bg-black transition-colors"
         >
           031-658-6100
-        </a>
+        </TrackedLink>
         <Link
           href="/consultation"
           className="border border-brand-dark text-brand-dark py-[13px] px-[26px] no-underline text-[14.5px] rounded-sm hover:bg-brand-dark hover:text-white transition-colors"

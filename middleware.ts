@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
 import redirects from './data/redirects.json';
+import { SITE_URL } from './lib/site';
 
 /**
- * 구 사이트(그누보드) URL 301 리디렉션 (지침 13단계)
+ * 1) 임시 도메인(*.vercel.app) → 정식 도메인 308 (DOMAIN_LAUNCH_BRIEF A-3)
+ * 2) 구 사이트(그누보드) URL 301 리디렉션 (지침 13단계)
+ *
  * 그누보드 URL은 쿼리스트링(bo_table, wr_id) 기반이라 next.config redirects()로는
  * 매핑 테이블 조회가 어려워 middleware에서 처리한다.
  * 매핑은 data/redirects.json에서 관리 — 추가는 데이터 파일 수정만으로 가능하다.
@@ -16,10 +19,29 @@ interface BoardRedirect {
 
 const BOARDS = redirects.boards as unknown as Record<string, BoardRedirect>;
 const STATIC = redirects.static as Record<string, string>;
+const PRACTICE_LEGACY = redirects.practiceLegacy as Record<string, string>;
 
 export function middleware(request: NextRequest) {
-  const { pathname, searchParams } = request.nextUrl;
+  const { pathname, searchParams, search } = request.nextUrl;
 
+  // ── 1. 정식 도메인 강제 ────────────────────────────────────────────────
+  // Vercel 프로젝트에서 primary domain을 지정하면 여기까지 오기 전에 처리되지만,
+  // 설정이 빠지거나 배포 URL로 직접 들어오는 경우를 대비한 안전망이다.
+  // 경로·쿼리를 보존한 308(영구, 메서드 보존)로 넘긴다.
+  const host = request.headers.get('host') || '';
+  if (host.endsWith('.vercel.app')) {
+    return NextResponse.redirect(new URL(`${pathname}${search}`, SITE_URL), 308);
+  }
+
+  // ── 2. 구판 업무분야 URL → 정본 301 ───────────────────────────────────
+  // 정본은 /practice/{분야키} 8종. 구판 [slug] 라우트는 제거했고, 이미 색인되었거나
+  // 외부에 걸린 구 경로만 여기서 흡수한다.
+  const practiceDestination = PRACTICE_LEGACY[pathname];
+  if (practiceDestination) {
+    return NextResponse.redirect(new URL(practiceDestination, request.url), 301);
+  }
+
+  // ── 3. 구 사이트 URL 301 ──────────────────────────────────────────────
   // 그누보드 게시판 URL: /bbs/board.php?bo_table=...&wr_id=...
   if (pathname === '/bbs/board.php' || pathname.startsWith('/bbs/')) {
     const boTable = searchParams.get('bo_table') || '';
@@ -46,15 +68,9 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
+  // 도메인 강제가 전 경로에 걸려야 하므로 매처를 넓힌다.
+  // 정적 자산과 Next 내부 경로는 리다이렉트할 이유가 없어 제외한다.
   matcher: [
-    '/bbs/:path*',
-    '/sub1_1.php',
-    '/sub1_2.php',
-    '/sub1_3.php',
-    '/sub1_4.php',
-    '/sub1_5.php',
-    '/sub2_1.php',
-    '/sub2_2.php',
-    '/sub_map.php',
+    '/((?!_next/static|_next/image|favicon.ico|images/|assets/|content-assets/).*)',
   ],
 };
