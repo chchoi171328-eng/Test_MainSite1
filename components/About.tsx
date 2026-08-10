@@ -100,10 +100,10 @@ export const About: React.FC = () => {
           <div className="md:col-span-4 lg:col-span-4">
             <div className="relative mb-8 group">
               <Image
-                src="/images/attorney-choi.jpg"
+                src="/images/attorney-profile.jpg"
                 alt="최철호 대표변호사"
-                width={663}
-                height={994}
+                width={1200}
+                height={1800}
                 sizes="(max-width: 768px) 100vw, 33vw"
                 className="w-full h-auto object-cover shadow-lg filter grayscale group-hover:grayscale-0 transition-all duration-500"
               />

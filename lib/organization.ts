@@ -86,7 +86,7 @@ export function buildAttorneyJsonLd() {
     name: '최철호',
     alternateName: 'Cheolho Choi',
     jobTitle: '대표변호사',
-    image: `${SITE_URL}/images/attorney-choi.jpg`,
+    image: `${SITE_URL}/images/attorney-profile.jpg`,
     url: `${SITE_URL}/attorneys/choi-cheolho`,
     worksFor: { '@id': `${SITE_URL}/#organization` },
     alumniOf: [

@@ -141,11 +141,13 @@ export default function PyeongtaekPage() {
           {/* 대표변호사 */}
           <div className="mb-16 bg-brand-light p-8 md:p-10 rounded-sm flex flex-col md:flex-row md:items-center gap-6">
             <Image
-              src="/images/attorney-choi.jpg"
+              src="/images/attorney-profile.jpg"
               alt="최철호 대표변호사"
               width={96}
               height={96}
-              className="w-24 h-24 object-cover rounded-full shadow-md shrink-0"
+              // 2:3 세로 원본을 정사각형으로 자르므로 기본값(중앙)이면 얼굴 윗부분이 잘린다.
+              // 얼굴이 원본 상단 약 26% 지점에 있어 크롭 창을 위로 올린다.
+              className="w-24 h-24 object-cover object-[50%_20%] rounded-full shadow-md shrink-0"
             />
             <div>
               <h2 className="text-xl font-serif font-bold text-brand-dark mb-2">최철호 대표변호사</h2>
