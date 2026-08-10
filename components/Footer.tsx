@@ -1,6 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Logo } from './Logo';
+import { TrackedLink } from './TrackedLink';
 
 export const Footer: React.FC = () => {
   return (
@@ -19,7 +20,7 @@ export const Footer: React.FC = () => {
             <div className="text-xs text-gray-500 space-y-2 font-light">
               <p>법무법인 명(SOL & LUNA Law Firm)</p>
               <p>경기도 평택시 평남로 1029-1, SJ프라자 5층</p>
-              <p>Tel: <a href="tel:0316586100" className="hover:text-brand-gold transition-colors">031-658-6100</a></p>
+              <p>Tel: <TrackedLink href="tel:0316586100" event="call_click" eventParams={{ location: 'footer' }} className="hover:text-brand-gold transition-colors">031-658-6100</TrackedLink></p>
               <div className="flex flex-col sm:flex-row sm:gap-4">
                 <span>사업자등록번호: 238-85-00581</span>
                 <span className="hidden sm:inline">|</span>

@@ -329,6 +329,7 @@ export const Navigation: React.FC = () => {
           ))}
           <Link
             href="/consultation"
+            onClick={() => trackEvent('booking_click', { location: 'nav_desktop' })}
             className="tracking-wide inline-flex items-center justify-center font-bold transition-all duration-300 rounded-sm bg-brand-gold text-white hover:bg-yellow-700 shadow-lg hover:shadow-xl hover:scale-105 px-4 py-2 text-sm"
           >
             상담 예약
@@ -476,7 +477,10 @@ export const Navigation: React.FC = () => {
               ))}
               <Link
                 href="/consultation"
-                onClick={() => setIsMobileMenuOpen(false)}
+                onClick={() => {
+                  trackEvent('booking_click', { location: 'nav_mobile' });
+                  setIsMobileMenuOpen(false);
+                }}
                 className="text-2xl font-serif text-brand-gold font-bold hover:text-yellow-700 mt-4"
               >
                 상담 예약

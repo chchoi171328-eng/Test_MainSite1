@@ -26,7 +26,8 @@ export async function generateMetadata({
   return {
     title: item.title,
     description: item.summary,
-    openGraph: { title: `${item.title} | 법무법인 명`, description: item.summary },
+    openGraph: {
+      url: './', title: `${item.title} | 법무법인 명`, description: item.summary },
     alternates: { canonical: `/news/${item.slug}` },
   };
 }

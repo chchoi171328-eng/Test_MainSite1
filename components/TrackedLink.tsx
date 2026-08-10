@@ -4,7 +4,7 @@ import React from 'react';
 import { trackEvent } from '../lib/analytics';
 
 interface TrackedLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
-  /** GA4 이벤트 이름 (예: 'phone_click', 'email_click') */
+  /** GA4 이벤트 이름 (예: 'call_click', 'email_click') */
   event: string;
   /** 이벤트 파라미터 (예: { location: 'contact' }) */
   eventParams?: Record<string, unknown>;

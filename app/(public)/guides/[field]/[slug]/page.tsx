@@ -21,8 +21,7 @@ import {
   isFieldKey,
 } from '../../../../../lib/content';
 import { SMART_TOOLS } from '../../../../../data/smart-tools';
-
-const SITE_URL = 'https://test-main-site1.vercel.app';
+import { SITE_URL } from '../../../../../lib/site';
 
 export function generateStaticParams() {
   return getAllGuides().map((g) => ({ field: g.field, slug: g.slug }));
@@ -41,6 +40,7 @@ export async function generateMetadata({
     description: guide.metaDescription,
     keywords: guide.keywords,
     openGraph: {
+      url: './',
       title: `${guide.title} | 법무법인 명`,
       description: guide.metaDescription,
       images: guide.thumbnail ? [guide.thumbnail] : undefined,

@@ -38,7 +38,7 @@ export const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold mb-1">Phone</h3>
-                  <TrackedLink href="tel:0316586100" event="phone_click" eventParams={{ location: 'contact' }} className="text-gray-400 font-light group-hover:text-white transition-colors">031-658-6100</TrackedLink>
+                  <TrackedLink href="tel:0316586100" event="call_click" eventParams={{ location: 'contact' }} className="text-gray-400 font-light group-hover:text-white transition-colors">031-658-6100</TrackedLink>
                 </div>
               </div>
 

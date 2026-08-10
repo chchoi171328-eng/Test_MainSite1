@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
 import React from 'react';
 import './globals.css';
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://test-main-site1.vercel.app';
+import { SITE_URL, ALLOW_INDEXING } from '../lib/site';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -17,6 +16,8 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'ko_KR',
     siteName: '법무법인 명(SOL & LUNA)',
+    // './'는 metadataBase 기준으로 현재 경로에 해석된다 — 페이지마다 og:url이 canonical과 같아진다
+    url: './',
     images: ['/assets/brand/hero-court-view.webp'],
   },
   twitter: {
@@ -26,10 +27,8 @@ export const metadata: Metadata = {
       '평택 소재 법무법인 명. 최철호 대표변호사가 부동산 분쟁, 건설·공사대금, 대여금·채권, 민사소송, 형사 및 가사 사건을 상담합니다.',
     images: ['/assets/brand/hero-court-view.webp'],
   },
-  // 정식 도메인 연결 전까지 개발 도메인은 색인 차단 (지침 3단계)
-  robots: process.env.NEXT_PUBLIC_ALLOW_INDEXING === 'true'
-    ? { index: true, follow: true }
-    : { index: false, follow: false },
+  // 프리뷰 배포·명시적 차단 시에만 noindex (lib/site.ts ALLOW_INDEXING)
+  robots: ALLOW_INDEXING ? { index: true, follow: true } : { index: false, follow: false },
   // 검색엔진 소유권 인증 — 환경변수 미설정 시 태그 자체가 출력되지 않음
   verification: {
     ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION && {

@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { TrackedLink } from '../components/TrackedLink';
 
 export default function NotFound() {
   return (
@@ -18,12 +19,31 @@ export default function NotFound() {
           홈으로 가기
         </Link>
         <Link
+          href="/practice"
+          className="px-8 py-3 border border-brand-dark text-brand-dark font-bold rounded-sm hover:bg-brand-dark hover:text-white transition-colors text-center"
+        >
+          업무 분야 보기
+        </Link>
+        <Link
           href="/consultation"
           className="px-8 py-3 border border-brand-dark text-brand-dark font-bold rounded-sm hover:bg-brand-dark hover:text-white transition-colors text-center"
         >
           상담 신청하기
         </Link>
       </div>
+
+      {/* 구 사이트에서 넘어온 방문자가 바로 연락할 수 있게 (DOMAIN_LAUNCH_BRIEF A-4) */}
+      <p className="mt-10 text-sm text-gray-500 text-center break-keep">
+        찾으시는 내용이 있으면 바로 문의해 주세요.{' '}
+        <TrackedLink
+          href="tel:0316586100"
+          event="call_click"
+          eventParams={{ location: 'not_found' }}
+          className="font-bold text-brand-dark hover:text-brand-gold transition-colors"
+        >
+          031-658-6100
+        </TrackedLink>
+      </p>
     </div>
   );
 }

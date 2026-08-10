@@ -72,7 +72,7 @@ export default function PyeongtaekPage() {
                 </div>
                 <div>
                   <h2 className="font-bold text-brand-dark mb-1">전화</h2>
-                  <TrackedLink href="tel:0316586100" event="phone_click" eventParams={{ location: 'pyeongtaek_page' }} className="text-gray-600 hover:text-brand-gold transition-colors">
+                  <TrackedLink href="tel:0316586100" event="call_click" eventParams={{ location: 'pyeongtaek_page' }} className="text-gray-600 hover:text-brand-gold transition-colors">
                     {ORG.telephone}
                   </TrackedLink>
                 </div>
@@ -190,7 +190,7 @@ export default function PyeongtaekPage() {
               </Link>
               <TrackedLink
                 href="tel:0316586100"
-                event="phone_click"
+                event="call_click"
                 eventParams={{ location: 'pyeongtaek_page' }}
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-brand-dark text-brand-dark font-bold rounded-sm hover:bg-brand-dark hover:text-white transition-all"
               >

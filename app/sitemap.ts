@@ -3,8 +3,7 @@ import { getAllCases } from '../lib/cases';
 import { getAllLegalCases } from '../api/legalCases';
 import { PRACTICE_AREA_DEFINITIONS, getReviewedContent } from '../data/practice-areas';
 import { FIELDS, getAllGuides, getAllNews } from '../lib/content';
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://test-main-site1.vercel.app';
+import { SITE_URL } from '../lib/site';
 
 // 콘텐츠 갱신을 반영하도록 sitemap도 주기 재생성
 export const revalidate = 3600;
