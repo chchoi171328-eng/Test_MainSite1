@@ -15,34 +15,10 @@ const NEWS_DIR = path.join(CONTENT_DIR, 'news');
 
 const INCLUDE_DRAFTS = process.env.GUIDE_INCLUDE_DRAFTS === '1';
 
-/** 8분야 키 — 마스터 플랜 §1과 동일. 순서 = 업무 분야 카드 순서 */
-export const FIELDS = [
-  'criminal',
-  'criminal-victim',
-  'civil',
-  'divorce',
-  'inheritance',
-  'real-estate',
-  'construction',
-  'corporate',
-] as const;
-
-export type FieldKey = (typeof FIELDS)[number];
-
-export const FIELD_LABELS: Record<FieldKey, string> = {
-  criminal: '형사 변호',
-  'criminal-victim': '형사 피해자·고소',
-  civil: '민사 소송',
-  divorce: '이혼',
-  inheritance: '상속',
-  'real-estate': '부동산',
-  construction: '건설·공사대금',
-  corporate: '기업 법무',
-};
-
-export function isFieldKey(v: string): v is FieldKey {
-  return (FIELDS as readonly string[]).includes(v);
-}
+/** 8분야 키 단일 소스는 lib/fields.ts — 가이드·성공사례가 공유. 기존 소비처를 위해 재수출 */
+export { FIELDS, FIELD_LABELS, isFieldKey } from './fields';
+export type { FieldKey } from './fields';
+import { FIELDS, isFieldKey, type FieldKey } from './fields';
 
 export interface Guide {
   listingTitle: string;

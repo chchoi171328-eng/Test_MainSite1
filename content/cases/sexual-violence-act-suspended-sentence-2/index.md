@@ -2,7 +2,7 @@
 title: "성폭법 위반에 관한 성공사례"
 list_title: "성폭법 위반 사건"
 result: "집행유예"
-category: "형사"
+field: "criminal"
 date: "2026-03-06"
 judgment: "./judgment-masked.jpg"
 judgment_format: "image"

@@ -18,10 +18,10 @@ export const SuccessDetail: React.FC<{ caseItem: CaseItem }> = ({ caseItem }) =>
         </Link>
         <span className="mx-1.5">›</span>
         <Link
-          href={`/cases?category=${encodeURIComponent(caseItem.category)}`}
+          href={`/cases?field=${encodeURIComponent(caseItem.field)}`}
           className="hover:text-brand-dark transition-colors"
         >
-          {caseItem.category}
+          {caseItem.fieldLabel}
         </Link>
       </div>
 
@@ -32,7 +32,7 @@ export const SuccessDetail: React.FC<{ caseItem: CaseItem }> = ({ caseItem }) =>
           </span>
         )}
         <span className="text-[12.5px] px-3 py-[5px] rounded-sm font-medium bg-[#f1eee7] text-[#6b6353]">
-          {caseItem.category}
+          {caseItem.fieldLabel}
         </span>
       </div>
 

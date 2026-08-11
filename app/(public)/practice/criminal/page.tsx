@@ -154,7 +154,7 @@ export default async function CriminalPage() {
       {/* §7 성공사례 — DB 실사례 최신 3건, 0건 시 미렌더링 */}
       <PracticeCases
         cases={cases}
-        field="형사"
+        field="criminal"
         title="형사 사건의 결과들"
         lead="결과는 판결문으로 보여드립니다."
         moreLabel="형사 사례 더 보기 →"

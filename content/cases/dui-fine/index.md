@@ -2,7 +2,7 @@
 title: "도로교통법위반(음주운전) 사건에 관한 성공사례"
 list_title: "음주운전 사건"
 result: "벌금형"
-category: "형사"
+field: "criminal"
 date: "2026-03-06"
 judgment: "./judgment-masked.png"
 judgment_format: "image"

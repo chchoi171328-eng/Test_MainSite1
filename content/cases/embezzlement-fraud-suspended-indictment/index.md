@@ -2,7 +2,7 @@
 title: "업무상 횡령 및 사기 사건에 관한 성공사례"
 list_title: "업무상 횡령·사기 사건"
 result: "기소유예"
-category: "형사"
+field: "criminal"
 date: "2026-03-06"
 judgment: "./judgment-masked.jpg"
 judgment_format: "image"

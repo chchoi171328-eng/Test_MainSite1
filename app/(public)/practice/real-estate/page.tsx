@@ -193,7 +193,7 @@ export default async function RealEstatePage() {
       {/* §7 성공사례 — 부동산 실사례 게시 전까지 자동 미표시 (지침 1-4) */}
       <PracticeCases
         cases={cases}
-        field="부동산"
+        field="real-estate"
         title="부동산 사건의 결과들"
         lead="결과는 판결문으로 보여드립니다."
         moreLabel="부동산 사례 더 보기 →"

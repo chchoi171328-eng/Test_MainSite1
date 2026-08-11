@@ -1,10 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import { CaseItem } from '../../lib/cases';
+import { type CaseField } from '../../lib/fields';
 import { PSection, MoreLink } from './PracticeShared';
 
 /**
- * §7 성공사례 카드 — 파일 기반 사례를 분야 태그로 필터해 최신 3건 표시.
+ * §7 성공사례 카드 — 파일 기반 사례를 분야 키로 필터해 최신 3건 표시.
  * 해당 분야 사례가 0건이면 섹션 전체를 렌더링하지 않는다 (지침 1-4, 허위 표시 금지).
  */
 export function PracticeCases({
@@ -15,13 +16,13 @@ export function PracticeCases({
   moreLabel,
 }: {
   cases: CaseItem[];
-  /** frontmatter category 값 (예: '형사') — 필터·더보기 링크에 사용 */
-  field: string;
+  /** 업무분야 키 (lib/fields.ts CaseField, 예: 'criminal') — 필터·더보기 링크에 사용 */
+  field: CaseField;
   title: string;
   lead: string;
   moreLabel: string;
 }) {
-  const fieldCases = cases.filter((c) => c.category === field).slice(0, 3);
+  const fieldCases = cases.filter((c) => c.field === field).slice(0, 3);
   if (fieldCases.length === 0) return null;
 
   return (
@@ -34,7 +35,7 @@ export function PracticeCases({
             className="border border-[#eae6df] rounded p-[18px] hover:shadow-md transition-shadow"
           >
             <div className="flex gap-2 items-center mb-2.5">
-              <span className="text-[11px] tracking-[0.06em] text-[#b0a893]">{c.category}</span>
+              <span className="text-[11px] tracking-[0.06em] text-[#b0a893]">{c.fieldLabel}</span>
               {c.result && (
                 <span className="text-[11.5px] font-bold text-[#8a6f4d] bg-[#f6efe3] py-[3px] px-[9px] rounded-sm">
                   {c.result}
@@ -47,7 +48,7 @@ export function PracticeCases({
           </Link>
         ))}
       </div>
-      <MoreLink href={`/cases?category=${encodeURIComponent(field)}`}>{moreLabel}</MoreLink>
+      <MoreLink href={`/cases?field=${encodeURIComponent(field)}`}>{moreLabel}</MoreLink>
     </PSection>
   );
 }

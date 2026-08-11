@@ -181,7 +181,7 @@ export default async function ConstructionPage() {
       {/* §7 성공사례 — 건설 실사례 게시 전까지 자동 미표시 (지침 1-4, 마스터 플랜 [E] 최우선 보충 대상) */}
       <PracticeCases
         cases={cases}
-        field="건설"
+        field="construction"
         title="건설 사건의 결과들"
         lead="결과는 판결문으로 보여드립니다."
         moreLabel="건설 사례 더 보기 →"

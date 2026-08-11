@@ -2,7 +2,7 @@
 title: "강제추행 및 폭행사건에 관한 성공사례"
 list_title: "강제추행·폭행 사건"
 result: "기소유예"
-category: "형사"
+field: "criminal"
 date: "2026-03-06"
 judgment: "./judgment-masked.pdf"
 judgment_format: "pdf"

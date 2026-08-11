@@ -180,7 +180,7 @@ export default async function DivorcePage() {
       {/* §7 성공사례 — 가사 실사례 게시 전까지 자동 미표시 (지침 1-4) */}
       <PracticeCases
         cases={cases}
-        field="가사"
+        field="divorce"
         title="가사 사건의 결과들"
         lead="결과는 판결문으로 보여드립니다."
         moreLabel="가사 사례 더 보기 →"

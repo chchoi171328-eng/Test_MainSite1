@@ -2,7 +2,7 @@
 title: "음주운전 및 피해자 중상해 사건에 관한 성공사례"
 list_title: "음주운전·중상해 사건"
 result: "벌금형"
-category: "형사"
+field: "criminal"
 date: "2026-03-06"
 judgment: "./judgment-masked.jpg"
 judgment_format: "image"

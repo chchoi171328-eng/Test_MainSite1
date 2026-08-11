@@ -1,6 +1,11 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import matter from 'gray-matter';
+import { CASE_FIELDS, CASE_FIELD_LABELS, normalizeCaseField, type CaseField } from './fields';
+
+// 분야 키·표시명의 단일 소스는 lib/fields.ts — 소비처 편의를 위해 재수출
+export { CASE_FIELDS, CASE_FIELD_LABELS, isCaseField, normalizeCaseField } from './fields';
+export type { CaseField } from './fields';
 
 /**
  * 성공사례 로더 (파일 기반, DB 불사용 — CASE_BOARD_BRIEF 작업 1)
@@ -27,8 +32,10 @@ export interface CaseItem {
    * 기존 이관 사례에는 없으며, 그 경우 목록은 본문 발췌로 폴백한다 (CASES_LIST_BRIEF 작업 1).
    */
   summary?: string;
-  /** 형사 | 민사 | 가사 | 부동산·건설 | 기업 | 기타 */
-  category: string;
+  /** 업무분야 8키 + 'etc' — frontmatter field (구 category는 로더에서 정규화) */
+  field: CaseField;
+  /** field의 표시명 (FIELD_LABELS 공유 소스에서 파생 — 직접 저장하지 않는다) */
+  fieldLabel: string;
   /** YYYY-MM-DD — 목록 정렬용 */
   date: string;
   /** 판결문 공개 URL (frontmatter judgment의 상대 경로를 미러 URL로 변환) */
@@ -64,13 +71,19 @@ export function getAllCases(): CaseItem[] {
 
     const slug = (fm.slug as string) || folder.replace(/^_/, '');
     const judgment = fm.judgment as string | undefined;
+    // field 우선, 잔존 category(한글)는 정규화 폴백 — 미지의 값은 'etc'
+    const field =
+      normalizeCaseField(fm.field as string | undefined) ??
+      normalizeCaseField(fm.category as string | undefined) ??
+      'etc';
     items.push({
       slug,
       title: (fm.title as string) || slug,
       listTitle: (fm.list_title as string) || (fm.title as string) || slug,
       result: (fm.result as string) || '',
       summary: (fm.summary as string) || undefined,
-      category: (fm.category as string) || '기타',
+      field,
+      fieldLabel: CASE_FIELD_LABELS[field],
       date: (fm.date as string) || '',
       judgmentUrl: assetUrl(folder, judgment),
       judgmentFormat: judgment
@@ -91,9 +104,10 @@ export function getCase(slug: string): CaseItem | undefined {
   return getAllCases().find((c) => c.slug === slug);
 }
 
-/** 글이 있는 분야만 (필터 탭 — 빈 분야 자동 숨김 원칙) */
-export function getCaseCategories(): string[] {
-  return Array.from(new Set(getAllCases().map((c) => c.category).filter(Boolean)));
+/** 글이 있는 분야만, FIELDS 표시 순서대로 (필터 탭 — 빈 분야 자동 숨김 원칙) */
+export function getCaseFields(): CaseField[] {
+  const present = new Set(getAllCases().map((c) => c.field));
+  return CASE_FIELDS.filter((f) => present.has(f));
 }
 
 /**

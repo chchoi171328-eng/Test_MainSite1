@@ -174,7 +174,7 @@ export default async function InheritancePage() {
       {/* §7 성공사례 — 상속 분쟁 실사례 게시 전까지 자동 미표시 (지침 1-4·2-5) */}
       <PracticeCases
         cases={cases}
-        field="상속"
+        field="inheritance"
         title="상속 사건의 결과들"
         lead="결과는 판결문으로 보여드립니다."
         moreLabel="상속 사례 더 보기 →"

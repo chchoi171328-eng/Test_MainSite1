@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!caseItem) return { title: '성공사례' };
   return {
     title: `${caseItem.title} | 성공사례`,
-    description: `${caseItem.category} 사건 ${caseItem.result} — 법무법인 명의 성공사례입니다.`,
+    description: `${caseItem.fieldLabel} 사건 ${caseItem.result} — 법무법인 명의 성공사례입니다.`,
     alternates: { canonical: `/cases/${params.slug}` },
   };
 }
@@ -32,7 +32,7 @@ export default function CaseDetailPage({ params }: Props) {
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: caseItem.title,
-    description: `${caseItem.category} 사건 ${caseItem.result} — 법무법인 명의 성공사례`,
+    description: `${caseItem.fieldLabel} 사건 ${caseItem.result} — 법무법인 명의 성공사례`,
     url: `${SITE_URL}/cases/${params.slug}`,
     ...(caseItem.date ? { datePublished: caseItem.date } : {}),
     author: { '@id': `${SITE_URL}/attorneys/choi-cheolho#person` },

@@ -2,7 +2,7 @@
 title: "사기사건에 대한 성공사례"
 list_title: "사기 사건"
 result: "무혐의"
-category: "형사"
+field: "criminal"
 date: "2026-05-19"
 judgment: "./judgment-masked.pdf"
 judgment_format: "pdf"
