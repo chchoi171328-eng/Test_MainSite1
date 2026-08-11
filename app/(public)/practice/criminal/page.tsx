@@ -113,6 +113,9 @@ export default async function CriminalPage() {
       </PSection>
 
       {/* §6 FAQ */}
+      {/* 이 분야의 성공사례 — field 일치 최대 3건(featured 우선), 0건 시 미렌더링 */}
+      <PracticeCases cases={cases} field="criminal" />
+
       <PSection title="자주 묻는 질문" lead="상담 전에 가장 많이 물으시는 것들입니다.">
         <FaqAccordion
           items={[
@@ -150,15 +153,6 @@ export default async function CriminalPage() {
           ]}
         />
       </PSection>
-
-      {/* §7 성공사례 — DB 실사례 최신 3건, 0건 시 미렌더링 */}
-      <PracticeCases
-        cases={cases}
-        field="criminal"
-        title="형사 사건의 결과들"
-        lead="결과는 판결문으로 보여드립니다."
-        moreLabel="형사 사례 더 보기 →"
-      />
 
       {/* §8 수임료 */}
       <PSection title="수임료" lead="비용을 처음부터 알려드립니다.">

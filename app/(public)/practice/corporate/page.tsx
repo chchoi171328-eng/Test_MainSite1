@@ -138,6 +138,9 @@ export default async function CorporatePage() {
       </PSection>
 
       {/* §6 FAQ */}
+      {/* 이 분야의 성공사례 — field 일치 최대 3건(featured 우선), 0건 시 미렌더링 */}
+      <PracticeCases cases={cases} field="corporate" />
+
       <PSection title="자주 묻는 질문" lead="상담 전에 가장 많이 물으시는 것들입니다.">
         <FaqAccordion
           items={[
@@ -164,15 +167,6 @@ export default async function CorporatePage() {
           ]}
         />
       </PSection>
-
-      {/* §7 성공사례 — 기업 실사례 게시 전까지 자동 미표시 (지침 1-4) */}
-      <PracticeCases
-        cases={cases}
-        field="corporate"
-        title="기업 법무의 결과들"
-        lead="결과는 기록으로 보여드립니다."
-        moreLabel="사례 더 보기 →"
-      />
 
       {/* §8 수임료 — cert 줄 없음 (마스터 플랜 2-1: 기업 미표기), 시간당 자문료 구조 */}
       <PSection title="수임료" lead="비용을 처음부터 알려드립니다.">

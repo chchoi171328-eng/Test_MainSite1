@@ -140,6 +140,18 @@ h6 {
 }
 .case-card .cc-more { font-size: 12.5px; color: #1e3a5f; }
 
+/* practice "이 분야의 성공사례" 축소판 카드 — summary는 한 줄로 말줄임 */
+.case-card-mini {
+  /* nowrap 요약이 그리드 아이템의 min-content 폭을 키워 컨테이너를 넘치게
+     하므로, 아이템이 트랙 폭(1fr)에 맞춰 줄어들 수 있게 한다 */
+  min-width: 0;
+}
+.case-card-mini .cc-sum {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 /* 태블릿: preview에는 없는 중간 단계. 681~860px에서 3열은 열폭이 좁아 2열로 둔다 */
 @media (max-width: 860px) {
   .cases-grid { grid-template-columns: repeat(2, 1fr); }

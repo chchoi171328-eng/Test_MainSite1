@@ -42,6 +42,8 @@ export interface CaseItem {
   judgmentUrl?: string;
   /** 'pdf' | 'image' — 문서 카드·라이트박스 렌더 분기 */
   judgmentFormat?: 'pdf' | 'image';
+  /** practice 페이지 "이 분야의 성공사례" 우선 노출 (frontmatter featured: true) */
+  featured: boolean;
   /** 언더스코어 폴더 = 배포 제외 더미 */
   draft: boolean;
   /** HTML 본문 */
@@ -91,6 +93,7 @@ export function getAllCases(): CaseItem[] {
           ? 'pdf'
           : 'image'
         : undefined,
+      featured: fm.featured === true,
       draft,
       body: parsed.content.trim(),
     });

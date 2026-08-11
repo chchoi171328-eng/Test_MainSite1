@@ -126,6 +126,9 @@ export default async function DivorcePage() {
       {/* §5 제거됨 — 상속은 별도 페이지(/practice/inheritance)로 분리 (마스터 플랜 1-3) */}
 
       {/* §6 FAQ */}
+      {/* 이 분야의 성공사례 — field 일치 최대 3건(featured 우선), 0건 시 미렌더링 */}
+      <PracticeCases cases={cases} field="divorce" />
+
       <PSection title="자주 묻는 질문" lead="상담 전에 가장 많이 물으시는 것들입니다.">
         <FaqAccordion
           items={[
@@ -176,15 +179,6 @@ export default async function DivorcePage() {
           ]}
         />
       </PSection>
-
-      {/* §7 성공사례 — 가사 실사례 게시 전까지 자동 미표시 (지침 1-4) */}
-      <PracticeCases
-        cases={cases}
-        field="divorce"
-        title="가사 사건의 결과들"
-        lead="결과는 판결문으로 보여드립니다."
-        moreLabel="가사 사례 더 보기 →"
-      />
 
       {/* §8 수임료 — cert 줄 없음 (마스터 플랜 2-1: 이혼 페이지 미표기) */}
       <PSection title="수임료" lead="비용을 처음부터 알려드립니다.">
