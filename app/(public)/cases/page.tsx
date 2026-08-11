@@ -14,7 +14,8 @@ export default function CasesPage() {
   const cards: CaseCard[] = getAllCases().map((c) => ({
     slug: c.slug,
     listTitle: c.listTitle,
-    category: c.category,
+    field: c.field,
+    fieldLabel: c.fieldLabel,
     result: c.result,
     // summary가 있으면 그대로, 없는 기존 이관 사례는 본문 발췌로 폴백
     summary: c.summary || getCaseExcerpt(c.body),

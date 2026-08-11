@@ -13,6 +13,8 @@ import {
   PracticeCta,
 } from '../../../../components/practice/PracticeShared';
 import { PracticeResources } from '../../../../components/practice/PracticeResources';
+import { getAllCases } from '../../../../lib/cases';
+import { PracticeCases } from '../../../../components/practice/PracticeCases';
 
 export const revalidate = 300;
 
@@ -30,6 +32,7 @@ export const metadata: Metadata = {
 };
 
 export default function CriminalVictimPage() {
+  const cases = getAllCases();
   return (
     <>
       <PracticeHeader
@@ -137,6 +140,9 @@ export default function CriminalVictimPage() {
       </PSection>
 
       {/* §6 FAQ */}
+      {/* 이 분야의 성공사례 — field 일치 최대 3건(featured 우선), 0건 시 미렌더링 */}
+      <PracticeCases cases={cases} field="criminal-victim" />
+
       <PSection title="자주 묻는 질문" lead="상담 전에 가장 많이 물으시는 것들입니다.">
         <FaqAccordion
           items={[

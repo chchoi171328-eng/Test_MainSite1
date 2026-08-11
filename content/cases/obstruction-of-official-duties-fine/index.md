@@ -2,7 +2,7 @@
 title: "공무집행방해 사건에 관한 성공사례"
 list_title: "공무집행방해 사건"
 result: "벌금형"
-category: "형사"
+field: "criminal"
 date: "2026-03-06"
 judgment: "./judgment-masked.png"
 judgment_format: "image"

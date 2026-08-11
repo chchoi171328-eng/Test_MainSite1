@@ -2,7 +2,7 @@
 title: "절도등 사건에 관한 성공사례"
 list_title: "절도 등 사건"
 result: "무죄"
-category: "형사"
+field: "criminal"
 date: "2026-03-06"
 judgment: "./judgment-masked.jpg"
 judgment_format: "image"

@@ -2,7 +2,7 @@
 title: "특정범죄가중처벌등에관한법률위반(위험운전치상) 등 사건에 관한 항소심 성공사례"
 list_title: "위험운전치상 항소심 사건"
 result: "벌금형"
-category: "형사"
+field: "criminal"
 date: "2026-03-06"
 judgment: "./judgment-masked.png"
 judgment_format: "image"

@@ -2,7 +2,7 @@
 title: "폭행사건에 관한 성공사례"
 list_title: "폭행 사건"
 result: "공소권없음"
-category: "형사"
+field: "criminal"
 date: "2026-03-06"
 judgment: "./judgment-masked.jpg"
 judgment_format: "image"

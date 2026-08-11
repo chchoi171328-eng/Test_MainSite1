@@ -2,7 +2,7 @@
 title: "하도급 공사대금 청구 소송 — 두 현장 미지급 기성 약 9,800만 원 전부 승소 판결"
 list_title: "두 현장에 걸친 미지급 공사대금 청구"
 result: "전부 승소"
-category: "부동산·건설"
+field: "construction"
 date: "2026-08-11"
 summary: "두 현장에 걸쳐 밀린 공사대금을 매월 발행해 둔 세금계산서와 지급 내역으로 입증해, 감정 없이 약 9,800만 원 전부 승소로 마쳤습니다."
 judgment: "./judgment-masked.pdf"

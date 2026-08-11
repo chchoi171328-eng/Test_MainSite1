@@ -166,7 +166,7 @@ export default async function AttorneyProfilePage() {
                     className="block border border-gray-100 p-6 rounded-sm hover:shadow-md transition-shadow group"
                   >
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="text-xs font-bold text-brand-gold uppercase tracking-wider border border-brand-gold/30 px-2 py-1">{item.category}</span>
+                      <span className="text-xs font-bold text-brand-gold uppercase tracking-wider border border-brand-gold/30 px-2 py-1">{item.fieldLabel}</span>
                       <span className="text-xs font-bold text-brand-dark">{item.result}</span>
                     </div>
                     <p className="font-bold text-brand-dark group-hover:text-brand-gold transition-colors line-clamp-2 break-keep">{item.title}</p>

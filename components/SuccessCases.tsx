@@ -4,12 +4,22 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowRight } from 'lucide-react';
+// fs를 쓰는 lib/cases.ts가 아니라 클라이언트 안전한 단일 소스 lib/fields.ts에서 가져온다
+import {
+  CASE_FIELDS,
+  CASE_FIELD_LABELS,
+  normalizeCaseField,
+  type CaseField,
+} from '../lib/fields';
 
 /** 서버에서 직렬화해 넘기는 카드 데이터 (lib/cases.ts CaseItem의 표시용 부분) */
 export interface CaseCard {
   slug: string;
   listTitle: string;
-  category: string;
+  /** 업무분야 키 (lib/cases.ts CaseField) */
+  field: CaseField;
+  /** field 표시명 — FIELD_LABELS 공유 소스에서 서버가 파생 */
+  fieldLabel: string;
   result: string;
   /**
    * 카드 요약. frontmatter의 summary를 우선 쓰고, 없으면(기존 이관 사례)
@@ -29,26 +39,23 @@ interface SuccessCasesProps {
   showFilter?: boolean;
 }
 
-/** 지시서 5의 표시 순서. 사례가 없는 분야는 칩 자체를 렌더하지 않는다 */
-const CATEGORY_ORDER = ['형사', '민사', '가사', '부동산·건설', '기업'];
-
 export const SuccessCases: React.FC<SuccessCasesProps> = ({ cases, limit, hideHeading, showFilter }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const activeCategory = showFilter ? searchParams.get('category') : null;
+  // ?field=분야키 정본. 구 링크(?category=형사, ?category=부동산·건설 등)도
+  // normalizeCaseField로 받아 깨지지 않게 한다 — 미지의 값은 필터 없음으로 처리.
+  const rawParam = showFilter ? searchParams.get('field') ?? searchParams.get('category') : null;
+  const activeField = normalizeCaseField(rawParam);
 
-  const present = new Set(cases.map((c) => c.category).filter(Boolean));
-  const categories = [
-    ...CATEGORY_ORDER.filter((c) => present.has(c)),
-    // 표준 5분야에 없는 값(예: '기타')도 누락 없이 뒤에 붙인다
-    ...Array.from(present).filter((c) => !CATEGORY_ORDER.includes(c)),
-  ];
+  // 8분야 키 순서(가이드와 동일) + 기타 — 사례가 없는 분야는 칩 자체를 렌더하지 않는다
+  const present = new Set(cases.map((c) => c.field));
+  const fields = CASE_FIELDS.filter((f) => present.has(f));
 
-  const filtered = activeCategory ? cases.filter((c) => c.category === activeCategory) : cases;
+  const filtered = activeField ? cases.filter((c) => c.field === activeField) : cases;
   const displayCases = limit ? filtered.slice(0, limit) : filtered;
 
-  const selectCategory = (category: string | null) => {
-    router.replace(category ? `/cases?category=${encodeURIComponent(category)}` : '/cases', {
+  const selectField = (field: CaseField | null) => {
+    router.replace(field ? `/cases?field=${encodeURIComponent(field)}` : '/cases', {
       scroll: false,
     });
   };
@@ -62,19 +69,19 @@ export const SuccessCases: React.FC<SuccessCasesProps> = ({ cases, limit, hideHe
           </div>
         )}
 
-        {showFilter && categories.length > 1 && (
+        {showFilter && fields.length > 1 && (
           <div className="cases-filters" role="tablist" aria-label="분야 필터">
-            <button role="tab" aria-selected={!activeCategory} onClick={() => selectCategory(null)}>
+            <button role="tab" aria-selected={!activeField} onClick={() => selectField(null)}>
               전체
             </button>
-            {categories.map((category) => (
+            {fields.map((field) => (
               <button
-                key={category}
+                key={field}
                 role="tab"
-                aria-selected={activeCategory === category}
-                onClick={() => selectCategory(category)}
+                aria-selected={activeField === field}
+                onClick={() => selectField(field)}
               >
-                {category}
+                {CASE_FIELD_LABELS[field]}
               </button>
             ))}
           </div>
@@ -87,7 +94,7 @@ export const SuccessCases: React.FC<SuccessCasesProps> = ({ cases, limit, hideHe
               <div className="cc-badges">
                 {/* 결과가 카드의 첫 정보 — 네이비 솔리드 */}
                 {item.result && <span className="cc-result">{item.result}</span>}
-                {item.category && <span className="cc-cat">{item.category}</span>}
+                <span className="cc-cat">{item.fieldLabel}</span>
               </div>
               <h3 className="cc-title">{item.listTitle}</h3>
               <p className="cc-sum">{item.summary}</p>
