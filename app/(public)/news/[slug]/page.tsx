@@ -1,19 +1,16 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { GuideBody } from '../../../../components/guide/GuideBody';
-import { LegalDisclaimer } from '../../../../components/guide/GuideComponents';
 import {
-  getAllNews,
-  getNewsItem,
-  getGuidesForPractice,
+  getAllNewsIssues,
+  getNewsIssue,
+  validateNewsGuideLinks,
   formatPublishedAt,
-  NEWS_CATEGORY_LABELS,
-  FIELD_LABELS,
+  formatPeriodRange,
 } from '../../../../lib/content';
 
 export function generateStaticParams() {
-  return getAllNews().map((n) => ({ slug: n.slug }));
+  return getAllNewsIssues().map((n) => ({ slug: n.slug }));
 }
 
 export async function generateMetadata({
@@ -21,88 +18,67 @@ export async function generateMetadata({
 }: {
   params: { slug: string };
 }): Promise<Metadata> {
-  const item = getNewsItem(params.slug);
-  if (!item) return {};
+  const issue = getNewsIssue(params.slug);
+  if (!issue) return {};
+  const description = issue.items.map((i) => i.title).join(' · ').slice(0, 150);
   return {
-    title: item.title,
-    description: item.summary,
-    openGraph: {
-      url: './', title: `${item.title} | 법무법인 명`, description: item.summary },
-    alternates: { canonical: `/news/${item.slug}` },
+    // 레이아웃 템플릿(%s | 법무법인 명)과 합쳐 "{title} | 주간 법률 소식 | 법무법인 명"
+    title: `${issue.title} | 주간 법률 소식`,
+    description,
+    openGraph: { url: './', title: `${issue.title} | 주간 법률 소식 | 법무법인 명`, description },
+    alternates: { canonical: `/news/${issue.slug}` },
   };
 }
 
-export default function NewsDetailPage({ params }: { params: { slug: string } }) {
-  const item = getNewsItem(params.slug);
-  if (!item) notFound();
+/**
+ * 주간호 본문 (NEWS_BOARD_BRIEF §3, 시안 B).
+ * 본문은 .news-item 블록 나열 HTML — 관련 가이드 링크는 발행본만 렌더(빌드 시 검증).
+ * 푸터 고지는 템플릿이 고정 렌더한다.
+ */
+export default function NewsIssuePage({ params }: { params: { slug: string } }) {
+  const issue = getNewsIssue(params.slug);
+  if (!issue) notFound();
 
-  // 소식은 가이드보다 단순한 레이아웃 — 요약박스·목차·기한박스 없음
-  const relatedGuides = item.field ? getGuidesForPractice(item.field, 3) : [];
+  const body = validateNewsGuideLinks(issue.body);
 
   return (
-    <>
-      <div className="pt-28 pb-6 md:pt-32">
-        <div className="max-w-[760px] mx-auto px-6">
-          <div className="text-[12.5px] text-[#8a8578] mb-4">
-            <Link href="/legal-info" className="hover:text-brand-dark">
-              법률정보
-            </Link>
-            <b className="text-[#c9c3b6] font-normal mx-1.5">›</b>
-            <Link href="/news" className="hover:text-brand-dark">
-              소식
-            </Link>
-          </div>
-          <div className="flex items-center gap-2 mb-3">
-            <span className="text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-500 px-2 py-0.5 rounded-sm">
-              {NEWS_CATEGORY_LABELS[item.category]}
-            </span>
-            {/* 소식은 발행일을 명확히 표기한다 (가이드와 반대) */}
-            <span className="text-xs text-gray-400">{formatPublishedAt(item.publishedAt)}</span>
-          </div>
-          <h1 className="font-serif text-[25px] md:text-[31px] font-bold leading-[1.45] break-keep text-[#1c1c1c]">
-            {item.title}
-          </h1>
+    <div className="pt-28 pb-16 md:pt-32">
+      <div className="max-w-[820px] mx-auto px-6">
+        <div className="text-[12.5px] text-[#8a8578] mb-5">
+          <Link href="/legal-info" className="hover:text-brand-dark transition-colors">
+            법률정보
+          </Link>
+          <b className="text-[#c9c3b6] font-normal mx-1.5">›</b>
+          <Link href="/news" className="hover:text-brand-dark transition-colors">
+            소식
+          </Link>
         </div>
-      </div>
 
-      <div className="max-w-[760px] mx-auto px-6">
-        <article>
-          <GuideBody source={item.body} toc={[]} />
-        </article>
-
-        <LegalDisclaimer />
-
-        {item.field && (
-          <div className="mt-10 border-t-2 border-brand-dark pt-[22px]">
-            <div className="text-sm font-bold text-brand-dark mb-3">관련 자료</div>
-            <Link
-              href={`/practice/${item.field}`}
-              className="flex justify-between items-center gap-4 py-[13px] border-b border-[#f2efe9] text-[#333] text-[14.8px] hover:text-brand-dark transition-colors break-keep"
-            >
-              <span>{FIELD_LABELS[item.field]} — 업무 분야 안내</span>
-              <span className="text-[11.5px] text-[#8a8578] shrink-0">업무 분야</span>
-            </Link>
-            {relatedGuides.map((g) => (
-              <Link
-                key={g.slug}
-                href={`/guides/${g.field}/${g.slug}`}
-                className="flex justify-between items-center gap-4 py-[13px] border-b border-[#f2efe9] text-[#333] text-[14.8px] hover:text-brand-dark transition-colors break-keep"
-              >
-                <span>{g.listingTitle}</span>
-                <span className="text-[11.5px] text-[#8a8578] shrink-0">
-                  {FIELD_LABELS[g.field]} 가이드
-                </span>
-              </Link>
-            ))}
+        <div className="news-issue">
+          <div className="head">
+            <div className="no">주간 법률 소식</div>
+            <h1>{issue.title}</h1>
+            <div className="range">
+              {formatPeriodRange(issue.periodStart, issue.periodEnd)} | 발행{' '}
+              {formatPublishedAt(issue.publishedAt)}
+            </div>
           </div>
-        )}
 
-        <div className="mt-10 pb-16">
+          <div className="news-body" dangerouslySetInnerHTML={{ __html: body }} />
+
+          <div className="foot">
+            이 소식지는 지난 한 주의 법령·판결 중 실무에 영향이 있는 것을 골라 요약한
+            것입니다. 요약은 이해를 위한 것으로, 개별 사안에 대한 법률 자문이 아닙니다. —
+            법무법인 명
+          </div>
+        </div>
+
+        <div className="mt-10">
           <Link href="/news" className="text-sm text-brand-gold hover:underline">
             ← 소식 목록
           </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 }

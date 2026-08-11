@@ -44,25 +44,55 @@ export interface Guide {
   body: string;
 }
 
-export type NewsCategory = 'law-change' | 'ruling' | 'office';
+/**
+ * 소식 = 주간호 구조 (NEWS_BOARD_BRIEF). 게시판 하나, 주 1편,
+ * 한 편 안에 지난주의 법령 제·개정·판결 요약을 나열한다.
+ * 항목별 상세 페이지는 없다. 콘텐츠 생산은 legal-news-writer 스킬.
+ */
+export type NewsItemCategory = 'law' | 'enforce' | 'ruling' | 'office';
 
-export interface NewsItem {
-  title: string;
-  slug: string;
-  category: NewsCategory;
-  field?: FieldKey;
-  /** 소식은 발행일을 쓴다 (가이드와 반대) */
-  publishedAt: string;
-  summary: string;
-  draft: boolean;
-  body: string;
+/** 주간호 본문 뱃지 표시명 */
+export const NEWS_CATEGORY_LABELS: Record<NewsItemCategory, string> = {
+  law: '법령 개정',
+  enforce: '시행',
+  ruling: '판결',
+  office: '사무소',
+};
+
+/** 목록 미리보기 미니 태그 표시명 */
+export const NEWS_CATEGORY_SHORT: Record<NewsItemCategory, string> = {
+  law: '개정',
+  enforce: '시행',
+  ruling: '판결',
+  office: '사무소',
+};
+
+export function isNewsItemCategory(v: string): v is NewsItemCategory {
+  return v === 'law' || v === 'enforce' || v === 'ruling' || v === 'office';
 }
 
-export const NEWS_CATEGORY_LABELS: Record<NewsCategory, string> = {
-  'law-change': '법령 개정',
-  ruling: '판례·판결',
-  office: '사무소 소식',
-};
+/** frontmatter items[] — 목록 미리보기·메타 (본문 항목 블록과 순서 일치) */
+export interface NewsIssueItemMeta {
+  category: NewsItemCategory;
+  /** 8분야 키 (복수 가능, 없으면 []) */
+  fields: FieldKey[];
+  title: string;
+}
+
+export interface NewsIssue {
+  /** 예: "8월 첫째 주 — 임대차 표준계약서 고시 개정 외 3건" */
+  title: string;
+  /** 발행일 기반 (예: "2026-08-10") */
+  slug: string;
+  publishedAt: string;
+  /** 다루는 기간 */
+  periodStart: string;
+  periodEnd: string;
+  items: NewsIssueItemMeta[];
+  draft: boolean;
+  /** HTML 항목 블록 나열 (.news-item 반복) — 시각 정본 news-preview.html 시안 B */
+  body: string;
+}
 
 function readEntry(dir: string, folder: string) {
   const file = path.join(dir, folder, 'index.mdx');
@@ -149,10 +179,10 @@ export function getGuidesForPractice(field: FieldKey, limit = 4): Guide[] {
     .slice(0, limit);
 }
 
-export function getAllNews(): NewsItem[] {
+export function getAllNewsIssues(): NewsIssue[] {
   if (!fs.existsSync(NEWS_DIR)) return [];
 
-  const items: NewsItem[] = [];
+  const issues: NewsIssue[] = [];
   for (const folder of fs.readdirSync(NEWS_DIR)) {
     if (!fs.statSync(path.join(NEWS_DIR, folder)).isDirectory()) continue;
     const draft = folder.startsWith('_');
@@ -162,24 +192,60 @@ export function getAllNews(): NewsItem[] {
     if (!parsed) continue;
     const fm = parsed.data as Record<string, unknown>;
 
-    items.push({
+    const rawItems = Array.isArray(fm.items) ? (fm.items as Record<string, unknown>[]) : [];
+    const items: NewsIssueItemMeta[] = rawItems.map((it) => ({
+      category: isNewsItemCategory(String(it.category)) ? (it.category as NewsItemCategory) : 'office',
+      fields: (Array.isArray(it.fields) ? (it.fields as string[]) : []).filter(isFieldKey),
+      title: String(it.title || ''),
+    }));
+
+    issues.push({
       title: (fm.title as string) || folder,
       slug: (fm.slug as string) || folder.replace(/^_/, ''),
-      category: ((fm.category as NewsCategory) || 'office') as NewsCategory,
-      field: fm.field && isFieldKey(fm.field as string) ? (fm.field as FieldKey) : undefined,
       publishedAt: (fm.publishedAt as string) || '',
-      summary: (fm.summary as string) || '',
+      periodStart: (fm.periodStart as string) || '',
+      periodEnd: (fm.periodEnd as string) || '',
+      items,
       draft,
       body: parsed.content,
     });
   }
 
   // 발행일 역순
-  return items.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
+  return issues.sort((a, b) => b.publishedAt.localeCompare(a.publishedAt));
 }
 
-export function getNewsItem(slug: string): NewsItem | undefined {
-  return getAllNews().find((n) => n.slug === slug);
+export function getNewsIssue(slug: string): NewsIssue | undefined {
+  return getAllNewsIssues().find((n) => n.slug === slug);
+}
+
+/**
+ * 주간호 본문의 관련 가이드 링크를 발행된 가이드로만 제한한다 (지시서 3절 — 깨진 링크 금지).
+ * - /guides/{field}/{slug} 앵커 중 발행본이 없는 것은 앵커째 제거
+ * - .iguide 블록에 남는 앵커가 없으면 블록 전체를 제거
+ * - 앵커 사이 " · " 구분자는 재조립해 잔여물이 남지 않게 한다
+ */
+export function validateNewsGuideLinks(body: string): string {
+  const published = new Set(
+    getAllGuides()
+      .filter((g) => !g.draft)
+      .map((g) => `${g.field}/${g.slug}`),
+  );
+
+  return body.replace(
+    /<div class="iguide">([\s\S]*?)<\/div>/g,
+    (whole, inner: string) => {
+      const label = inner.match(/<span class="lb">[\s\S]*?<\/span>/)?.[0] ?? '<span class="lb">관련 가이드</span>';
+      const anchors: string[] = [];
+      const anchorRe = /<a\s+href="\/guides\/([a-z-]+)\/([a-z0-9-]+)"[^>]*>([\s\S]*?)<\/a>/g;
+      let m: RegExpExecArray | null;
+      while ((m = anchorRe.exec(inner)) !== null) {
+        if (published.has(`${m[1]}/${m[2]}`)) anchors.push(m[0]);
+      }
+      if (anchors.length === 0) return '';
+      return `<div class="iguide">${label}${anchors.join(' · ')}</div>`;
+    },
+  );
 }
 
 /** "2026-07" → "2026년 7월" */
@@ -194,6 +260,24 @@ export function formatPublishedAt(publishedAt: string): string {
   const m = publishedAt.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
   if (!m) return publishedAt;
   return `${m[1]}. ${Number(m[2])}. ${Number(m[3])}.`;
+}
+
+/** "2026-08-10" → "8. 10." (주간호 목록 좌열 — 연도는 그룹 라벨이 담당) */
+export function formatIssueDay(publishedAt: string): string {
+  const m = publishedAt.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  if (!m) return publishedAt;
+  return `${Number(m[2])}. ${Number(m[3])}.`;
+}
+
+/** 다루는 기간 — "2026. 8. 3. ~ 8. 9." (연도가 같으면 끝 날짜의 연도 생략) */
+export function formatPeriodRange(start: string, end: string): string {
+  const s = start.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  const e = end.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  if (!s || !e) return `${start} ~ ${end}`;
+  const from = `${s[1]}. ${Number(s[2])}. ${Number(s[3])}.`;
+  const to =
+    s[1] === e[1] ? `${Number(e[2])}. ${Number(e[3])}.` : `${e[1]}. ${Number(e[2])}. ${Number(e[3])}.`;
+  return `${from} ~ ${to}`;
 }
 
 /**
