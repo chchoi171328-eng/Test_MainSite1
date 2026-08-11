@@ -1,7 +1,7 @@
 import type { MetadataRoute } from 'next';
 import { getAllCases } from '../lib/cases';
 import { getAllLegalCases } from '../api/legalCases';
-import { FIELDS, getAllGuides, getAllNews } from '../lib/content';
+import { FIELDS, getAllGuides, getAllNewsIssues } from '../lib/content';
 import { SITE_URL } from '../lib/site';
 
 // 콘텐츠 갱신을 반영하도록 sitemap도 주기 재생성
@@ -41,7 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   // 가이드·소식 — 파일 기반이므로 동기 로드. lastmod는 reviewedAt / publishedAt (지침 작업 8-4)
   const guides = getAllGuides().filter((g) => !g.draft);
-  const news = getAllNews().filter((n) => !n.draft);
+  const news = getAllNewsIssues().filter((n) => !n.draft);
 
   const guidePages: MetadataRoute.Sitemap = [
     // 분야별 가이드 목록 — 해당 분야에 가이드가 있을 때만

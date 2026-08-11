@@ -6,10 +6,9 @@ import {
   FIELDS,
   FIELD_LABELS,
   getAllGuides,
-  getAllNews,
+  getAllNewsIssues,
   formatReviewedAt,
   formatPublishedAt,
-  NEWS_CATEGORY_LABELS,
 } from '../../../lib/content';
 
 export const metadata: Metadata = {
@@ -21,8 +20,9 @@ export const metadata: Metadata = {
 
 export default function LegalInfoPage() {
   const guides = getAllGuides().filter((g) => !g.draft);
-  const news = getAllNews().filter((n) => !n.draft);
-  const recentNews = news.slice(0, 5);
+  const recentNews = getAllNewsIssues()
+    .filter((n) => !n.draft)
+    .slice(0, 3); // 주간호 제목·날짜 3건 (NEWS_BOARD_BRIEF §4)
 
   // 분야별 묶음 — 카드 순서와 동일. 글이 없는 분야는 섹션 자체를 숨긴다
   const sections = FIELDS.map((field) => ({
@@ -135,9 +135,6 @@ export default function LegalInfoPage() {
                       href={`/news/${n.slug}`}
                       className="flex items-baseline gap-3 group py-1.5 border-b border-gray-100"
                     >
-                      <span className="text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-500 px-2 py-0.5 rounded-sm shrink-0">
-                        {NEWS_CATEGORY_LABELS[n.category]}
-                      </span>
                       <span className="text-sm text-brand-dark group-hover:text-brand-gold transition-colors break-keep flex-grow">
                         {n.title}
                       </span>

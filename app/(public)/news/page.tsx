@@ -1,58 +1,83 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import React from 'react';
 import { PageHeader } from '../../../components/PageHeader';
-import { getAllNews, formatPublishedAt, NEWS_CATEGORY_LABELS } from '../../../lib/content';
+import {
+  getAllNewsIssues,
+  formatIssueDay,
+  NEWS_CATEGORY_SHORT,
+} from '../../../lib/content';
 
 export const metadata: Metadata = {
   title: '소식',
-  description: '법무법인 명의 법령 개정·판례·사무소 소식입니다.',
+  description: '한 주의 법령 제·개정과 주요 판결을 정리해 올립니다.',
   alternates: { canonical: '/news' },
 };
 
+/**
+ * 소식 목록 = 주간호 아카이브 (NEWS_BOARD_BRIEF §2, 시안 A).
+ * 연도 그룹 라벨 → 주간호 리스트 (좌열 날짜만 — 호수 없음).
+ * 발행 주기를 약속하는 문구는 쓰지 않는다.
+ */
 export default function NewsListPage() {
-  const news = getAllNews().filter((n) => !n.draft);
+  const issues = getAllNewsIssues().filter((n) => !n.draft);
+
+  // 연도 그룹 (발행일 역순 유지)
+  const byYear: { year: string; list: typeof issues }[] = [];
+  for (const issue of issues) {
+    const year = issue.publishedAt.slice(0, 4);
+    const group = byYear.find((g) => g.year === year);
+    if (group) group.list.push(issue);
+    else byYear.push({ year, list: [issue] });
+  }
 
   return (
     <>
-      <PageHeader label="News" title="소식" subtitle="법령 개정과 판례, 사무소 소식을 전합니다." />
+      <PageHeader label="News" title="소식" subtitle="한 주의 법령 제·개정과 주요 판결을 정리해 올립니다." />
 
       <section className="py-16 md:py-20 bg-white">
-        <div className="container mx-auto px-6 md:px-12 max-w-4xl">
-          <div className="mb-8 text-sm">
+        <div className="container mx-auto px-6 md:px-12 max-w-[820px]">
+          <div className="mb-4 text-sm">
             <Link href="/legal-info" className="text-brand-gold hover:underline">
               ← 법률정보 전체
             </Link>
           </div>
 
-          {news.length === 0 ? (
+          {issues.length === 0 ? (
             <div className="border border-gray-200 bg-gray-50 rounded-sm p-8 text-center">
               <p className="text-gray-600 break-keep">등록된 소식이 없습니다.</p>
             </div>
           ) : (
-            <ul className="space-y-4">
-              {news.map((n) => (
-                <li key={n.slug} className="border-b border-gray-100 pb-4 last:border-b-0">
-                  <Link href={`/news/${n.slug}`} className="group block">
-                    <div className="flex items-center gap-2 mb-1.5">
-                      <span className="text-[10px] font-bold uppercase tracking-wider bg-gray-100 text-gray-500 px-2 py-0.5 rounded-sm">
-                        {NEWS_CATEGORY_LABELS[n.category]}
+            <div className="news-archive">
+              {byYear.map(({ year, list }) => (
+                <React.Fragment key={year}>
+                  <div className="yr">{year}년</div>
+                  {list.map((issue) => (
+                    <Link key={issue.slug} href={`/news/${issue.slug}`} className="issue">
+                      <span className="ino">
+                        <b>{formatIssueDay(issue.publishedAt)}</b>
                       </span>
-                      <span className="text-xs text-gray-400">
-                        {formatPublishedAt(n.publishedAt)}
+                      <span>
+                        <span className="it">{issue.title}</span>
+                        {issue.items.length > 0 && (
+                          <span className="icontents">
+                            {issue.items.map((item, i) => (
+                              <React.Fragment key={i}>
+                                {i > 0 && ' · '}
+                                <span className={`tag ${item.category}`}>
+                                  {NEWS_CATEGORY_SHORT[item.category]}
+                                </span>
+                                {item.title}
+                              </React.Fragment>
+                            ))}
+                          </span>
+                        )}
                       </span>
-                    </div>
-                    <h2 className="text-lg font-bold text-brand-dark group-hover:text-brand-gold transition-colors break-keep">
-                      {n.title}
-                    </h2>
-                    {n.summary && (
-                      <p className="mt-1.5 text-sm text-gray-500 leading-relaxed break-keep">
-                        {n.summary}
-                      </p>
-                    )}
-                  </Link>
-                </li>
+                    </Link>
+                  ))}
+                </React.Fragment>
               ))}
-            </ul>
+            </div>
           )}
         </div>
       </section>

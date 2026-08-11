@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#C9A84C;--navy:#1E3A5F;--line:#e7e3db;--muted:#8a8578}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans KR',sans-serif;color:#2c2c2c;background:#fff;line-height:1.85}
+  .wrap{max-width:780px;margin:0 auto;padding:44px 24px}
+  .demo-label{background:#1E3A5F;color:#fff;font-size:12px;padding:6px 14px;letter-spacing:.1em}
+
+  /* ===== 목록 (주간호 아카이브) ===== */
+  .intro{font-size:14.5px;color:#666;margin-bottom:30px;word-break:keep-all}
+  .yr{font-size:12.5px;letter-spacing:.14em;color:var(--gold);font-weight:700;margin:28px 0 4px}
+  .issue{display:grid;grid-template-columns:96px 1fr;gap:20px;padding:22px 4px;border-bottom:1px solid #f0ece4;text-decoration:none;color:inherit}
+  .issue:hover .it{color:var(--navy)}
+  .ino{padding-top:2px}
+  .ino b{display:block;font-family:'Noto Serif KR',serif;font-size:16px;color:var(--navy)}
+  .it{font-family:'Noto Serif KR',serif;font-size:17.5px;font-weight:600;line-height:1.5;word-break:keep-all;margin-bottom:7px}
+  .icontents{font-size:13.8px;color:#6b6b6b;line-height:1.9;word-break:keep-all}
+  .icontents .tag{display:inline-block;font-size:11px;padding:1px 7px;border-radius:2px;margin-right:6px;vertical-align:1px}
+  .tag.law{background:var(--navy);color:#fff}
+  .tag.ruling{background:#fdf9f0;color:#a8843c;border:1px solid #eaddc0}
+
+  .divider{margin:56px 0;border-top:2px dashed #d5cfc2;position:relative}
+  .divider span{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:#fff;padding:0 14px;font-size:12px;color:#a8a294}
+
+  /* ===== 상세 (주간호 1편) ===== */
+  .head{border-bottom:2px solid var(--navy);padding-bottom:20px;margin-bottom:8px}
+  .head .no{font-size:13px;letter-spacing:.16em;color:var(--gold);font-weight:700;margin-bottom:8px}
+  h1{font-family:'Noto Serif KR',serif;font-size:26px;font-weight:700;line-height:1.5;word-break:keep-all}
+  .head .range{font-size:13.5px;color:#a8a294;margin-top:8px}
+
+  .item{padding:26px 0;border-bottom:1px solid #f0ece4}
+  .item:last-of-type{border-bottom:0}
+  .ibadges{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+  .nbadge{display:inline-block;font-size:11.5px;padding:3px 10px;border-radius:2px;font-weight:500}
+  .nbadge.law{background:var(--navy);color:#fff}
+  .nbadge.ruling{background:#fdf9f0;color:#a8843c;border:1px solid #eaddc0}
+  .ifield{font-size:12px;color:var(--muted)}
+  h2{font-family:'Noto Serif KR',serif;font-size:18.5px;font-weight:600;color:#1c1c1c;line-height:1.55;word-break:keep-all;margin-bottom:10px}
+  .item p{font-size:14.8px;color:#3a3a3a;word-break:keep-all;margin-bottom:9px}
+  .item p b{font-weight:600;color:#1c1c1c}
+  .iref{font-size:12.8px;color:#a8843c;background:#fdf9f0;border:1px solid #eaddc0;display:inline-block;padding:3px 10px;border-radius:2px;margin-top:4px}
+  .iguide{font-size:13px;margin-top:10px}
+  .iguide a{color:var(--navy);text-decoration:none}
+  .iguide a:hover{text-decoration:underline}
+  .iguide .lb{color:#a8a294;margin-right:6px}
+
+  .foot{margin-top:34px;padding-top:18px;border-top:1px solid var(--line);font-size:12.5px;color:#a8a294;line-height:1.85}
+</style>
+</head>
+<body>
+
+<div class="demo-label">시안 A — 소식 목록 (주간호 아카이브)</div>
+<div class="wrap">
+  <div class="intro">한 주의 법령 제·개정과 주요 판결을 정리해 올립니다.</div>
+
+  <div class="yr">2026년</div>
+  <a class="issue" href="#">
+    <span class="ino"><b>8. 10.</b></span>
+    <span>
+      <span class="it">8월 첫째 주 — 임대차 표준계약서 고시 개정 외 3건</span>
+      <span class="icontents">
+        <span class="tag law">개정</span>주택임대차 표준계약서 고시 개정 ·
+        <span class="tag ruling">판결</span>추가공사대금 구두지시 인정 판결 ·
+        <span class="tag law">시행</span>중대재해처벌법 시행령 개정 시행 ·
+        <span class="tag ruling">판결</span>양육비 이행 관련 결정
+      </span>
+    </span>
+  </a>
+  <a class="issue" href="#">
+    <span class="ino"><b>8. 3.</b></span>
+    <span>
+      <span class="it">7월 다섯째 주 — 형사 전자소송 확대 시행 외 2건</span>
+      <span class="icontents">
+        <span class="tag law">시행</span>형사 전자소송 단계적 확대 ·
+        <span class="tag ruling">판결</span>보증금 반환 지연이자 기산점 판결 ·
+        <span class="tag law">개정</span>소액사건 범위 관련 규칙 개정
+      </span>
+    </span>
+  </a>
+</div>
+
+<div class="divider"><span>아래는 주간호 본문 시안</span></div>
+
+<div class="demo-label">시안 B — 주간호 본문 (한 페이지에 항목 나열)</div>
+<div class="wrap">
+  <div class="head">
+    <div class="no">주간 법률 소식</div>
+    <h1>8월 첫째 주 — 임대차 표준계약서 고시 개정 외 3건</h1>
+    <div class="range">2026. 8. 3. ~ 8. 9. | 발행 2026. 8. 10.</div>
+  </div>
+
+  <div class="item">
+    <div class="ibadges"><span class="nbadge law">법령 개정</span><span class="ifield">부동산</span></div>
+    <h2>주택임대차 표준계약서 고시 개정 — 관리비 항목 세분화</h2>
+    <p>표준계약서의 관리비 기재란이 항목별로 세분화되었습니다. 임대인은 <b>정액 관리비의 세부 내역을 계약서에 적도록</b> 하는 취지로, 신규 계약부터 적용됩니다.</p>
+    <p>기존 계약에는 소급되지 않지만, 갱신 계약서를 새로 쓰는 경우에는 새 양식을 쓰는 것이 분쟁 예방에 유리합니다.</p>
+    <span class="iref">시행: 2026. 9. 1. 예정</span>
+    <div class="iguide"><span class="lb">관련 가이드</span><a href="#">임대차보증금 반환</a> · <a href="#">주택 명도소송</a></div>
+  </div>
+
+  <div class="item">
+    <div class="ibadges"><span class="nbadge ruling">판결</span><span class="ifield">건설·공사대금</span></div>
+    <h2>추가공사대금, 서면 합의 없어도 지시·시공 정황으로 인정</h2>
+    <p>서면 변경계약 없이 시공된 추가 공사에 대해, <b>작업지시 문자와 작업일보·감리 기록</b>을 근거로 계약 변경의 합의를 인정한 판결이 있었습니다.</p>
+    <p>"서면이 없으면 못 받는다"는 통념과 달리, 지시와 수행의 정황 기록이 충분하면 인정될 수 있다는 흐름을 보여줍니다. 현장 기록 관리의 중요성이 다시 확인된 사례입니다.</p>
+    <div class="iguide"><span class="lb">관련 가이드</span><a href="#">추가공사대금</a></div>
+  </div>
+
+  <div class="item">
+    <div class="ibadges"><span class="nbadge law">시행</span><span class="ifield">기업 법무</span></div>
+    <h2>중대재해처벌법 시행령 개정 사항 시행</h2>
+    <p>안전보건 확보의무의 세부 기준 일부가 조정되어 이번 주부터 시행됩니다. 적용 대상 사업장은 <b>기존 매뉴얼의 해당 조항 갱신</b>이 필요합니다.</p>
+    <div class="iguide"><span class="lb">관련 가이드</span><a href="#">중대재해처벌법 — 의무와 사고 대응</a></div>
+  </div>
+
+  <div class="foot">
+    이 소식지는 지난 한 주의 법령·판결 중 실무에 영향이 있는 것을 골라 요약한 것입니다. 요약은 이해를 위한 것으로, 개별 사안에 대한 법률 자문이 아닙니다. — 법무법인 명
+  </div>
+</div>
+
+</body>
+</html>
