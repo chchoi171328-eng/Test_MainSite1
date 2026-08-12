@@ -16,16 +16,23 @@ export const Hero: React.FC = () => {
           sizes="100vw"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-brand-dark/70"></div>
+        {/* 라디얼(중앙 헤드라인 뒤) + 리니어(상하단 캡션·네비 대비) — hero-final-preview.html 최종 후보 */}
+        <div className="absolute inset-0 hero-overlay"></div>
       </div>
 
       <div className="container relative z-10 px-6 md:px-12 text-center text-white">
         <div className="animate-fade-in-up">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold leading-tight mb-6 break-keep">
+          <h1
+            className="text-4xl md:text-6xl lg:text-7xl font-serif font-bold leading-tight mb-6 break-keep"
+            style={{ textShadow: '0 2px 22px rgba(10,14,22,.45)' }}
+          >
             모든 사건을 <br className="md:hidden" />
             맡지는 않습니다.
           </h1>
-          <p className="max-w-2xl mx-auto text-gray-300 text-lg md:text-xl font-light mb-6 leading-relaxed break-keep">
+          <p
+            className="max-w-2xl mx-auto text-gray-300 text-lg md:text-xl font-light mb-6 leading-relaxed break-keep"
+            style={{ textShadow: '0 1px 12px rgba(10,14,22,.5)' }}
+          >
             승산 없는 소송은 권하지 않습니다.<br />
             먼저 상황을 듣고, 가능한 결과부터 솔직하게 말씀드립니다.
           </p>

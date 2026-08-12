@@ -570,3 +570,31 @@ h6 {
   color: #a8a294;
   line-height: 1.85;
 }
+
+/* ===== 메인 히어로 오버레이 — 시각 정본 docs/Hero_Caption/hero-final-preview.html (최종 후보) =====
+   라디얼: 헤드라인 뒤 중앙 대비 확보 / 리니어: 상단 네비·하단 캡션 가독 확보 */
+.hero-overlay {
+  background:
+    radial-gradient(ellipse 62% 58% at 50% 55%, rgba(22, 26, 34, 0.6), rgba(22, 26, 34, 0.22) 78%),
+    linear-gradient(
+      180deg,
+      rgba(22, 26, 34, 0.42) 0%,
+      rgba(22, 26, 34, 0.1) 30%,
+      rgba(22, 26, 34, 0.16) 75%,
+      rgba(22, 26, 34, 0.44) 100%
+    );
+}
+/* 모바일: 좁은 뷰포트에서 라디얼이 얇아져 헤드라인이 밝은 벽면을 가로지르므로 중심만 강화 */
+@media (max-width: 640px) {
+  .hero-overlay {
+    background:
+      radial-gradient(ellipse 62% 58% at 50% 55%, rgba(22, 26, 34, 0.68), rgba(22, 26, 34, 0.22) 78%),
+      linear-gradient(
+        180deg,
+        rgba(22, 26, 34, 0.42) 0%,
+        rgba(22, 26, 34, 0.1) 30%,
+        rgba(22, 26, 34, 0.16) 75%,
+        rgba(22, 26, 34, 0.44) 100%
+      );
+  }
+}
