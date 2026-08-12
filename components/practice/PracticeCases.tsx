@@ -22,7 +22,28 @@ export function PracticeCases({
   // getAllCases()가 이미 날짜 역순이므로 featured 우선 안정 정렬만 얹는다
   const matched = cases.filter((c) => c.field === field);
   const fieldCases = [...matched.filter((c) => c.featured), ...matched.filter((c) => !c.featured)].slice(0, 3);
-  if (fieldCases.length === 0) return null;
+
+  // 가사(이혼·상속) 사례 미게시 방침 (2026-08): 이 두 분야만 0건 자동 숨김 대신
+  // 방침 블록을 표시한다 (no-cases-preview.html 시안 A — 라이트 스테이트먼트 박스).
+  // 나머지 분야의 자동 숨김 로직은 그대로.
+  if (fieldCases.length === 0) {
+    if (field === 'divorce' || field === 'inheritance') {
+      return (
+        <PSection title="이 분야의 성공사례">
+          <div className="bg-[#fbfaf8] border border-[#e7e3db] border-l-[3px] border-l-[#1e3a5f] py-[30px] px-[34px]">
+            <div className="font-serif text-[19.5px] font-semibold text-[#1c1c1c] leading-[1.6] break-keep mb-2.5">
+              이 분야의 성공사례는 올리지 않습니다.
+            </div>
+            <p className="text-[14.5px] text-[#6b6b6b] font-light leading-[1.85] break-keep">
+              가족의 일은 결과가 좋았더라도, 당사자에게는 평생 사적인 기록이기 때문입니다.
+              의뢰인 보호가 사례 소개보다 먼저입니다.
+            </p>
+          </div>
+        </PSection>
+      );
+    }
+    return null;
+  }
 
   return (
     <PSection title="이 분야의 성공사례" lead="결과는 판결문으로 보여드립니다.">

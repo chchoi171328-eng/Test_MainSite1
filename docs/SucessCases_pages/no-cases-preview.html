@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#C9A84C;--navy:#1E3A5F;--line:#e7e3db;--muted:#8a8578}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans KR',sans-serif;color:#2c2c2c;background:#fff;line-height:1.85}
+  .wrap{max-width:880px;margin:0 auto;padding:40px 24px}
+  .demo-label{background:#1E3A5F;color:#fff;font-size:12px;padding:6px 14px;letter-spacing:.1em}
+  h3.sec{font-family:'Noto Serif KR',serif;font-size:22px;font-weight:700;margin-bottom:18px}
+
+  /* 시안 A — 라이트 스테이트먼트 박스 */
+  .stmt-a{background:#fbfaf8;border:1px solid var(--line);border-left:3px solid var(--navy);padding:30px 34px}
+  .stmt-a .h{font-family:'Noto Serif KR',serif;font-size:19.5px;font-weight:600;color:#1c1c1c;line-height:1.6;word-break:keep-all;margin-bottom:10px}
+  .stmt-a p{font-size:14.5px;color:#6b6b6b;word-break:keep-all;font-weight:300}
+
+  /* 시안 B — 다크 박스 (기한 박스 계열) */
+  .stmt-b{background:#20242c;padding:32px 36px}
+  .stmt-b .h{font-family:'Noto Serif KR',serif;font-size:19.5px;font-weight:600;color:#fff;line-height:1.6;word-break:keep-all;margin-bottom:10px}
+  .stmt-b p{font-size:14.5px;color:rgba(255,255,255,.62);word-break:keep-all;font-weight:300}
+  .stmt-b .h b{color:var(--gold);font-weight:600}
+</style>
+</head>
+<body>
+<div class="demo-label">시안 A — 라이트 박스 (네이비 좌측 보더 · 사례 결과 박스 계열)</div>
+<div class="wrap">
+  <h3 class="sec">이 분야의 성공사례</h3>
+  <div class="stmt-a">
+    <div class="h">이 분야의 성공사례는 올리지 않습니다.</div>
+    <p>가족의 일은 결과가 좋았더라도, 당사자에게는 평생 사적인 기록이기 때문입니다. 의뢰인 보호가 사례 소개보다 먼저입니다.</p>
+  </div>
+</div>
+
+<div class="demo-label">시안 B — 다크 박스 (기한 박스 계열 · 골드 포인트)</div>
+<div class="wrap">
+  <h3 class="sec">이 분야의 성공사례</h3>
+  <div class="stmt-b">
+    <div class="h">이 분야의 성공사례는 <b>올리지 않습니다.</b></div>
+    <p>가족의 일은 결과가 좋았더라도, 당사자에게는 평생 사적인 기록이기 때문입니다. 의뢰인 보호가 사례 소개보다 먼저입니다.</p>
+  </div>
+</div>
+</body>
+</html>
