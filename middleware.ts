@@ -20,6 +20,7 @@ interface BoardRedirect {
 const BOARDS = redirects.boards as unknown as Record<string, BoardRedirect>;
 const STATIC = redirects.static as Record<string, string>;
 const PRACTICE_LEGACY = redirects.practiceLegacy as Record<string, string>;
+const PRECEDENT_LEGACY = redirects.precedentLegacy as Record<string, string>;
 
 export function middleware(request: NextRequest) {
   const { pathname, searchParams, search } = request.nextUrl;
@@ -39,6 +40,16 @@ export function middleware(request: NextRequest) {
   const practiceDestination = PRACTICE_LEGACY[pathname];
   if (practiceDestination) {
     return NextResponse.redirect(new URL(practiceDestination, request.url), 301);
+  }
+
+  // ── 2-1. 구 판례 숫자 ID URL → 새 slug 301 (RESOURCES_STATIC_BRIEF 작업 2) ──
+  const precedentMatch = pathname.match(/^\/legal-cases\/(\d+)$/);
+  if (precedentMatch) {
+    const slug = PRECEDENT_LEGACY[precedentMatch[1]];
+    return NextResponse.redirect(
+      new URL(slug ? `/legal-cases/${slug}` : '/legal-cases', request.url),
+      301,
+    );
   }
 
   // ── 3. 구 사이트 URL 301 ──────────────────────────────────────────────

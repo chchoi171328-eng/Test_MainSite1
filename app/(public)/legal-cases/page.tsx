@@ -1,9 +1,8 @@
 import type { Metadata } from 'next';
 import { PageHeader } from '../../../components/PageHeader';
-import { LegalCases } from '../../../components/LegalCases';
-import { getAllLegalCases } from '../../../api/legalCases';
-
-export const revalidate = 300;
+import { LegalCases, PrecedentCard } from '../../../components/LegalCases';
+import { getAllPrecedents } from '../../../lib/resources';
+import { formatCourtLine } from '../../../lib/precedent-format';
 
 export const metadata: Metadata = {
   title: '주요 판례',
@@ -11,8 +10,17 @@ export const metadata: Metadata = {
   alternates: { canonical: '/legal-cases' },
 };
 
-export default async function LegalCasesPage() {
-  const cases = await getAllLegalCases().catch(() => []);
+export default function LegalCasesPage() {
+  const cards: PrecedentCard[] = getAllPrecedents()
+    .filter((p) => !p.draft)
+    .map((p) => ({
+      slug: p.slug,
+      title: p.title,
+      courtLine: formatCourtLine(p.court, p.decidedAt),
+      caseNumber: p.caseNumber,
+      fieldLabels: p.fieldLabels,
+      summary: p.summary,
+    }));
 
   return (
     <>
@@ -23,7 +31,7 @@ export default async function LegalCasesPage() {
         imageSrc="/assets/brand/book-stack.webp"
         imageAlt="책상 위에 쌓인 법률 서적"
       />
-      <LegalCases cases={cases} hideHeadingTitle />
+      <LegalCases cases={cards} hideHeadingTitle />
     </>
   );
 }

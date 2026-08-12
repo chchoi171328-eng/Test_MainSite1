@@ -62,5 +62,20 @@
     "/sub2_1.php": "법무법인 소개",
     "/sub2_2.php": "구성원 소개",
     "/sub_map.php": "찾아오시는 길"
+  },
+  "precedentLegacy": {
+    "1": "apartment-common-area-intrusion",
+    "2": "factory-commercial-lease-act",
+    "3": "renewal-expiry-premium-protection",
+    "4": "equal-fault-no-adultery-damages",
+    "5": "prescription-waiver-presumption-overruled",
+    "6": "past-child-support-ten-years",
+    "7": "spouse-consented-entry-no-intrusion",
+    "8": "victim-non-resistance-doctrine",
+    "9": "broken-marriage-adultery-damages-denied",
+    "10": "special-qualified-acceptance-deadline",
+    "11": "family-settlement-no-effect",
+    "12": "construction-fraud-full-amount",
+    "_comment": "구 Supabase 숫자 ID → 새 slug 301 (RESOURCES_STATIC_BRIEF 작업 2)"
   }
 }
