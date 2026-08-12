@@ -87,6 +87,15 @@ export const SuccessCases: React.FC<SuccessCasesProps> = ({ cases, limit, hideHe
           </div>
         )}
 
+        {/* 가사 사례 미게시 방침 (2026-08) — 하단 고지문 계열의 담백한 한 줄, 박스 없음.
+            이혼·상속 칩은 사례가 없어 위 필터에 자동으로 나타나지 않는다. */}
+        {showFilter && (
+          <p className="-mt-3 mb-8 text-[12.5px] leading-[1.85] text-[#a8a294] break-keep">
+            이혼·상속 등 가사 사건의 사례는 올리지 않습니다. 가족의 일은 결과가 좋았더라도,
+            당사자에게는 평생 사적인 기록이기 때문입니다.
+          </p>
+        )}
+
         <div className="cases-grid">
           {displayCases.map((item) => (
             // 카드 전체가 클릭 영역 (지시서 2)
