@@ -68,3 +68,17 @@ export function normalizeCaseField(v: string | null | undefined): CaseField | nu
   if (isCaseField(v)) return v;
   return LEGACY_CATEGORY_TO_FIELD[v] ?? null;
 }
+
+/** 서식 분야 = 8키 + 'common'(분야 공통) — 서식 게시판용 */
+export type FormField = FieldKey | 'common';
+
+export const FORM_FIELDS: readonly FormField[] = [...FIELDS, 'common'];
+
+export const FORM_FIELD_LABELS: Record<FormField, string> = {
+  ...FIELD_LABELS,
+  common: '공통',
+};
+
+export function isFormField(v: string): v is FormField {
+  return v === 'common' || isFieldKey(v);
+}

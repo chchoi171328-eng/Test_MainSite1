@@ -1,60 +1,60 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { CaseDetail } from '../../../../components/CaseDetail';
-import { getLegalCaseById } from '../../../../api/legalCases';
+import { getAllPrecedents, getPrecedent } from '../../../../lib/resources';
+import { getAllGuides } from '../../../../lib/content';
+import { formatCourtLine } from '../../../../lib/precedent-format';
 import { JsonLd } from '../../../../components/JsonLd';
-import { SITE_URL } from '../../../../lib/organization';
 import { buildBreadcrumbJsonLd } from '../../../../lib/seo';
 
-export const revalidate = 300;
+/**
+ * 판례 상세 (파일 기반 — RESOURCES_STATIC_BRIEF).
+ * 구 숫자 ID URL(/legal-cases/12)은 middleware가 301로 새 slug에 넘긴다
+ * (data/redirects.json precedentLegacy, docs/redirects-legacy.md 기록).
+ */
 
-interface Props {
+export function generateStaticParams() {
+  return getAllPrecedents().map((p) => ({ slug: p.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
   params: { slug: string };
-}
-
-async function fetchCase(slug: string) {
-  const id = Number(slug);
-  if (!Number.isInteger(id)) return null;
-  return getLegalCaseById(id).catch(() => null);
-}
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const caseItem = await fetchCase(params.slug);
-  if (!caseItem) return { title: '주요 판례' };
+}): Promise<Metadata> {
+  const item = getPrecedent(params.slug);
+  if (!item) return { title: '주요 판례' };
   return {
-    title: `${caseItem.title} | 주요 판례`,
-    description: (caseItem.summary || '').slice(0, 150) || `${caseItem.court} ${caseItem.caseNumber} 판례 해설 — 법무법인 명`,
-    alternates: { canonical: `/legal-cases/${params.slug}` },
+    title: `${item.title} | 주요 판례`,
+    description: item.summary.slice(0, 150),
+    alternates: { canonical: `/legal-cases/${item.slug}` },
   };
 }
 
-export default async function LegalCaseDetailPage({ params }: Props) {
-  const caseItem = await fetchCase(params.slug);
-  if (!caseItem) notFound();
+export default function LegalCaseDetailPage({ params }: { params: { slug: string } }) {
+  const item = getPrecedent(params.slug);
+  if (!item) notFound();
 
-  const articleJsonLd = {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: caseItem.title,
-    description: (caseItem.summary || '').slice(0, 200),
-    url: `${SITE_URL}/legal-cases/${params.slug}`,
-    author: { '@id': `${SITE_URL}/attorneys/choi-cheolho#person` },
-    publisher: { '@id': `${SITE_URL}/#organization` },
-    mainEntityOfPage: `${SITE_URL}/legal-cases/${params.slug}`,
-    inLanguage: 'ko',
-  };
+  // 관련 가이드 — 발행된 것만 렌더 (깨진 링크 금지)
+  const published = getAllGuides().filter((g) => !g.draft);
+  const relatedGuides = item.related
+    .map((slug) => published.find((g) => g.slug === slug))
+    .filter((g): g is NonNullable<typeof g> => Boolean(g));
+
+  const breadcrumb = buildBreadcrumbJsonLd([
+    { name: '법률정보', path: '/legal-info' },
+    { name: '주요 판례', path: '/legal-cases' },
+    { name: item.title, path: `/legal-cases/${item.slug}` },
+  ]);
 
   return (
-    <div className="pt-20">
-      <JsonLd data={articleJsonLd} />
-      <JsonLd
-        data={buildBreadcrumbJsonLd([
-          { name: '홈', path: '/' },
-          { name: '주요 판례', path: '/legal-cases' },
-          { name: caseItem.title, path: `/legal-cases/${params.slug}` },
-        ])}
+    <>
+      <JsonLd data={breadcrumb} />
+      <CaseDetail
+        precedent={item}
+        courtLine={formatCourtLine(item.court, item.decidedAt)}
+        relatedGuides={relatedGuides}
       />
-      <CaseDetail caseItem={caseItem} />
-    </div>
+    </>
   );
 }

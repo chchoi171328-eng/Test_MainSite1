@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getAllCases } from '../lib/cases';
-import { getAllLegalCases } from '../api/legalCases';
+import { getAllForms, getAllPrecedents } from '../lib/resources';
 import { FIELDS, getAllGuides, getAllNewsIssues } from '../lib/content';
 import { SITE_URL } from '../lib/site';
 
@@ -69,8 +69,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 성공사례는 파일 기반 — 빌드 시점에 전 경로 반영 (CASE_BOARD_BRIEF 작업 5)
   const cases = getAllCases();
 
-  // 동적 콘텐츠 — 실패해도 sitemap 자체는 생성되도록 개별 처리
-  const legalCases = await getAllLegalCases().catch(() => []);
+  // 판례·서식도 파일 기반 (RESOURCES_STATIC_BRIEF)
+  const precedents = getAllPrecedents().filter((p) => !p.draft);
+  const forms = getAllForms().filter((f) => !f.draft);
 
   const dynamicPages: MetadataRoute.Sitemap = [
     ...cases.map((c) => ({
@@ -79,10 +80,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
       ...(c.date ? { lastModified: new Date(c.date) } : {}),
     })),
-    ...legalCases.map((c) => ({
-      url: `${SITE_URL}/legal-cases/${c.id}`,
+    ...precedents.map((p) => ({
+      url: `${SITE_URL}/legal-cases/${p.slug}`,
       changeFrequency: 'monthly' as const,
       priority: 0.5,
+      ...(p.decidedAt ? { lastModified: new Date(p.decidedAt) } : {}),
+    })),
+    ...forms.map((f) => ({
+      url: `${SITE_URL}/legal-forms/${f.slug}`,
+      changeFrequency: 'monthly' as const,
+      priority: 0.4,
     })),
   ];
 

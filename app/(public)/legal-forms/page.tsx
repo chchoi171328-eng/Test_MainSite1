@@ -1,9 +1,7 @@
 import type { Metadata } from 'next';
 import { PageHeader } from '../../../components/PageHeader';
-import { LegalForms } from '../../../components/LegalForms';
-import { getAllLegalForms } from '../../../api/legalForms';
-
-export const revalidate = 300;
+import { LegalForms, FormCard } from '../../../components/LegalForms';
+import { getAllForms } from '../../../lib/resources';
 
 export const metadata: Metadata = {
   title: '법률 서식',
@@ -11,8 +9,17 @@ export const metadata: Metadata = {
   alternates: { canonical: '/legal-forms' },
 };
 
-export default async function LegalFormsPage() {
-  const forms = await getAllLegalForms().catch(() => []);
+export default function LegalFormsPage() {
+  const cards: FormCard[] = getAllForms()
+    .filter((f) => !f.draft)
+    .map((f) => ({
+      title: f.title,
+      slug: f.slug,
+      field: f.field,
+      fieldLabel: f.fieldLabel,
+      summary: f.summary,
+      files: f.files,
+    }));
 
   return (
     <>
@@ -23,7 +30,7 @@ export default async function LegalFormsPage() {
         imageSrc="/assets/brand/doc-folder.webp"
         imageAlt="만년필이 놓인 서류 폴더"
       />
-      <LegalForms forms={forms} />
+      <LegalForms forms={cards} />
     </>
   );
 }

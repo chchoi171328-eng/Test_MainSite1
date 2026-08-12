@@ -4,10 +4,11 @@ import { Hero } from '../../components/Hero';
 import { SituationRouting } from '../../components/SituationRouting';
 import { About } from '../../components/About';
 import { SuccessCases, CaseCard } from '../../components/SuccessCases';
-import { LegalCases } from '../../components/LegalCases';
+import { LegalCases, PrecedentCard } from '../../components/LegalCases';
 import { Contact } from '../../components/Contact';
 import { getAllCases, getCaseExcerpt } from '../../lib/cases';
-import { getAllLegalCases } from '../../api/legalCases';
+import { getAllPrecedents } from '../../lib/resources';
+import { formatCourtLine } from '../../lib/precedent-format';
 
 // Supabase 콘텐츠는 5분 주기 ISR로 재생성
 export const revalidate = 300;
@@ -22,8 +23,19 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
 };
 
-export default async function HomePage() {
-  const legalCases = await getAllLegalCases().catch(() => []);
+export default function HomePage() {
+  // 주요 판례도 파일 기반 (RESOURCES_STATIC_BRIEF)
+  const legalCases: PrecedentCard[] = getAllPrecedents()
+    .filter((p) => !p.draft)
+    .slice(0, 3)
+    .map((p) => ({
+      slug: p.slug,
+      title: p.title,
+      courtLine: formatCourtLine(p.court, p.decidedAt),
+      caseNumber: p.caseNumber,
+      fieldLabels: p.fieldLabels,
+      summary: p.summary,
+    }));
 
   // 성공사례는 파일 기반 (CASE_BOARD_BRIEF 작업 5)
   const successCases: CaseCard[] = getAllCases()

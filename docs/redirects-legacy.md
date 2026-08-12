@@ -115,3 +115,24 @@
 
 매핑되지 않은 구 URL은 404로 떨어진다. 404 페이지(`app/not-found.tsx`)에는 홈·업무분야·
 상담·전화 안내가 있어 방문자가 되돌아갈 경로를 갖는다.
+
+## 판례 숫자 ID → slug (RESOURCES_STATIC_BRIEF, 2026-08-12)
+
+Supabase 시절 `/legal-cases/{id}` 숫자 URL을 파일 기반 slug로 301 리다이렉트한다.
+매핑은 `data/redirects.json`의 `precedentLegacy`, 처리는 middleware.ts 2-1절.
+매핑에 없는 숫자는 목록(/legal-cases)으로 301.
+
+| 구 ID | 새 slug |
+|---|---|
+| 1 | apartment-common-area-intrusion |
+| 2 | factory-commercial-lease-act |
+| 3 | renewal-expiry-premium-protection |
+| 4 | equal-fault-no-adultery-damages |
+| 5 | prescription-waiver-presumption-overruled |
+| 6 | past-child-support-ten-years |
+| 7 | spouse-consented-entry-no-intrusion |
+| 8 | victim-non-resistance-doctrine |
+| 9 | broken-marriage-adultery-damages-denied |
+| 10 | special-qualified-acceptance-deadline |
+| 11 | family-settlement-no-effect |
+| 12 | construction-fraud-full-amount |
