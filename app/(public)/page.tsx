@@ -4,11 +4,11 @@ import { Hero } from '../../components/Hero';
 import { SituationRouting } from '../../components/SituationRouting';
 import { About } from '../../components/About';
 import { SuccessCases, CaseCard } from '../../components/SuccessCases';
-import { LegalCases, PrecedentCard } from '../../components/LegalCases';
 import { Contact } from '../../components/Contact';
 import { getAllCases, getCaseExcerpt } from '../../lib/cases';
-import { getAllPrecedents } from '../../lib/resources';
-import { formatCourtLine } from '../../lib/precedent-format';
+import { getAllGuides, getAllNewsIssues, formatPublishedAt } from '../../lib/content';
+import { FIELD_LABELS } from '../../lib/fields';
+import { HomeGuides, HomeGuideCard, HomeNewsBar } from '../../components/HomeGuides';
 
 // Supabase 콘텐츠는 5분 주기 ISR로 재생성
 export const revalidate = 300;
@@ -24,18 +24,31 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  // 주요 판례도 파일 기반 (RESOURCES_STATIC_BRIEF)
-  const legalCases: PrecedentCard[] = getAllPrecedents()
-    .filter((p) => !p.draft)
-    .slice(0, 3)
-    .map((p) => ({
-      slug: p.slug,
-      title: p.title,
-      courtLine: formatCourtLine(p.court, p.decidedAt),
-      caseNumber: p.caseNumber,
-      fieldLabels: p.fieldLabels,
-      summary: p.summary,
+  // 법률 가이드 — 발행분 featured 우선 최대 4건 (구 주요 판례 섹션 자리)
+  const guideCards: HomeGuideCard[] = getAllGuides()
+    .filter((g) => !g.draft)
+    .sort((a, b) => {
+      if (a.featured !== b.featured) return a.featured ? -1 : 1;
+      return 0; // getAllGuides의 order·검토일 정렬 유지 (안정 정렬)
+    })
+    .slice(0, 4)
+    .map((g) => ({
+      slug: g.slug,
+      field: g.field,
+      fieldLabel: FIELD_LABELS[g.field],
+      listingTitle: g.listingTitle,
+      summary: g.summary,
     }));
+
+  // 주간 소식 한 줄 바 — 최신 주간호
+  const issues = getAllNewsIssues().filter((n) => !n.draft);
+  const latestIssue: HomeNewsBar | null = issues.length
+    ? {
+        slug: issues[0].slug,
+        title: issues[0].title,
+        publishedAtLabel: formatPublishedAt(issues[0].publishedAt),
+      }
+    : null;
 
   // 성공사례는 파일 기반 (CASE_BOARD_BRIEF 작업 5)
   const successCases: CaseCard[] = getAllCases()
@@ -60,7 +73,7 @@ export default function HomePage() {
       <Suspense>
         <SuccessCases cases={successCases} limit={3} />
       </Suspense>
-      <LegalCases cases={legalCases} limit={3} />
+      <HomeGuides guides={guideCards} latestIssue={latestIssue} />
       <Contact />
     </>
   );
