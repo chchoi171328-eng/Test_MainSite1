@@ -86,7 +86,7 @@ export function buildAttorneyJsonLd() {
     '@type': 'Person',
     '@id': `${SITE_URL}/attorneys/choi-cheolho#person`,
     name: '최철호',
-    alternateName: 'Cheolho Choi',
+    alternateName: 'Chulho Choi',
     jobTitle: '대표변호사',
     image: `${SITE_URL}/images/attorney-profile.jpg`,
     url: `${SITE_URL}/attorneys/choi-cheolho`,
