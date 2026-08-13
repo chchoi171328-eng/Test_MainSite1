@@ -78,7 +78,7 @@ export default async function AttorneyProfilePage() {
                 />
                 <div className="absolute bottom-0 left-0 bg-brand-dark text-white p-4 w-full">
                   <p className="font-serif font-bold text-xl">최철호</p>
-                  <p className="text-xs text-brand-gold uppercase tracking-wider">Cheolho Choi · Representative Attorney</p>
+                  <p className="text-xs text-brand-gold uppercase tracking-wider">Chulho Choi · Representative Attorney</p>
                 </div>
               </div>
             </div>
