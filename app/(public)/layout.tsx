@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigation } from '../../components/Navigation';
 import { Footer } from '../../components/Footer';
-import { FloatingCallButton } from '../../components/FloatingCallButton';
+import { MobileActionBar } from '../../components/MobileActionBar';
 import { JsonLd } from '../../components/JsonLd';
 import { Analytics } from '../../components/Analytics';
 import { buildOrganizationJsonLd, buildWebSiteJsonLd } from '../../lib/organization';
@@ -20,13 +20,14 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
       >
         본문으로 건너뛰기
       </a>
-      <div className="min-h-screen bg-white flex flex-col">
+      {/* pb-[…]: 모바일 하단 고정 액션 바(54px + safe-area)만큼 본문·푸터 여백 확보 */}
+      <div className="min-h-screen bg-white flex flex-col pb-[calc(54px+env(safe-area-inset-bottom))] md:pb-0">
         <Navigation />
         <main id="main-content" role="main" className="flex-grow">
           {children}
         </main>
         <Footer />
-        <FloatingCallButton />
+        <MobileActionBar />
       </div>
     </>
   );
