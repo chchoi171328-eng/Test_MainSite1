@@ -39,6 +39,12 @@ export interface Guide {
   tools: string[];
   /** 세부 페이지 §9에서 우선 노출 */
   featured: boolean;
+  /**
+   * 변호사 검수 게이트 (frontmatter approved, 기본 false).
+   * true인 가이드만 sitemap에 포함되고 색인이 허용된다 — false면 페이지는
+   * 접근 가능하되 noindex. 검수 완료 시점에 frontmatter에 approved: true를 단다.
+   */
+  approved: boolean;
   /** 언더스코어 폴더 = 배포 제외 더미 */
   draft: boolean;
   body: string;
@@ -143,6 +149,7 @@ export function getAllGuides(): Guide[] {
         related: (fm.related as string[]) || [],
         tools: (fm.tools as string[]) || [],
         featured: fm.featured === true,
+        approved: fm.approved === true,
         draft,
         body: parsed.content,
       });

@@ -39,12 +39,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
   staticPages.push(...practicePages);
 
-  // 가이드·소식 — 파일 기반이므로 동기 로드. lastmod는 reviewedAt / publishedAt (지침 작업 8-4)
-  const guides = getAllGuides().filter((g) => !g.draft);
+  // 가이드 — 검수 게이트: frontmatter approved: true인 것만 sitemap에 포함한다.
+  // (미승인 가이드는 페이지 접근은 가능하되 noindex — 검수 완료 시 approved를 단다)
+  const guides = getAllGuides().filter((g) => !g.draft && g.approved);
   const news = getAllNewsIssues().filter((n) => !n.draft);
 
   const guidePages: MetadataRoute.Sitemap = [
-    // 분야별 가이드 목록 — 해당 분야에 가이드가 있을 때만
+    // 분야별 가이드 목록 — 해당 분야에 승인 가이드가 있을 때만
     ...FIELDS.filter((f) => guides.some((g) => g.field === f)).map((f) => ({
       url: `${SITE_URL}/guides/${f}`,
       changeFrequency: 'monthly' as const,
@@ -66,8 +67,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
   staticPages.push(...guidePages);
 
-  // 성공사례는 파일 기반 — 빌드 시점에 전 경로 반영 (CASE_BOARD_BRIEF 작업 5)
-  const cases = getAllCases();
+  // 성공사례·판례·서식은 이미 검수를 거쳐 게시된 콘텐츠 — 상세 전부 포함.
+  // _더미(draft)는 제외 (로컬 GUIDE_INCLUDE_DRAFTS=1 빌드에서 새어 들어가지 않게)
+  const cases = getAllCases().filter((c) => !c.draft);
 
   // 판례·서식도 파일 기반 (RESOURCES_STATIC_BRIEF)
   const precedents = getAllPrecedents().filter((p) => !p.draft);
@@ -90,6 +92,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       url: `${SITE_URL}/legal-forms/${f.slug}`,
       changeFrequency: 'monthly' as const,
       priority: 0.4,
+      ...(f.updatedAt ? { lastModified: new Date(f.updatedAt) } : {}),
     })),
   ];
 

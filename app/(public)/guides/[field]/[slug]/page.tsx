@@ -46,6 +46,9 @@ export async function generateMetadata({
       images: guide.thumbnail ? [guide.thumbnail] : undefined,
     },
     alternates: { canonical: `/guides/${guide.field}/${guide.slug}` },
+    // 검수 게이트: approved 전에는 sitemap 제외만으로는 내부 링크를 타고
+    // 색인될 수 있으므로 noindex로 막는다 (검수 완료 → approved: true → 색인 허용)
+    ...(guide.approved ? {} : { robots: { index: false, follow: true } }),
   };
 }
 
