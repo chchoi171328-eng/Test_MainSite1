@@ -45,12 +45,14 @@ export const HomeGuides: React.FC<HomeGuidesProps> = ({ guides, latestIssue }) =
               </Link>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-4">
+            {/* grid-cols-1 명시 필수: 템플릿 없는 auto 트랙은 truncate(nowrap) summary의
+                한 줄 전체 폭을 min-content로 삼아 모바일에서 페이지가 가로로 늘어난다 */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {guides.map((g) => (
                 <Link
                   key={`${g.field}/${g.slug}`}
                   href={`/guides/${g.field}/${g.slug}`}
-                  className="group bg-white border border-gray-200 rounded-sm p-6 hover:border-brand-gold/60 hover:shadow-md transition-all duration-300"
+                  className="group min-w-0 bg-white border border-gray-200 rounded-sm p-6 hover:border-brand-gold/60 hover:shadow-md transition-all duration-300"
                 >
                   <span className="inline-block text-[11px] font-bold text-gray-500 bg-gray-100 px-2 py-0.5 rounded-sm mb-2.5">
                     {g.fieldLabel}
