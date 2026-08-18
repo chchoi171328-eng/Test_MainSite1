@@ -6,17 +6,11 @@ import Image from 'next/image';
 import { Send, Loader2, AlertTriangle } from 'lucide-react';
 import { trackEvent } from '../lib/analytics';
 
-const CATEGORIES = ['형사 변호', '민사 소송', '가사 / 상속', '부동산 / 건설', '기업 법무', '기타'];
-const METHODS = ['방문 상담', '전화 상담'];
-const TIMES = ['평일 오전', '평일 오후', '주말(예약제)', '무관'];
-
+// 간소화 방침 (2026-08): "전화할 번호 + 무슨 일인지"만 받는다.
+// 이름(선택)·전화번호(필수)·상담 내용(필수) 3개 필드 — 분야·방식·시간·이메일 제거.
 const INITIAL_FORM = {
   name: '',
   phone: '',
-  email: '',
-  category: '형사 변호',
-  method: '방문 상담',
-  availableTime: '무관',
   content: '',
   website: '', // honeypot — 사람에게 보이지 않음
 };
@@ -37,7 +31,7 @@ export const Consultation: React.FC = () => {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
 
     if (name === 'phone') {
@@ -61,6 +55,9 @@ export const Consultation: React.FC = () => {
           formatted = numbers;
         } else if (numbers.length <= 7) {
           formatted = `${numbers.slice(0, 3)}-${numbers.slice(3)}`;
+        } else if (numbers.length <= 10) {
+          // 지역번호 10자리 (031-658-6100) — 3-3-4 묶음
+          formatted = `${numbers.slice(0, 3)}-${numbers.slice(3, 6)}-${numbers.slice(6, 10)}`;
         } else {
           formatted = `${numbers.slice(0, 3)}-${numbers.slice(3, 7)}-${numbers.slice(7, 11)}`;
         }
@@ -88,7 +85,7 @@ export const Consultation: React.FC = () => {
       const result = await response.json().catch(() => ({ ok: false }));
 
       if (response.ok && result.ok) {
-        trackEvent('consult_submit', { category: formData.category });
+        trackEvent('consult_submit');
         setSubmitStatus('sent');
         setFormData(INITIAL_FORM);
         setPrivacyAgreed(false);
@@ -126,7 +123,7 @@ export const Consultation: React.FC = () => {
 
           <div role="status" aria-live="polite">
             <p className="text-xl md:text-2xl font-serif text-brand-dark leading-relaxed break-keep mb-4">
-              접수되었습니다. 영업일 기준 24시간 내에 연락드립니다.
+              접수되었습니다. 늦어도 다음 영업일에 사무실에서 전화드리겠습니다.
             </p>
             <p className="text-gray-600 leading-relaxed break-keep">
               그 전에 준비하실 것은 없습니다. 통화에서 있는 그대로 말씀해주시면 됩니다.
@@ -152,7 +149,7 @@ export const Consultation: React.FC = () => {
         {/* 제목·consult-chairs 이미지 헤더는 PageHeader가 담당 */}
         <div className="bg-white p-0 md:p-8">
           <p className="text-sm text-gray-500 mb-6 leading-relaxed break-keep">
-            상담 후 의뢰하지 않으셔도 됩니다. 먼저 상황을 정확히 아는 것이 시작입니다.
+            남겨주시면 늦어도 다음 영업일에 사무실에서 전화드립니다.
           </p>
 
           {/* 필수 안내 (지침 8단계) */}
@@ -165,7 +162,7 @@ export const Consultation: React.FC = () => {
             </p>
           </div>
 
-          <form className="space-y-8" onSubmit={handleSubmit} onFocus={handleFormStart}>
+          <form className="space-y-6" onSubmit={handleSubmit} onFocus={handleFormStart}>
             {/* Honeypot — 봇 차단용, 화면·스크린리더 모두에서 숨김 */}
             <div className="absolute w-0 h-0 overflow-hidden" aria-hidden="true">
               <label>
@@ -181,16 +178,15 @@ export const Consultation: React.FC = () => {
               </label>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid md:grid-cols-2 gap-6 md:gap-8">
               <div>
-                <label htmlFor="consult-name" className="block text-sm font-medium text-gray-600 mb-2">이름 <span className="text-red-500">*</span></label>
+                <label htmlFor="consult-name" className="block text-sm font-medium text-gray-600 mb-2">이름 <span className="text-gray-400 font-normal">(선택)</span></label>
                 <input
                   id="consult-name"
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  required
                   maxLength={20}
                   disabled={isSubmitting}
                   className={inputClass}
@@ -198,7 +194,7 @@ export const Consultation: React.FC = () => {
                 />
               </div>
               <div>
-                <label htmlFor="consult-phone" className="block text-sm font-medium text-gray-600 mb-2">연락처 <span className="text-red-500">*</span></label>
+                <label htmlFor="consult-phone" className="block text-sm font-medium text-gray-600 mb-2">전화번호 <span className="text-red-500">*</span></label>
                 <input
                   id="consult-phone"
                   type="tel"
@@ -212,79 +208,7 @@ export const Consultation: React.FC = () => {
                   className={inputClass}
                   placeholder="숫자만 입력 (예: 01012345678)"
                 />
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="consult-email" className="block text-sm font-medium text-gray-600 mb-2">이메일 <span className="text-red-500">*</span></label>
-              <input
-                id="consult-email"
-                type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
-                required
-                maxLength={100}
-                disabled={isSubmitting}
-                className={inputClass}
-                placeholder="example@email.com"
-              />
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              <div>
-                <label htmlFor="consult-category" className="block text-sm font-medium text-gray-600 mb-2">상담 분야</label>
-                <div className="relative">
-                  <select
-                    id="consult-category"
-                    name="category"
-                    value={formData.category}
-                    onChange={handleChange}
-                    disabled={isSubmitting}
-                    className={`${inputClass} appearance-none cursor-pointer`}
-                  >
-                    {CATEGORIES.map((c) => (
-                      <option key={c} value={c}>{c}</option>
-                    ))}
-                  </select>
-                  <SelectArrow />
-                </div>
-              </div>
-              <div>
-                <label htmlFor="consult-method" className="block text-sm font-medium text-gray-600 mb-2">희망 상담 방식</label>
-                <div className="relative">
-                  <select
-                    id="consult-method"
-                    name="method"
-                    value={formData.method}
-                    onChange={handleChange}
-                    disabled={isSubmitting}
-                    className={`${inputClass} appearance-none cursor-pointer`}
-                  >
-                    {METHODS.map((m) => (
-                      <option key={m} value={m}>{m}</option>
-                    ))}
-                  </select>
-                  <SelectArrow />
-                </div>
-              </div>
-              <div>
-                <label htmlFor="consult-time" className="block text-sm font-medium text-gray-600 mb-2">연락 가능한 시간</label>
-                <div className="relative">
-                  <select
-                    id="consult-time"
-                    name="availableTime"
-                    value={formData.availableTime}
-                    onChange={handleChange}
-                    disabled={isSubmitting}
-                    className={`${inputClass} appearance-none cursor-pointer`}
-                  >
-                    {TIMES.map((t) => (
-                      <option key={t} value={t}>{t}</option>
-                    ))}
-                  </select>
-                  <SelectArrow />
-                </div>
+                <p className="mt-2 text-xs text-gray-400 break-keep">상담 연락 외의 용도로 쓰지 않습니다.</p>
               </div>
             </div>
 
@@ -295,13 +219,13 @@ export const Consultation: React.FC = () => {
                 name="content"
                 value={formData.content}
                 onChange={handleChange}
-                rows={6}
+                rows={5}
                 required
                 minLength={10}
                 maxLength={1000}
                 disabled={isSubmitting}
                 className={`${inputClass} resize-none`}
-                placeholder="간략한 사건 개요를 적어주세요. (주민등록번호 등 민감 정보는 제외)"
+                placeholder="어떤 일인지 편하게 적어주세요. 두세 문장이면 충분합니다."
               ></textarea>
             </div>
 
@@ -325,7 +249,7 @@ export const Consultation: React.FC = () => {
               <details className="mt-2 ml-7 text-xs text-gray-500">
                 <summary className="cursor-pointer hover:text-brand-dark transition-colors">수집·이용 내용 보기</summary>
                 <div className="mt-2 space-y-1 leading-relaxed">
-                  <p>· 수집 항목: 이름, 연락처, 이메일, 상담 내용</p>
+                  <p>· 수집 항목: 이름(선택), 전화번호, 상담 내용</p>
                   <p>· 수집 목적: 상담 신청 접수 및 회신</p>
                   <p>· 보유 기간: 상담 처리 완료 후 지체 없이 파기 (관계 법령에 따른 보존 의무가 있는 경우 예외)</p>
                   <p>· 동의를 거부하실 수 있으나, 거부 시 온라인 상담 신청이 제한됩니다.</p>
@@ -371,13 +295,3 @@ export const Consultation: React.FC = () => {
     </section>
   );
 };
-
-function SelectArrow() {
-  return (
-    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-gray-500">
-      <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-      </svg>
-    </div>
-  );
-}

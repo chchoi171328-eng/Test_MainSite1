@@ -49,20 +49,13 @@ function sanitize(value: string): string {
 const SSN_PATTERN = /\d{6}\s*[-–]\s*[1-4]\d{6}/;
 
 // ---- 검증 스키마 ----
-const CATEGORIES = ['형사 변호', '민사 소송', '가사 / 상속', '부동산 / 건설', '기업 법무', '기타'] as const;
-const METHODS = ['방문 상담', '전화 상담'] as const;
-const TIMES = ['평일 오전', '평일 오후', '주말(예약제)', '무관'] as const;
-
+// 간소화 방침 (2026-08): 이름(선택)·전화번호(필수)·상담 내용(필수)만 받는다.
 const consultationSchema = z.object({
-  name: z.string().transform(sanitize).pipe(z.string().min(1, '이름을 입력해주세요.').max(20)),
+  name: z.string().transform(sanitize).pipe(z.string().max(20)).optional().default(''),
   phone: z
     .string()
     .transform(sanitize)
-    .pipe(z.string().regex(/^0\d{1,2}-\d{3,4}-\d{4}$/, '연락처 형식이 올바르지 않습니다.')),
-  email: z.string().transform(sanitize).pipe(z.string().email('이메일 형식이 올바르지 않습니다.').max(100)),
-  category: z.enum(CATEGORIES),
-  method: z.enum(METHODS),
-  availableTime: z.enum(TIMES),
+    .pipe(z.string().regex(/^0\d{1,2}-\d{3,4}-\d{4}$/, '전화번호 형식이 올바르지 않습니다.')),
   content: z
     .string()
     .transform(sanitize)
@@ -139,15 +132,6 @@ export async function POST(request: NextRequest) {
     }
 
     // ---- EmailJS REST API 서버 발송 ----
-    const message = [
-      data.content,
-      '',
-      '--- 추가 정보 ---',
-      `이메일: ${data.email}`,
-      `희망 상담 방식: ${data.method}`,
-      `연락 가능 시간: ${data.availableTime}`,
-    ].join('\n');
-
     const emailRes = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -157,10 +141,11 @@ export async function POST(request: NextRequest) {
         user_id: publicKey,
         ...(privateKey && { accessToken: privateKey }),
         template_params: {
-          from_name: data.name,
+          from_name: data.name || '이름 미기재',
           from_phone: data.phone,
-          category: data.category,
-          message,
+          // 분야 선택 필드 제거 — 기존 EmailJS 템플릿의 {{category}} 자리를 유지하기 위한 값
+          category: '온라인 상담',
+          message: data.content,
           to_email: 'sllaw@sllaw.co.kr',
         },
       }),
@@ -175,7 +160,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    console.log(`[consultation] accepted: category=${data.category} ip=${ip}`);
+    console.log(`[consultation] accepted: ip=${ip}`);
     return NextResponse.json({ ok: true });
   } catch (error) {
     console.error('[consultation] unexpected error:', error);
