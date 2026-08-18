@@ -140,11 +140,11 @@ export async function POST(request: NextRequest) {
         template_id: templateId,
         user_id: publicKey,
         ...(privateKey && { accessToken: privateKey }),
+        // 전송 파라미터는 name·phone·message 3개 (+ 수신처 라우팅용 to_email).
+        // 성함 미입력 시 빈 문자열 그대로 전송한다.
         template_params: {
-          from_name: data.name || '이름 미기재',
+          from_name: data.name,
           from_phone: data.phone,
-          // 분야 선택 필드 제거 — 기존 EmailJS 템플릿의 {{category}} 자리를 유지하기 위한 값
-          category: '온라인 상담',
           message: data.content,
           to_email: 'sllaw@sllaw.co.kr',
         },

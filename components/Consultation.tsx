@@ -180,7 +180,7 @@ export const Consultation: React.FC = () => {
 
             <div className="grid md:grid-cols-2 gap-6 md:gap-8">
               <div>
-                <label htmlFor="consult-name" className="block text-sm font-medium text-gray-600 mb-2">이름 <span className="text-gray-400 font-normal">(선택)</span></label>
+                <label htmlFor="consult-name" className="block text-sm font-medium text-gray-600 mb-2">성함 <span className="text-gray-400 font-normal">(선택)</span></label>
                 <input
                   id="consult-name"
                   type="text"
@@ -249,7 +249,7 @@ export const Consultation: React.FC = () => {
               <details className="mt-2 ml-7 text-xs text-gray-500">
                 <summary className="cursor-pointer hover:text-brand-dark transition-colors">수집·이용 내용 보기</summary>
                 <div className="mt-2 space-y-1 leading-relaxed">
-                  <p>· 수집 항목: 이름(선택), 전화번호, 상담 내용</p>
+                  <p>· 수집 항목: 성함(선택), 전화번호, 상담 내용</p>
                   <p>· 수집 목적: 상담 신청 접수 및 회신</p>
                   <p>· 보유 기간: 상담 처리 완료 후 지체 없이 파기 (관계 법령에 따른 보존 의무가 있는 경우 예외)</p>
                   <p>· 동의를 거부하실 수 있으나, 거부 시 온라인 상담 신청이 제한됩니다.</p>
