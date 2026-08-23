@@ -103,7 +103,22 @@
 | 4 | construction/statute-of-limitations | 2026-08-08 | 완료 — 아래 반영 내역 |
 | 5 | construction/construction-cost-appraisal | 2026-08-17 | 완료 — 아래 반영 내역 |
 
-**공사 분야 5편 검토 완료. 다음 분야는 변호사 지정 대기.**
+**공사 분야 1차 5편 검토 완료. 다음 검수 분야는 변호사 지정 대기.**
+
+### 2차 세트 작성 상태 (2026-08-23 지시: 공사→부동산 순, 유치권만 보류. 이후 한 편씩 보고·대기)
+
+| # | slug | 글자 수 | 이미지 | 상태 |
+|---|---|---|---|---|
+| 6 | construction/termination-settlement | 5,302 | 히어로+본문 1 (검증 통과) | 작성 완료 — 검수 대기 (noindex) |
+| 7 | construction/advance-payment-refund | 4,397 | 〃 | 〃 |
+| 8 | construction/delay-damages | 4,400 | 〃 | 〃 |
+| 9 | construction/subcontract-direct-payment | 4,307 | 〃 | 〃 |
+| 10 | construction/provisional-seizure | 4,123 | 〃 | 〃 |
+| 11 | construction/construction-lien | — | — | **사용자 지시로 보류** |
+
+- 신규 웹 검증: 민법 제673·665조 / 하도급법 제6·14조 / 건산법 제34조 제4항·제35조 / 근로기준법 제44조의3 / 국가계약법 시행규칙 제75조(공사 0.5/1000) / 민사집행법 제282·283조. 기검증 재사용: 민법 제543·544·548·551·163·168조, 민사집행법 제276·277·287·288조
+- 검수 유의(판례 영역 완충): 타절 편 해지 후 기성 정산 방향 서술 / 선급금-기성 정산 구조(당연충당 미언급) / 지체상금 예정액 초과 손해·감액 폭 / 재감정·직불 경합 국면 "사안별" 처리. 민법 제111조 제1항·제390조는 표준 조문으로 인용(직접 재검증 생략)
+- 관례 반영: H2 수동 번호 없음(렌더러 자동 번호), 캡션은 alt 텍스트로(Caption 컴포넌트 미사용 — figcaption/p 하이드레이션 오류)
 
 > 2026-08-17부터 검수 완료 = frontmatter에 `approved: true` 추가 (sitemap 검수 게이트, PR #37).
 > approved 없는 발행 가이드는 noindex + sitemap 제외 상태로 게시된다.
