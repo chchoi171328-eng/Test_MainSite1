@@ -88,6 +88,7 @@
 ## 이미지 파이프라인 메모
 
 - Artlist MCP GPT Image 2.0 (modelId 2340 medium 시안 검증 → 2341 high 최종), 편당 크레딧 약 1,500
+- **2026-08-23 방침 변경: high 재생성 생략, 검증 통과한 medium 시안을 그대로 최종 사용** — high 재생성본이 실사감이 떨어진다는 사용자 피드백(voice-phishing 편에서 교체). medium도 동일 2048×1152 원본이라 1600×900 변환에 품질 손실 없음. 편당 크레딧도 절반(300)으로 감소
 - 변환: PowerShell System.Drawing → 1600px JPG q85 → content/ + public/content-assets/ 쌍
 - **C: 스크래치패드에서 파일 손상 이슈 발생** → D:\...\.tmp-images 임시폴더로 우회 후 삭제하는 방식 사용
 
