@@ -37,6 +37,8 @@ export interface Guide {
   order: number;
   related: string[];
   tools: string[];
+  /** 주제 태그 — 특화 페이지 연결용 (예: "plant" = 플랜트 특화 페이지 우선 노출) */
+  tags: string[];
   /** 세부 페이지 §9에서 우선 노출 */
   featured: boolean;
   /**
@@ -148,6 +150,7 @@ export function getAllGuides(): Guide[] {
         order: typeof fm.order === 'number' ? fm.order : Number.MAX_SAFE_INTEGER,
         related: (fm.related as string[]) || [],
         tools: (fm.tools as string[]) || [],
+        tags: (fm.tags as string[]) || [],
         featured: fm.featured === true,
         approved: fm.approved === true,
         draft,

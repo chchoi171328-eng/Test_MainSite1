@@ -75,14 +75,15 @@ const SECONDARY_AREAS: AreaWithKeywords[] = [
   {
     id: '5',
     title: '건설·공사대금',
-    description: '공사 관련 분쟁을 다룹니다. GS건설·롯데건설 사내변호사 경력의 주력 분야입니다.',
+    description: '공사 관련 분쟁을 다룹니다. GS건설·롯데건설 사내변호사 경력의 주력 분야입니다. 플랜트 분쟁 포함.',
     icon: HardHat,
     href: '/practice/construction',
     question: '공사대금이나 하도급대금을 받지 못하고 계신가요?',
     keywords: [
       { label: '공사대금·하도급대금', slug: 'construction' },
       { label: '하자보수', slug: 'construction' },
-      { label: '건설 분쟁', slug: 'construction' },
+      // 플랜트 특화 페이지 직링크 (PLANT_PAGE_BRIEF 작업 3 — 태그 형태 부제)
+      { label: '플랜트 분쟁', href: '/practice/construction/plant' },
     ],
   },
   {

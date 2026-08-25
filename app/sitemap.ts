@@ -39,6 +39,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   }));
   staticPages.push(...practicePages);
 
+  // 플랜트 특화 페이지 — 건설 분야 내 특화 (9번째 분야 아님, PLANT_PAGE_BRIEF 작업 3)
+  staticPages.push({
+    url: `${SITE_URL}/practice/construction/plant`,
+    changeFrequency: 'monthly',
+    priority: 0.85,
+  });
+
   // 가이드 — 검수 게이트: frontmatter approved: true인 것만 sitemap에 포함한다.
   // (미승인 가이드는 페이지 접근은 가능하되 noindex — 검수 완료 시 approved를 단다)
   const guides = getAllGuides().filter((g) => !g.draft && g.approved);
