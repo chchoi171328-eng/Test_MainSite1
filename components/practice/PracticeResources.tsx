@@ -14,8 +14,10 @@ export function PracticeResources({ field, preferTag }: { field: FieldKey; prefe
   let guides = getGuidesForPractice(field, 4);
 
   if (preferTag) {
+    // tags 조회가 0건이거나 필드가 비어 있어도 예외 없이 분야 일반 가이드로 폴백한다
+    // (PLANT_PAGE_BRIEF 작업 3 — 빈 배열 처리 필수)
     const tagged = getAllGuides().filter(
-      (g) => g.field === field && !g.draft && g.tags.includes(preferTag),
+      (g) => g.field === field && !g.draft && (g.tags ?? []).includes(preferTag),
     );
     if (tagged.length > 0) {
       guides = [...tagged, ...guides.filter((g) => !tagged.some((t) => t.slug === g.slug))].slice(0, 4);
