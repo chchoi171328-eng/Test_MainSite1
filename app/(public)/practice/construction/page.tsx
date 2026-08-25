@@ -85,15 +85,6 @@ export default async function ConstructionPage() {
         />
       </PSection>
 
-      {/* 플랜트 특화 페이지 연결 블록 (PLANT_PAGE_BRIEF 작업 2 — 다루는 사건 목록 뒤) */}
-      <PSection tinted title="플랜트 공사는 별도로 다룹니다">
-        <PBody>
-          사우디·쿠웨이트 화공 플랜트 현장에서 분쟁 관리를 해본 경험으로, EPC 계약 구조의
-          분쟁(공기지연·성능보증)을 다룹니다.
-        </PBody>
-        <MoreLink href="/practice/construction/plant">플랜트 분쟁 자세히 보기 →</MoreLink>
-      </PSection>
-
       {/* §4 타임라인 — 4단계 */}
       <PSection
         title="공사대금 분쟁은 이렇게 진행됩니다"
@@ -149,6 +140,8 @@ export default async function ConstructionPage() {
           평택과 인근 산업단지에서 공장·플랜트 공사에 얽힌 분쟁이 있다면, 계약 구조부터 함께
           보겠습니다.
         </PBody>
+        {/* 플랜트 특화 페이지 링크 (PLANT_PAGE_BRIEF 작업 2 개정 — 별도 블록 없이 이 섹션 말미에) */}
+        <MoreLink href="/practice/construction/plant">플랜트 분쟁 자세히 보기 →</MoreLink>
       </PSection>
 
       {/* §6 FAQ */}
