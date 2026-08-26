@@ -201,6 +201,8 @@ export default function PlantPage() {
             { text: '설계변경 지시의 근거 (문서·메일·메신저)' },
             { text: '현장 변경 지시서(Field Change Order)와 그 처리 경과' },
             { text: '주요 기자재의 구매 발주서(Purchase Order)와 현장 반입 기록' },
+            { text: '시운전(Commissioning) 일지와 단계별 확인서 (기계적 준공·시운전 개시 등)' },
+            { text: '펀치리스트(Punch List)와 그 처리 경과' },
             { text: '성능시험 성적서와 시험 조건 합의 문서' },
           ]}
         />
