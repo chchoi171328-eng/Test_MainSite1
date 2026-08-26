@@ -140,6 +140,8 @@ export default async function ConstructionPage() {
           평택과 인근 산업단지에서 공장·플랜트 공사에 얽힌 분쟁이 있다면, 계약 구조부터 함께
           보겠습니다.
         </PBody>
+        {/* 플랜트 특화 페이지 링크 (PLANT_PAGE_BRIEF 작업 2 개정 — 별도 블록 없이 이 섹션 말미에) */}
+        <MoreLink href="/practice/construction/plant">플랜트 분쟁 자세히 보기 →</MoreLink>
       </PSection>
 
       {/* §6 FAQ */}

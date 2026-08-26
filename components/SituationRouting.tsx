@@ -6,6 +6,7 @@ import { ArrowRight } from 'lucide-react';
  * 홈 "어떤 상황이신가요?" 섹션 (라우팅 지침 작업 1, 방식 A)
  * - 홈 전용: 히어로 바로 아래, 철학 섹션 위. 다른 페이지에 렌더링하지 않는다.
  * - 상황문 카피·순서·링크는 FIELD_MASTER_PLAN §1-4 고정 — 행 추가·순서 변경·문구 수정 금지.
+ *   (예외: 플랜트 행은 PLANT_PAGE_BRIEF 작업 3에 따라 건설 항목 다음에 추가 — 2026-08)
  */
 const SITUATIONS: { text: string; field: string | null; href: string }[] = [
   { text: '경찰 조사를 앞두고 있거나, 가족이 조사를 받고 있습니다', field: '형사', href: '/practice/criminal' },
@@ -16,6 +17,7 @@ const SITUATIONS: { text: string; field: string | null; href: string }[] = [
   { text: '상속 분쟁이 있거나, 돌아가신 분의 빚이 걱정됩니다', field: '상속', href: '/practice/inheritance' },
   { text: '임대차·매매·토지 등 부동산 문제가 있습니다', field: '부동산', href: '/practice/real-estate' },
   { text: '공사대금·하도급대금 분쟁이 있습니다', field: '건설', href: '/practice/construction' },
+  { text: '플랜트 공사에서 공사대금이나 공기지연, 설계변경 문제로 다투고 있습니다', field: '건설·플랜트', href: '/practice/construction/plant' },
 ];
 
 export const SituationRouting: React.FC = () => {

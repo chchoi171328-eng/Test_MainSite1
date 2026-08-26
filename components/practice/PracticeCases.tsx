@@ -14,19 +14,31 @@ import { PSection, MoreLink } from './PracticeShared';
 export function PracticeCases({
   cases,
   field,
+  tag,
 }: {
   cases: CaseItem[];
   /** 업무분야 키 (lib/fields.ts CaseField, 예: 'criminal') — 필터·전체 보기 링크에 사용 */
   field: CaseField;
+  /**
+   * 특화 페이지용 — 이 태그가 붙은 사례만 노출한다 (field 대신 태그로 매칭).
+   * 태그 사례가 0건이면 예외 없이 섹션을 숨긴다 (PLANT_PAGE_BRIEF §3-3).
+   * 태그 사례는 여러 분야에 걸치므로 "전체 보기"는 분야 한정 없이 /cases로 보낸다.
+   */
+  tag?: string;
 }) {
   // getAllCases()가 이미 날짜 역순이므로 featured 우선 안정 정렬만 얹는다
-  const matched = cases.filter((c) => c.field === field);
+  // (특화 페이지의 노출 우선순위는 해당 사례 frontmatter의 featured로 제어한다)
+  const matched = tag
+    ? cases.filter((c) => (c.tags ?? []).includes(tag))
+    : cases.filter((c) => c.field === field);
   const fieldCases = [...matched.filter((c) => c.featured), ...matched.filter((c) => !c.featured)].slice(0, 3);
 
   // 가사(이혼·상속) 사례 미게시 방침 (2026-08): 이 두 분야만 0건 자동 숨김 대신
   // 방침 블록을 표시한다 (no-cases-preview.html 시안 A — 라이트 스테이트먼트 박스).
   // 나머지 분야의 자동 숨김 로직은 그대로.
   if (fieldCases.length === 0) {
+    // 태그 모드(특화 페이지)는 방침 블록 대상이 아니다 — 무조건 숨김
+    if (tag) return null;
     if (field === 'divorce' || field === 'inheritance') {
       return (
         <PSection title="이 분야의 성공사례">
@@ -58,7 +70,11 @@ export function PracticeCases({
           </Link>
         ))}
       </div>
-      <MoreLink href={`/cases?field=${encodeURIComponent(field)}`}>이 분야 사례 전체 보기 →</MoreLink>
+      {tag ? (
+        <MoreLink href="/cases">성공사례 전체 보기 →</MoreLink>
+      ) : (
+        <MoreLink href={`/cases?field=${encodeURIComponent(field)}`}>이 분야 사례 전체 보기 →</MoreLink>
+      )}
     </PSection>
   );
 }

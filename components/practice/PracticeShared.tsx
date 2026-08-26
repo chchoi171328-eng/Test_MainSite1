@@ -257,8 +257,11 @@ export function ResourceList({
   );
 }
 
-/** §10 CTA — 다크 배경, 리드 + 전화/온라인 버튼 + 지역 문구 */
-export function PracticeCta({ lead }: { lead: React.ReactNode }) {
+/**
+ * §10 CTA — 다크 배경, 리드 + 전화/온라인 버튼 + 지역 문구
+ * note: 하단 지역 안내 문구 override (특화 페이지 전용 — 미지정 시 공통 문구 유지)
+ */
+export function PracticeCta({ lead, note }: { lead: React.ReactNode; note?: React.ReactNode }) {
   return (
     <div className="bg-brand-dark py-[60px]">
       <PWrap>
@@ -282,8 +285,12 @@ export function PracticeCta({ lead }: { lead: React.ReactNode }) {
           </Link>
         </div>
         <div className="mt-6 text-[12.5px] text-white/50 leading-[1.8] max-w-[620px] break-keep">
-          법무법인 명(SOL &amp; LUNA)은 경기도 평택시 소재 법무법인으로, 필요할 때 바로 만나고 법원에
-          직접 출석할 수 있는 평택·안성·오산·아산 지역의 사건을 상담합니다.
+          {note ?? (
+            <>
+              법무법인 명(SOL &amp; LUNA)은 경기도 평택시 소재 법무법인으로, 필요할 때 바로 만나고
+              법원에 직접 출석할 수 있는 평택·안성·오산·아산 지역의 사건을 상담합니다.
+            </>
+          )}
         </div>
       </PWrap>
     </div>
