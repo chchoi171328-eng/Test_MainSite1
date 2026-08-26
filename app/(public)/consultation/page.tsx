@@ -5,7 +5,7 @@ import { Consultation } from '../../../components/Consultation';
 export const metadata: Metadata = {
   title: '온라인 상담 신청',
   description:
-    '법무법인 명 온라인 상담 신청. 사소한 질문이라도 괜찮습니다. 상담 후 의뢰하지 않으셔도 됩니다. 대표변호사 법률상담은 최대 60분 150,000원(VAT 포함), 30분 이내에 끝나면 100,000원만 받습니다.',
+    '법무법인 명 온라인 상담 신청. 사소한 질문이라도 괜찮습니다. 상담 후 의뢰하지 않으셔도 됩니다. 대표변호사 법률상담은 60분 기준 150,000원(VAT 포함), 30분 이내에 끝나면 100,000원만 받습니다.',
   alternates: { canonical: '/consultation' },
 };
 

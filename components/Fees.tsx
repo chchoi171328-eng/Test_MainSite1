@@ -120,7 +120,7 @@ export const Fees: React.FC = () => {
         {/* 표준 상담료 블록 — 정본 (FIELD_MASTER_PLAN 상담료 개편) */}
         <div className="mb-4 border border-gray-200 bg-gray-50 p-5 rounded-sm text-gray-600 space-y-1 break-keep">
           <p className="font-bold text-brand-dark">대표변호사 법률상담</p>
-          <p className="text-brand-dark font-medium">최대 60분 · 150,000원 (VAT 포함)</p>
+          <p className="text-brand-dark font-medium">60분 기준 · 150,000원 (VAT 포함)</p>
           <p>상담이 30분 이내에 끝나면 100,000원만 받습니다.</p>
           <p>사실관계와 자료를 확인하고, 법적 쟁점과 대응 방향을 말씀드립니다.</p>
           <p className="text-sm text-gray-500 pt-1">예약제로 운영되며, 한국어·영어 상담 동일 요금입니다.</p>
