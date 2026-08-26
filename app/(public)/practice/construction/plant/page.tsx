@@ -198,8 +198,10 @@ export default function PlantPage() {
             { text: '공문·레터 수발신 대장' },
             { text: '회의록(MOM)' },
             { text: '지연 사유 발생 시점의 기록 (사진·계측·지시)' },
-            { text: '성능시험 성적서와 시험 조건 합의 문서' },
             { text: '설계변경 지시의 근거 (문서·메일·메신저)' },
+            { text: '현장 변경 지시서(Field Change Order)와 그 처리 경과' },
+            { text: '주요 기자재의 구매 발주서(Purchase Order)와 현장 반입 기록' },
+            { text: '성능시험 성적서와 시험 조건 합의 문서' },
           ]}
         />
       </PSection>
