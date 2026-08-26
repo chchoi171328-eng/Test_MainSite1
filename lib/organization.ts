@@ -18,7 +18,7 @@ export const ORG = {
   telephoneIntl: '+82-31-658-6100',
   email: 'sllaw@sllaw.co.kr',
   founder: '최철호',
-  areaServed: ['평택시', '안성시', '오산시', '아산시'],
+  areaServed: ['평택시', '수원시', '안성시', '오산시', '아산시'],
   openingHours: '평일 09:00-18:00, 주말/공휴일 예약제',
   englishSiteUrl: 'https://www.lsfp.co.kr/',
   // TODO: 네이버 플레이스, Google 비즈니스 프로필, 유튜브 등 공식 프로필 URL 확정 시 추가 (사용자 확인 필요)

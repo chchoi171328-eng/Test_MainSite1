@@ -21,6 +21,7 @@ interface ServiceArea {
 }
 
 const SERVICE_AREAS: ServiceArea[] = [
+  { slug: 'suwon', name: '수원' },
   { slug: 'anseong', name: '안성' },
   { slug: 'osan', name: '오산' },
   { slug: 'asan', name: '아산' },
@@ -78,7 +79,7 @@ export default function ServiceAreaPage({ params }: Props) {
 
           {/* 지침 6단계 지정 문구 — 지점이 있는 것처럼 표현하지 않는다 */}
           <p className="text-lg text-gray-600 leading-relaxed break-keep mb-6">
-            법무법인 명은 평택 사무실에서 안성·오산·아산 지역의
+            법무법인 명은 평택 사무실에서 수원·안성·오산·아산 지역의
             부동산, 건설, 민사 및 형사 사건을 상담합니다.
           </p>
           <p className="text-gray-600 leading-relaxed break-keep mb-12">
