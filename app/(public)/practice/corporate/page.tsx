@@ -38,7 +38,7 @@ export default async function CorporatePage() {
     <>
       <PracticeHeader
         crumb="기업 법무"
-        title="회사가 분쟁에 휘말렸을 때 — 사내변호사를 해본 변호사가 다룹니다."
+        title="기업 법무 — 회사의 분쟁을 사내에서 다뤄본 변호사가 수행합니다."
         sub="대금, 하도급, 노무, 중대재해. 회사의 분쟁은 개인의 소송과 다르게 움직입니다."
       />
 
