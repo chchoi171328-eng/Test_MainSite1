@@ -18,6 +18,7 @@ const SITUATIONS: { text: string; field: string | null; href: string }[] = [
   { text: '임대차·매매·토지 등 부동산 문제가 있습니다', field: '부동산', href: '/practice/real-estate' },
   { text: '공사대금·하도급대금 분쟁이 있습니다', field: '건설', href: '/practice/construction' },
   { text: '플랜트 공사에서 공사대금이나 공기지연, 설계변경 문제로 다투고 있습니다', field: '건설·플랜트', href: '/practice/construction/plant' },
+  { text: '하도급대금이 깎이거나 부당한 계약 조건을 요구받고 있습니다', field: '기업', href: '/practice/corporate' },
 ];
 
 export const SituationRouting: React.FC = () => {
