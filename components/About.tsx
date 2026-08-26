@@ -192,7 +192,7 @@ export const About: React.FC = () => {
                 {/* 지역 정체성 명시 — 서울 서초 소재 동명 법인과의 구분 (지침 7단계 v2) */}
                 <p className="mt-4 text-sm text-gray-500 leading-relaxed break-keep">
                   법무법인 명(SOL &amp; LUNA)은 경기도 평택시 소재 법무법인으로,
-                  평택·안성·오산·아산 지역의 사건을 상담합니다.
+                  평택·수원·안성·오산·아산 지역의 사건을 상담합니다.
                 </p>
               </div>
             </div>

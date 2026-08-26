@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 };
 
 const SERVICE_AREAS = [
+  { slug: 'suwon', name: '수원' },
   { slug: 'anseong', name: '안성' },
   { slug: 'osan', name: '오산' },
   { slug: 'asan', name: '아산' },
@@ -47,7 +48,7 @@ export default function PyeongtaekPage() {
             법무법인 명 평택 사무실
           </h1>
           <p className="text-gray-600 leading-relaxed break-keep mb-12 max-w-2xl">
-            법무법인 명은 경기도 평택시에 있습니다. 평택을 중심으로 안성·오산·아산 지역의
+            법무법인 명은 경기도 평택시에 있습니다. 평택을 중심으로 수원·안성·오산·아산 지역의
             사건을 평택 사무실에서 상담합니다.
           </p>
 
@@ -164,7 +165,7 @@ export default function PyeongtaekPage() {
           <div className="mb-16">
             <h2 className="text-2xl font-serif font-bold text-brand-dark mb-4">인접 지역 상담 안내</h2>
             <p className="text-gray-600 break-keep mb-6">
-              법무법인 명은 평택 사무실에서 안성·오산·아산 지역의 부동산, 건설, 민사 및 형사 사건을 상담합니다.
+              법무법인 명은 평택 사무실에서 수원·안성·오산·아산 지역의 부동산, 건설, 민사 및 형사 사건을 상담합니다.
             </p>
             <div className="flex flex-wrap gap-3">
               {SERVICE_AREAS.map((area) => (
