@@ -13,6 +13,8 @@ import {
   PracticeCta,
 } from '../../../../../components/practice/PracticeShared';
 import { PracticeResources } from '../../../../../components/practice/PracticeResources';
+import { PracticeCases } from '../../../../../components/practice/PracticeCases';
+import { getAllCases } from '../../../../../lib/cases';
 
 export const revalidate = 300;
 
@@ -30,6 +32,8 @@ export const metadata: Metadata = {
 };
 
 export default function PlantPage() {
+  const cases = getAllCases();
+
   return (
     <>
       {/* §1 헤드라인 — 카피 정본 (PLANT_PAGE_BRIEF) */}
@@ -207,6 +211,9 @@ export default function PlantPage() {
           ]}
         />
       </PSection>
+
+      {/* §3-3 이 분야의 성공사례 — tags:["plant"] 사례만, 0건이면 예외 없이 숨김 */}
+      <PracticeCases cases={cases} field="construction" tag="plant" />
 
       {/* §4 수임료 — 기존 기준 참조 (새 숫자를 만들지 않는다) */}
       <PSection title="수임료" lead="비용을 처음부터 알려드립니다.">

@@ -44,6 +44,11 @@ export interface CaseItem {
   judgmentFormat?: 'pdf' | 'image';
   /** practice 페이지 "이 분야의 성공사례" 우선 노출 (frontmatter featured: true) */
   featured: boolean;
+  /**
+   * 주제 태그 — 특화 페이지 노출용 (예: "plant").
+   * field는 그대로 두고 태그로만 걸리므로, 원 분야 필터에는 영향이 없다.
+   */
+  tags: string[];
   /** 언더스코어 폴더 = 배포 제외 더미 */
   draft: boolean;
   /** HTML 본문 */
@@ -94,6 +99,7 @@ export function getAllCases(): CaseItem[] {
           : 'image'
         : undefined,
       featured: fm.featured === true,
+      tags: Array.isArray(fm.tags) ? (fm.tags as string[]) : [],
       draft,
       body: parsed.content.trim(),
     });
