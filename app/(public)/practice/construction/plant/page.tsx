@@ -69,9 +69,10 @@ export default function PlantPage() {
       <PSection title="이런 상황이라면" lead="하나라도 해당된다면, 이 페이지가 도움이 됩니다.">
         <SituationList
           items={[
-            { text: '발주처로부터 지체상금(LD)을 공제하겠다는 통보를 받았다' },
-            { text: '공기연장(EOT)을 신청해야 하는데 지연 사유가 정리되어 있지 않다' },
+            { text: '발주처로부터 지체상금(LD)을 부과하겠다는 통보를 받았다' },
+            { text: '공기연장(EOT)을 신청해야 하는데 계약서가 불리하게 작성되어 있는 것 같다' },
             { text: '설계변경·추가 작업을 했는데 정산에서 인정받지 못하고 있다' },
+            { text: '클레임 레터를 써야 하는데 적절히 쓰기가 어렵다' },
             { text: '성능시험 결과를 두고 발주처와 다툼이 생겼다' },
             { text: '기성·잔금 지급이 밀리고 있다' },
             { text: '해외 발주처로부터 영문 클레임 서신을 받았다' },
@@ -119,12 +120,12 @@ export default function PlantPage() {
             {
               text: (
                 <>
-                  <b className="font-medium text-brand-dark">하도급대금</b> — 원청 도산·지급 지체 시
-                  직접청구. 단가 인하·부당특약 등 하도급법 규제 대응은{' '}
+                  <b className="font-medium text-brand-dark">하도급법 문제</b> — 서면 미교부 상태의
+                  작업지시, 단가인하, 부당특약 등. 공정위 절차 대응은{' '}
                   <Link href="/practice/corporate" className="underline decoration-[#d8cfc0] underline-offset-2 hover:text-brand-gold">
                     기업 법무
                   </Link>
-                  에서 다룹니다.
+                  에서 함께 다룹니다.
                 </>
               ),
             },
