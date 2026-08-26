@@ -154,7 +154,7 @@ export const Consultation: React.FC = () => {
 
           {/* 필수 안내 (지침 8단계) */}
           <div className="mb-10 border border-gray-200 bg-gray-50 p-5 rounded-sm text-sm text-gray-600 space-y-2 leading-relaxed break-keep">
-            <p>· 초기 상담은 유료입니다. 상담료는 30분 100,000원(VAT 포함)이며, 사건을 수행할 변호사가 직접 예약제로 진행합니다. 한국어·영어 상담 동일 요금이며, 정확한 안내는 접수 후 연락드릴 때 함께 드립니다.</p>
+            <p>· 초기 상담은 유료입니다. 대표변호사 법률상담은 최대 60분 150,000원(VAT 포함)이며, 상담이 30분 이내에 끝나면 100,000원만 받습니다. 사실관계와 자료를 확인하고, 법적 쟁점과 대응 방향을 말씀드립니다. 예약제로 진행되고 한국어·영어 상담 동일 요금이며, 정확한 안내는 접수 후 연락드릴 때 함께 드립니다.</p>
             <p>· 상담 신청 접수만으로 위임계약이 성립하지 않습니다. 사건 수임은 상담 후 별도의 위임계약으로 진행됩니다.</p>
             <p className="flex items-start gap-2 text-red-700">
               <AlertTriangle size={16} className="mt-0.5 shrink-0" />
