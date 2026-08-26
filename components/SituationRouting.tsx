@@ -17,7 +17,7 @@ const SITUATIONS: { text: string; field: string | null; href: string }[] = [
   { text: '상속 분쟁이 있거나, 돌아가신 분의 빚이 걱정됩니다', field: '상속', href: '/practice/inheritance' },
   { text: '임대차·매매·토지 등 부동산 문제가 있습니다', field: '부동산', href: '/practice/real-estate' },
   { text: '공사대금·하도급대금 분쟁이 있습니다', field: '건설', href: '/practice/construction' },
-  { text: '플랜트 공사에서 공사대금이나 공기지연, 성능보증 문제로 다투고 있습니다', field: '건설·플랜트', href: '/practice/construction/plant' },
+  { text: '플랜트 공사에서 공사대금이나 공기지연, 설계변경 문제로 다투고 있습니다', field: '건설·플랜트', href: '/practice/construction/plant' },
 ];
 
 export const SituationRouting: React.FC = () => {
