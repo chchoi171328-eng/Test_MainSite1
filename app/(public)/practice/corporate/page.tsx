@@ -38,15 +38,12 @@ export default async function CorporatePage() {
     <>
       <PracticeHeader
         crumb="기업 법무"
-        title="기업 법무"
-        sub="회사가 분쟁에 휘말렸을 때 — 사내변호사를 해본 변호사가 다룹니다."
+        title="회사가 분쟁에 휘말렸을 때 — 사내변호사를 해본 변호사가 다룹니다."
+        sub="대금, 하도급, 노무, 중대재해. 회사의 분쟁은 개인의 소송과 다르게 움직입니다."
       />
 
       {/* §2 도입 — 분쟁 중심 재정의 (CORPORATE_PAGE_BRIEF 작업 1) */}
       <PSection>
-        <PBody className="!font-medium !text-brand-dark">
-          대금, 하도급, 노무, 중대재해. 회사의 분쟁은 개인의 소송과 다르게 움직입니다.
-        </PBody>
         <PBody>
           거래를 끊을 수 없는 상대에게 돈을 받아내야 하고, 소송 한 건이 다음 수주에 영향을 줍니다.
           담당자는 대표에게 보고할 판단 근거가 필요하고, 결정은 법리만이 아니라 거래 관계와 비용을
