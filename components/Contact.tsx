@@ -1,6 +1,7 @@
 import React from 'react';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { TrackedLink } from './TrackedLink';
+import { CallLink } from './CallLink';
 
 export const Contact: React.FC = () => {
   // 홈·오시는 길 양쪽에서 쓰인다. 전용 페이지에서는 PageHeader가 h1을 담당하므로
@@ -38,7 +39,7 @@ export const Contact: React.FC = () => {
                 </div>
                 <div>
                   <h3 className="text-lg font-bold mb-1">Phone</h3>
-                  <TrackedLink href="tel:0316586100" event="call_click" eventParams={{ location: 'contact' }} className="text-gray-400 font-light group-hover:text-white transition-colors">031-658-6100</TrackedLink>
+                  <CallLink location="contact" className="text-gray-400 font-light group-hover:text-white transition-colors">031-658-6100</CallLink>
                 </div>
               </div>
 

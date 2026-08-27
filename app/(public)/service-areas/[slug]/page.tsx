@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { ArrowRight, ChevronRight, MapPin, Phone } from 'lucide-react';
 import { JsonLd } from '../../../../components/JsonLd';
-import { TrackedLink } from '../../../../components/TrackedLink';
+import { CallLink } from '../../../../components/CallLink';
 import { ORG, SITE_URL } from '../../../../lib/organization';
 
 /**
@@ -114,14 +114,12 @@ export default function ServiceAreaPage({ params }: Props) {
             >
               온라인 상담 신청 <ArrowRight size={18} />
             </Link>
-            <TrackedLink
-              href="tel:0316586100"
-              event="call_click"
-              eventParams={{ location: 'service_area' }}
+            <CallLink
+              location="service_area"
               className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-brand-dark text-brand-dark font-bold rounded-sm hover:bg-brand-dark hover:text-white transition-all"
             >
               <Phone size={18} /> {ORG.telephone}
-            </TrackedLink>
+            </CallLink>
           </div>
         </div>
       </section>
