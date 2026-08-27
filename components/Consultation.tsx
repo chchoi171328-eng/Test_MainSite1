@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Send, Loader2, AlertTriangle } from 'lucide-react';
-import { trackEvent } from '../lib/analytics';
+import { trackEvent, trackNaverConversion } from '../lib/analytics';
 
 // 간소화 방침 (2026-08): "전화할 번호 + 무슨 일인지"만 받는다.
 // 이름(선택)·전화번호(필수)·상담 내용(필수) 3개 필드 — 분야·방식·시간·이메일 제거.
@@ -85,7 +85,9 @@ export const Consultation: React.FC = () => {
       const result = await response.json().catch(() => ({ ok: false }));
 
       if (response.ok && result.ok) {
+        // GA4 전환 + 네이버 CTS lead — 같은 지점에서 나란히 발화
         trackEvent('consult_submit');
+        trackNaverConversion('lead');
         setSubmitStatus('sent');
         setFormData(INITIAL_FORM);
         setPrivacyAgreed(false);

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { TrackedLink } from '../components/TrackedLink';
+import { CallLink } from '../components/CallLink';
 
 export default function NotFound() {
   return (
@@ -35,14 +35,12 @@ export default function NotFound() {
       {/* 구 사이트에서 넘어온 방문자가 바로 연락할 수 있게 (DOMAIN_LAUNCH_BRIEF A-4) */}
       <p className="mt-10 text-sm text-gray-500 text-center break-keep">
         찾으시는 내용이 있으면 바로 문의해 주세요.{' '}
-        <TrackedLink
-          href="tel:0316586100"
-          event="call_click"
-          eventParams={{ location: 'not_found' }}
+        <CallLink
+          location="not_found"
           className="font-bold text-brand-dark hover:text-brand-gold transition-colors"
         >
           031-658-6100
-        </TrackedLink>
+        </CallLink>
       </p>
     </div>
   );

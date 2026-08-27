@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Phone } from 'lucide-react';
 import { trackEvent } from '../lib/analytics';
+import { CallLink } from './CallLink';
 
 /**
  * 모바일 전용 하단 고정 액션 바 (mobile-actionbar-preview.html 시안) — 구 원형
@@ -14,14 +15,13 @@ import { trackEvent } from '../lib/analytics';
 export const MobileActionBar: React.FC = () => {
   return (
     <div className="md:hidden fixed bottom-0 inset-x-0 z-40 flex bg-white shadow-[0_-4px_16px_rgba(20,25,35,0.08)] pb-[env(safe-area-inset-bottom)]">
-      <a
-        href="tel:0316586100"
-        onClick={() => trackEvent('call_click', { location: 'action_bar' })}
+      <CallLink
+        location="action_bar"
         className="flex-1 flex items-center justify-center gap-[7px] h-[54px] bg-white border-t border-[#e7e3db] text-[#1e3a5f] text-[14.5px] font-medium"
       >
         <Phone size={16} />
         031-658-6100
-      </a>
+      </CallLink>
       <Link
         href="/consultation"
         onClick={() => trackEvent('booking_click', { location: 'action_bar' })}

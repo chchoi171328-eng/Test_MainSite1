@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { ArrowRight, Phone, Scale, ExternalLink } from 'lucide-react';
 import { JsonLd } from '../../../../components/JsonLd';
 import { TrackedLink } from '../../../../components/TrackedLink';
+import { CallLink } from '../../../../components/CallLink';
 import { buildAttorneyJsonLd, SITE_URL } from '../../../../lib/organization';
 import { getAllCases } from '../../../../lib/cases';
 import { getAllGuides, FIELD_LABELS } from '../../../../lib/content';
@@ -224,14 +225,12 @@ export default async function AttorneyProfilePage() {
               >
                 온라인 상담 신청 <ArrowRight size={18} />
               </Link>
-              <TrackedLink
-                href="tel:0316586100"
-                event="call_click"
-                eventParams={{ location: 'attorney_profile' }}
+              <CallLink
+                location="attorney_profile"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-brand-dark text-brand-dark font-bold rounded-sm hover:bg-brand-dark hover:text-white transition-all"
               >
                 <Phone size={18} /> 031-658-6100
-              </TrackedLink>
+              </CallLink>
               <TrackedLink
                 href="https://www.lsfp.co.kr/"
                 target="_blank"

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { MapPin, Phone, Clock, ChevronRight, ArrowRight, MessageSquare } from 'lucide-react';
 import { JsonLd } from '../../../../components/JsonLd';
-import { TrackedLink } from '../../../../components/TrackedLink';
+import { CallLink } from '../../../../components/CallLink';
 import { ORG, SITE_URL } from '../../../../lib/organization';
 import { FIELDS, FIELD_LABELS } from '../../../../lib/content';
 
@@ -73,9 +73,9 @@ export default function PyeongtaekPage() {
                 </div>
                 <div>
                   <h2 className="font-bold text-brand-dark mb-1">전화</h2>
-                  <TrackedLink href="tel:0316586100" event="call_click" eventParams={{ location: 'pyeongtaek_page' }} className="text-gray-600 hover:text-brand-gold transition-colors">
+                  <CallLink location="pyeongtaek_info" className="text-gray-600 hover:text-brand-gold transition-colors">
                     {ORG.telephone}
-                  </TrackedLink>
+                  </CallLink>
                 </div>
               </div>
 
@@ -189,14 +189,12 @@ export default function PyeongtaekPage() {
               >
                 온라인 상담 신청 <ArrowRight size={18} />
               </Link>
-              <TrackedLink
-                href="tel:0316586100"
-                event="call_click"
-                eventParams={{ location: 'pyeongtaek_page' }}
+              <CallLink
+                location="pyeongtaek_cta"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 border border-brand-dark text-brand-dark font-bold rounded-sm hover:bg-brand-dark hover:text-white transition-all"
               >
                 <Phone size={18} /> {ORG.telephone}
-              </TrackedLink>
+              </CallLink>
             </div>
           </div>
         </div>

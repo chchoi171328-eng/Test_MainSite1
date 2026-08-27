@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { JsonLd } from '../JsonLd';
-import { TrackedLink } from '../TrackedLink';
+import { CallLink } from '../CallLink';
 
 /** 세부 페이지 공통 컨테이너 (미리보기 .wrap = 880px) */
 export function PWrap({ children }: { children: React.ReactNode }) {
@@ -269,14 +269,12 @@ export function PracticeCta({ lead, note }: { lead: React.ReactNode; note?: Reac
           {lead}
         </div>
         <div className="flex gap-3 mt-6 flex-wrap">
-          <TrackedLink
-            href="tel:0316586100"
-            event="call_click"
-            eventParams={{ location: 'practice_cta' }}
+          <CallLink
+            location="practice_cta"
             className="font-serif text-lg text-white border border-white/35 py-[11px] px-[22px] rounded-sm no-underline hover:border-white/70 transition-colors"
           >
             031-658-6100
-          </TrackedLink>
+          </CallLink>
           <Link
             href="/consultation"
             className="bg-brand-gold text-white text-sm font-bold py-[13px] px-6 rounded-sm no-underline flex items-center hover:bg-opacity-90 transition-colors"
