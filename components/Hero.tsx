@@ -10,7 +10,7 @@ export const Hero: React.FC = () => {
       <div className="absolute inset-0 z-0">
         <Image
           src="/assets/brand/hero-court-view.webp"
-          alt="법무법인 명 사무실에서 바라본 수원지방법원 평택지원과 수원지방검찰청 평택지청"
+          alt="법무법인 명 사무실에서 바라본 수원지방법원 평택지원과 수원지방공소청 평택지청"
           fill
           priority
           sizes="100vw"
@@ -62,7 +62,7 @@ export const Hero: React.FC = () => {
       <p className="absolute z-[11] right-[14px] bottom-3 sm:right-5 sm:bottom-4 max-w-[78%] sm:max-w-none text-[10.5px] sm:text-[11.5px] font-light tracking-[.02em] leading-[1.5] text-right text-white/55">
         사무실에서 바라본{' '}
         <br className="sm:hidden" />
-        수원지방검찰청 평택지청 · 수원지방법원 평택지원
+        수원지방공소청 평택지청 · 수원지방법원 평택지원
       </p>
     </section>
   );
