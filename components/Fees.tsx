@@ -31,7 +31,7 @@ const FEE_ROWS: FeeRow[] = [
     href: '/practice/corporate',
     range: '자문료 시간당 25만 원',
     footnote:
-      '착수 전에 예상 시간과 총액을 먼저 안내드립니다. 기업 분쟁 사건(대금·하도급·노무)은 민사 소송 착수금 기준을 따릅니다.',
+      '착수 전에 예상 시간과 총액을 먼저 안내드립니다. 월 정기자문은 아래에 따로 안내합니다. 기업 분쟁 사건(대금·하도급·노무)은 민사 소송 착수금 기준을 따릅니다.',
     note: '계약서 검토·작성, 자문 / 분쟁 사건은 민사 기준',
   },
 ];
@@ -92,6 +92,32 @@ export const Fees: React.FC = () => {
           위 금액은 부가세 별도입니다.
         </p>
 
+        {/* 기업 자문 — 시간당 / 월 정기자문 (2026-11 추가) */}
+        <div className="mb-12 border border-gray-200 border-t-[3px] border-t-brand-dark bg-white p-6 md:p-7">
+          <p className="font-bold text-brand-dark mb-4">기업 자문</p>
+          <div className="space-y-5 text-gray-600 font-light leading-relaxed break-keep">
+            <div className="space-y-1">
+              <p className="text-brand-dark font-medium">시간당 250,000원 (VAT 별도)</p>
+              <p>필요한 때 필요한 만큼 의뢰하는 방식입니다.</p>
+            </div>
+            <div className="space-y-3">
+              <p className="text-brand-dark font-medium">월 정기자문</p>
+              <p>
+                월 10시간 단위로 선택합니다 (10시간 · 20시간 · 30시간). 법률 질의 응답과 문서 검토
+                중심의 정기자문은{' '}
+                <b className="font-medium text-brand-dark">시간당 250,000원 요율을 그대로 적용</b>합니다.
+              </p>
+              <p>
+                내용증명·공문·계약서 작성과 영업일 기준 2일 내 긴급 회신까지 정기적으로 포함하는 자문은
+                포함 범위에 따라 요율이 달라지며,{' '}
+                <b className="font-medium text-brand-dark">계약 전에 서면으로 안내드립니다.</b>
+              </p>
+              <p>약정 시간을 넘는 달은 같은 요율로 추가 정산하며, 남은 시간은 이월되지 않습니다.</p>
+            </div>
+            <p>시간당 자문과 정기자문에는 성공보수가 없습니다.</p>
+          </div>
+        </div>
+
         {/* 성공보수 — fees-page-preview.html 원안 그대로 */}
         <div className="mb-12 border border-gray-200 border-t-[3px] border-t-brand-dark bg-white p-6 md:p-7">
           <p className="font-bold text-brand-dark mb-4">성공보수에 대하여</p>
@@ -114,7 +140,7 @@ export const Fees: React.FC = () => {
               어떤 결과인지 — 를 계약서에 미리 적습니다. 성공보수를 둘러싼 다툼의 대부분은 이 정의를
               미리 정하지 않아 생깁니다.
             </p>
-            <p>상속포기·한정승인(정액)과 시간당 자문(기업 법무)에는 성공보수가 없습니다.</p>
+            <p>상속포기·한정승인(정액)과 기업 자문(시간당·월 정기자문)에는 성공보수가 없습니다.</p>
           </div>
         </div>
 
