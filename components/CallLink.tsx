@@ -23,7 +23,13 @@ interface CallLinkProps extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElemen
  */
 export function CallLink({ location, children, ...anchorProps }: CallLinkProps) {
   return (
-    <a {...anchorProps} href={TEL_HREF} onClick={() => trackCallClick(location)}>
+    <a
+      {...anchorProps}
+      href={TEL_HREF}
+      onClick={(event) => {
+        if (event.detail <= 1) trackCallClick(location);
+      }}
+    >
       {children}
     </a>
   );

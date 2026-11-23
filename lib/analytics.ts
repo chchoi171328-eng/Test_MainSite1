@@ -6,27 +6,61 @@ export function trackEvent(name: string, params?: Record<string, unknown>) {
   if (typeof window === 'undefined') return;
   const gtag = (window as unknown as { gtag?: (...args: unknown[]) => void }).gtag;
   if (typeof gtag === 'function') {
-    gtag('event', name, params || {});
+    try {
+      gtag('event', name, params || {});
+    } catch {
+      // 측정 실패와 관계없이 방문자의 동작을 계속 처리한다.
+    }
   }
 }
 
-interface NaverWcs {
-  trans?: (opts: { type: string }) => void;
+type NaverConversion = { type: 'lead' | 'custom001'; id?: string };
+type NaverWindow = Window & {
+  wcs_add?: { wa?: string };
+  wcs?: { inflow: (domain: string) => void; trans: (event: NaverConversion) => void };
+  wcs_do?: () => void;
+};
+
+const accountId = process.env.NEXT_PUBLIC_NAVER_CTS_ID;
+const pendingConversions: NaverConversion[] = [];
+let lastPage: string | undefined;
+
+export function isNaverTrackingSite() {
+  return Boolean(accountId) && typeof window !== 'undefined' &&
+    ['www.sllaw.co.kr', 'sllaw.co.kr'].includes(window.location.hostname);
 }
 
-/**
- * 네이버 CTS 전환 발화 (NAVER_CTS_BRIEF A-2).
- * 스크립트 미로드 또는 AccountId 미설정이면 조용히 무시한다 — GA와 동일 패턴.
- * CTS 스크립트가 나중에 도입되어도 이 함수 하나로 전 지점이 함께 동작한다.
- */
-export function trackNaverConversion(type: 'lead' | 'custom001') {
-  if (typeof window === 'undefined') return;
-  const w = window as unknown as { wcs?: NaverWcs; wcs_add?: Record<string, string> };
-  const accountId = process.env.NEXT_PUBLIC_NAVER_CTS_ID;
-  if (!accountId || !w.wcs || typeof w.wcs.trans !== 'function') return;
-  if (!w.wcs_add) w.wcs_add = {};
-  w.wcs_add['wa'] = accountId;
-  w.wcs.trans({ type });
+function sendConversion(w: NaverWindow, event: NaverConversion) {
+  try {
+    w.wcs!.trans(event);
+  } catch {
+    // 광고 스크립트 오류가 전화 연결이나 상담 접수에 영향을 주지 않게 한다.
+  }
+}
+
+export function recordNaverPageView() {
+  if (!isNaverTrackingSite()) return;
+  const w = window as NaverWindow;
+  if (!w.wcs?.inflow || !w.wcs?.trans || !w.wcs_do) return;
+  const path = window.location.pathname;
+  if (lastPage !== path) {
+    try {
+      w.wcs_add ??= {};
+      w.wcs_add.wa = accountId;
+      w.wcs.inflow('sllaw.co.kr');
+      w.wcs_do();
+      lastPage = path;
+    } catch {
+      return;
+    }
+  }
+  for (const event of pendingConversions.splice(0)) sendConversion(w, event);
+}
+
+export function trackNaverConversion(type: NaverConversion['type'], id?: string) {
+  if (!isNaverTrackingSite()) return;
+  pendingConversions.push(id ? { type, id } : { type });
+  recordNaverPageView();
 }
 
 /**

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Send, Loader2, AlertTriangle } from 'lucide-react';
@@ -18,6 +18,7 @@ const INITIAL_FORM = {
 export const Consultation: React.FC = () => {
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [privacyAgreed, setPrivacyAgreed] = useState(false);
+  const submitLocked = useRef(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'sent' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
@@ -71,6 +72,9 @@ export const Consultation: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (submitLocked.current) return;
+    submitLocked.current = true;
+    let received = false;
     setIsSubmitting(true);
     setSubmitStatus('idle');
     setErrorMessage('');
@@ -85,9 +89,11 @@ export const Consultation: React.FC = () => {
       const result = await response.json().catch(() => ({ ok: false }));
 
       if (response.ok && result.ok) {
-        // GA4 전환 + 네이버 CTS lead — 같은 지점에서 나란히 발화
-        trackEvent('consult_submit');
-        trackNaverConversion('lead');
+        received = true;
+        if (typeof result.receiptId === 'string' && result.receiptId) {
+          trackEvent('consult_submit');
+          trackNaverConversion('lead', result.receiptId);
+        }
         setSubmitStatus('sent');
         setFormData(INITIAL_FORM);
         setPrivacyAgreed(false);
@@ -100,6 +106,7 @@ export const Consultation: React.FC = () => {
       setSubmitStatus('error');
       setErrorMessage('전송 중 오류가 발생했습니다. 잠시 후 다시 시도하시거나 031-658-6100으로 전화 주시기 바랍니다.');
     } finally {
+      if (!received) submitLocked.current = false;
       setIsSubmitting(false);
     }
   };

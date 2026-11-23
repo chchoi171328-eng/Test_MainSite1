@@ -1,3 +1,4 @@
+import { randomUUID } from 'node:crypto';
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 
@@ -161,7 +162,7 @@ export async function POST(request: NextRequest) {
     }
 
     console.log(`[consultation] accepted: ip=${ip}`);
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ ok: true, receiptId: randomUUID() });
   } catch (error) {
     console.error('[consultation] unexpected error:', error);
     return NextResponse.json(

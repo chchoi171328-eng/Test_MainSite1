@@ -3,6 +3,7 @@ import { Navigation } from '../../components/Navigation';
 import { Footer } from '../../components/Footer';
 import { MobileActionBar } from '../../components/MobileActionBar';
 import { JsonLd } from '../../components/JsonLd';
+import { NaverAnalytics } from '../../components/NaverAnalytics';
 import { Analytics } from '../../components/Analytics';
 import { buildOrganizationJsonLd, buildWebSiteJsonLd } from '../../lib/organization';
 
@@ -14,6 +15,7 @@ export default function PublicLayout({ children }: { children: React.ReactNode }
       <JsonLd data={buildWebSiteJsonLd()} />
       {/* GA4 — NEXT_PUBLIC_GA_ID 미설정 시 비활성 (지침 12단계) */}
       <Analytics />
+      <NaverAnalytics />
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-brand-gold focus:text-white focus:rounded-sm focus:shadow-lg"
