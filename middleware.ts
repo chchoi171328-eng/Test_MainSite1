@@ -29,8 +29,11 @@ export function middleware(request: NextRequest) {
   // Vercel 프로젝트에서 primary domain을 지정하면 여기까지 오기 전에 처리되지만,
   // 설정이 빠지거나 배포 URL로 직접 들어오는 경우를 대비한 안전망이다.
   // 경로·쿼리를 보존한 308(영구, 메서드 보존)로 넘긴다.
+  // 예외: 미리보기 배포(VERCEL_ENV=preview)는 넘기지 않는다 — 브랜치 검수를 배포 URL에서
+  // 직접 보기 위함이다. 미리보기 응답에는 Vercel이 X-Robots-Tag: noindex를 붙인다.
   const host = request.headers.get('host') || '';
-  if (host.endsWith('.vercel.app')) {
+  const isPreview = process.env.VERCEL_ENV === 'preview';
+  if (host.endsWith('.vercel.app') && !isPreview) {
     return NextResponse.redirect(new URL(`${pathname}${search}`, SITE_URL), 308);
   }
 
