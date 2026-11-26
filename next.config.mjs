@@ -12,6 +12,16 @@ const nextConfig = {
     ],
   },
   // 13단계에서 구 사이트(sllaw.co.kr) 그누보드 URL 301 리디렉션 매핑이 여기에 추가된다.
+  async redirects() {
+    return [
+      // 가이드 slug 변경: 구 「상속과 빚」 → 「특별한정승인」
+      {
+        source: '/guides/inheritance/inherited-debt',
+        destination: '/guides/inheritance/special-limited-acceptance',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
