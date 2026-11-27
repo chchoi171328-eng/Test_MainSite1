@@ -24,6 +24,30 @@ const PRECEDENT_LEGACY = redirects.precedentLegacy as Record<string, string>;
 
 export function middleware(request: NextRequest) {
   const { pathname, searchParams, search } = request.nextUrl;
+  const isPowerlink = (request.method === 'GET' || request.method === 'HEAD')
+    && searchParams.get('n_campaign_type') === '1';
+
+  // 네이버 자동 추적값을 GA4가 읽는 UTM으로 보완한다. 구주소도 최종 페이지에 전달한다.
+  function tagPowerlink(url: URL) {
+    url.searchParams.set('utm_source', 'naver');
+    url.searchParams.set('utm_medium', 'cpc');
+    url.searchParams.set('utm_campaign', searchParams.get('utm_campaign') || 'powerlink');
+  }
+
+  function redirectLegacy(destination: string) {
+    const url = new URL(destination, request.url);
+    if (isPowerlink) {
+      searchParams.forEach((value, key) => {
+        if (key.startsWith('n_') || key.startsWith('utm_') || key === 'NaPm') {
+          url.searchParams.append(key, value);
+        }
+      });
+      tagPowerlink(url);
+      // 광고별 주소를 공유 캐시에 영구 저장하지 않는다.
+      return NextResponse.redirect(url, 307);
+    }
+    return NextResponse.redirect(url, 301);
+  }
 
   // ── 1. 정식 도메인 강제 ────────────────────────────────────────────────
   // Vercel 프로젝트에서 primary domain을 지정하면 여기까지 오기 전에 처리되지만,
@@ -42,17 +66,14 @@ export function middleware(request: NextRequest) {
   // 외부에 걸린 구 경로만 여기서 흡수한다.
   const practiceDestination = PRACTICE_LEGACY[pathname];
   if (practiceDestination) {
-    return NextResponse.redirect(new URL(practiceDestination, request.url), 301);
+    return redirectLegacy(practiceDestination);
   }
 
   // ── 2-1. 구 판례 숫자 ID URL → 새 slug 301 (RESOURCES_STATIC_BRIEF 작업 2) ──
   const precedentMatch = pathname.match(/^\/legal-cases\/(\d+)$/);
   if (precedentMatch) {
     const slug = PRECEDENT_LEGACY[precedentMatch[1]];
-    return NextResponse.redirect(
-      new URL(slug ? `/legal-cases/${slug}` : '/legal-cases', request.url),
-      301,
-    );
+    return redirectLegacy(slug ? `/legal-cases/${slug}` : '/legal-cases');
   }
 
   // ── 3. 구 사이트 URL 301 ──────────────────────────────────────────────
@@ -69,13 +90,21 @@ export function middleware(request: NextRequest) {
       // 미확인 게시판 — 게시판 상위 개념이 없어 홈으로 (인벤토리에 없는 잔여 URL 한정)
       destination = '/';
     }
-    return NextResponse.redirect(new URL(destination, request.url), 301);
+    return redirectLegacy(destination);
   }
 
   // 구 사이트 정적 페이지 (*.php)
   const staticDestination = STATIC[pathname];
   if (staticDestination) {
-    return NextResponse.redirect(new URL(staticDestination, request.url), 301);
+    return redirectLegacy(staticDestination);
+  }
+
+  const needsCampaignTags = searchParams.get('utm_source') !== 'naver'
+    || searchParams.get('utm_medium') !== 'cpc' || !searchParams.get('utm_campaign');
+  if (isPowerlink && needsCampaignTags) {
+    const url = new URL(request.url);
+    tagPowerlink(url);
+    return NextResponse.redirect(url, 307);
   }
 
   return NextResponse.next();
